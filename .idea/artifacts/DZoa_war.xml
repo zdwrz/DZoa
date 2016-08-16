@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="DZoa:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="DZoa-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="DZoa:war exploded" />
+    </root>
+  </artifact>
+</component>
