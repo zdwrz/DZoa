@@ -30,9 +30,9 @@ function changeLocation(lat, lng){
     marker.setMap(map);
 }
 </script>
-<button type="button" onclick="changeLocation(37.990960, -77.506168);">Location 1</button>
-<button type="button" onclick="changeLocation(36.990960, -77.506168);">Location 2</button>
-<button type="button" onclick="changeLocation(35.990960, -77.506168);">Location 3</button>
-<div id="googleMap" style="width:500px;height:380px;"></div>
+<button type="button" onclick="changeLocation(37.990960, -77.506168);">Project 1</button>
+<button type="button" onclick="changeLocation(36.990960, -77.506168);">Project 2</button>
+<button type="button" onclick="changeLocation(35.990960, -77.506168);">Project 3</button>
+<div id="googleMap" style="width:100%;height:480px;"></div>
 
 <%@include file="/WEB-INF/views/includes/footer.jsp" %>

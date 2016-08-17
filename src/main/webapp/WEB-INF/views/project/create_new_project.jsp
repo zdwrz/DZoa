@@ -21,6 +21,14 @@
             <form action="<c:url value="/addDept"/>" method="POST">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="col-lg-6">
+                    <label for="p_name">Project Name:</label>
+                    <input type="text" class="form-control" id="p_name" name="p_name" placeholder="Project Name"/>
+                </div>
+                <div class="col-lg-6">
+                    <label for="p_location">Project Location:</label>
+                    <input type="text" class="form-control" id="p_location" name="p_location" placeholder="Project Location"/>
+                </div>
+                <div class="col-lg-6">
                     <label for="desc">Description:</label>
                     <textarea class="form-control" id="desc" name="desc" placeholder="Description"></textarea>
                 </div>

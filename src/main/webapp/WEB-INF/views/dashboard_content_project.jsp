@@ -19,21 +19,21 @@
 				</thead>
 
 				<tbody>
-				<c:forEach items="${deptList}" var="dept">
-					<tr data-toggle="collapse" data-target="#dept_${dept.id}"
+				<c:forEach items="${deptList}" var="proj">
+					<tr data-toggle="collapse" data-target="#dept_${proj.id}"
 						class="accordion-toggle">
 						<td><button class="btn btn-default btn-xs">
 								<span class="glyphicon glyphicon-eye-open"></span>
 							</button></td>
-						<td>${dept.name}</td>
-						<td>${dept.name}</td>
-						<td>${dept.email}</td>
-						<td>${dept.email}</td>
+						<td>${proj.name}</td>
+						<td>${proj.name}</td>
+						<td>${proj.email}</td>
+						<td>${proj.email}</td>
 						<td>In progress</td>
 					</tr>
 					<tr>
 						<td colspan="12" class="hiddenRow"><div
-								class="accordian-body collapse" id="dept_${dept.id}">
+								class="accordian-body collapse" id="dept_${proj.id}">
 								<table class="table table-striped">
 									<thead>
 										<tr>
@@ -46,13 +46,13 @@
 										</tr>
 									</thead>
 									<tbody>
-									<c:if test="${empty dept.employeeList}">
+									<c:if test="${empty proj.employeeList}">
 											<tr>
 												<td>There is no employee</td>
 											</tr>
 									</c:if>
-									<c:if test="${!empty dept.employeeList}">
-										<c:forEach items="${dept.employeeList}" var="emp">
+									<c:if test="${!empty proj.employeeList}">
+										<c:forEach items="${proj.employeeList}" var="emp">
 											<tr>
 												<td>${emp.firstName }</td>
 												<td>${emp.lastName }</td>
