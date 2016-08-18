@@ -21,8 +21,8 @@
 				<tbody>
 
 					<tr>
-						<td><a href="/doc/download/23"> <button class="btn btn-default btn-xs" type="button">
-							<span class="glyphicon glyphicon-eye-open"></span>
+						<td><a href="/doc/download/23"> <button class="btn btn-default btn-sm" type="button">
+							<span class="glyphicon glyphicon-save"></span>
 						</button></a></td>
 						<td>Final report for project ABC</td>
 						<td>This is the final report</td>

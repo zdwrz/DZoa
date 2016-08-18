@@ -3,8 +3,16 @@
 		<nav class="navbar navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dzoa-navbar-collapse-1" id="side_menu_button">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
 					<a class="navbar-brand" href="#">XYZ Civil Engineering</a>
 				</div>
+
+				<div class="collapse navbar-collapse" id="dzoa-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li ><a href="<c:url value="/dashboard"/>" class="">Dashboard</a></li>
 
@@ -19,8 +27,8 @@
 							</ul></li>
 
 						<li class="dropdown"><a href="#" class="dropdown-toggle "
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">Time Sheet <span class="caret"></span></a>
+												data-toggle="dropdown" role="button" aria-haspopup="true"
+												aria-expanded="false">Time Sheet <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="<c:url value="/timesheet/new"/>">My Time Sheet</a></li>
 								<li><a href="<c:url value="/timesheet/manage"/>">Manage Time Sheet</a></li>
@@ -44,9 +52,9 @@
 					</ul>
 					<ul class="nav navbar-nav pull-right">
 						<li class="dropdown"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown"
-							role="button" aria-haspopup="true" aria-expanded="false">Signed
-								in as <sec:authentication property="principal.detailInfo.firstName"/> <span class="caret"></span>
+												class="dropdown-toggle" data-toggle="dropdown"
+												role="button" aria-haspopup="true" aria-expanded="false">Signed
+							in as <sec:authentication property="principal.detailInfo.firstName"/> <span class="caret"></span>
 						</a>
 							<ul class="dropdown-menu">
 								<li><a href="<c:url value="/changepwd"/>">Change Password</a></li>
@@ -54,6 +62,9 @@
 							</ul></li>
 						<li class=""><a href="<c:url value="/logout"/>">Logout</a></li>
 					</ul>
+
+				</div>
+
 			</div>
 		</nav>
 	</div>

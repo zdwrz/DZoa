@@ -25,8 +25,8 @@
                 <c:forEach items="${projectList}" var="proj">
                     <tr data-toggle="collapse" data-target="#dept_${proj.id}"
                         class="accordion-toggle">
-                        <td><button class="btn btn-default btn-xs">
-                            <span class="glyphicon glyphicon-eye-open"></span>
+                        <td><button class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>
                         </button></td>
                         <td>${proj.name}</td>
                         <td>${proj.name}</td>
@@ -37,8 +37,8 @@
                  </c:forEach>
                 <tr data-toggle="collapse" data-target="#dept_test"
                     class="accordion-toggle">
-                    <td><button class="btn btn-default btn-xs">
-                        <span class="glyphicon glyphicon-eye-open"></span>
+                    <td><button class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>
                     </button></td>
                     <td>test project </td>
                     <td>test description</td>

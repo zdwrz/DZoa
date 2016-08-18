@@ -95,7 +95,7 @@
     background: #5781a8;
 }
 .navbar, .dropdown-menu{
-background: rgba(87, 129, 168, 0.85);
+background: rgba(87, 129, 168, 0.98);
 border: none;
 
 }
@@ -156,4 +156,8 @@ h4{
     background-image: linear-gradient(to bottom, #bcbcbc 0,#e8e8e8 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bcbcbc', endColorstr='#ffe8e8e8', GradientType=0);
     background-repeat: repeat-x;
+  }
+
+  label {
+   margin-top: 10px;
   }
