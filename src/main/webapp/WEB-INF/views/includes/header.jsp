@@ -13,5 +13,5 @@
 	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	<title>Dept EMP</title>
+	<title>XZY Engineering</title>
 </head>

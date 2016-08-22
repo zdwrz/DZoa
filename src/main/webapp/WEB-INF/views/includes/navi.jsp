@@ -22,6 +22,7 @@
 							<ul class="dropdown-menu">
 								<li><a href="<c:url value="/project/create"/>">Create New Project</a></li>
 								<li><a href="<c:url value="/project/manage"/>">View/Update Projects</a></li>
+								<li><a href="<c:url value="/project/hr"/>">Manage Human Resources</a></li>
 								<li><a href="<c:url value="/doc/create"/>">Upload New Documents</a></li>
 								<li><a href="<c:url value="/doc/manage"/>">Find Documents</a></li>
 							</ul></li>
