@@ -48,6 +48,7 @@
 												 aria-expanded="false">Other <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="<c:url value="/dashboard"/>">Inspector Check In</a></li>
+								<li><a href="<c:url value="/notification"/>">Manage Notification</a></li>
 								<li><a href="<c:url value="/location/view"/>">Project Map</a></li>
 							</ul></li>
 					</ul>

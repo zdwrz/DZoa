@@ -13,7 +13,7 @@ public class UserDetailsVO implements UserDetails {
 
     private String password;
     private final String username;
-    private final UserDetail detailInfo;
+    private UserDetail detailInfo;
     private final Set<GrantedAuthority> authorities;
     private final boolean accountNonExpired;
     private final boolean accountNonLocked;
@@ -53,6 +53,10 @@ public class UserDetailsVO implements UserDetails {
 
     public UserDetail getDetailInfo() {
         return detailInfo;
+    }
+
+    public void setDetailInfo(UserDetail detailInfo) {
+        this.detailInfo = detailInfo;
     }
 
     @Override
