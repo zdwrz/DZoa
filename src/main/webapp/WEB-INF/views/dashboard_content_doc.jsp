@@ -4,7 +4,7 @@
 			<h4>Recent uploaded Documents</h4>
 		</div>
 		<div class="panel-body">
-			<table class="table table-condensed"
+			<table class="table table-condensed table-hover"
 				   style="border-collapse: collapse;">
 
 				<thead>

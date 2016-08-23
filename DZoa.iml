@@ -17,8 +17,8 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="" />
         <datasource-mapping>
-          <factory-entry name="dept_emp_proj_pu" />
-          <factory-entry name="entityManagerFactory" />
+          <factory-entry name="dept_emp_proj_pu" value="15f54015-752a-49da-a055-50cf0dd187e6" />
+          <factory-entry name="entityManagerFactory" value="15f54015-752a-49da-a055-50cf0dd187e6" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/webapp/META-INF/persistence.xml" />
       </configuration>
