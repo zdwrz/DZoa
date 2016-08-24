@@ -23,11 +23,17 @@ public class NotificationDAOImpl implements NotificationDAO {
 
     @Override
     public List<Notification> findNotificationOfToday() {
-        return em.createNamedQuery("Notification.findToday",Notification.class).getResultList();
+        return em.createNamedQuery("Notification.findToday", Notification.class).getResultList();
     }
 
     @Override
     public List<Notification> findALl() {
         return em.createNamedQuery("Notification.findAll", Notification.class).getResultList();
+    }
+
+    @Override
+    public boolean inactiveNoti(Integer notificationId) {
+        int result = em.createNamedQuery("Notification.inactivate").setParameter("id", notificationId).executeUpdate();
+        return result > 0;
     }
 }

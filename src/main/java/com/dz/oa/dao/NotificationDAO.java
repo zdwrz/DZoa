@@ -12,4 +12,6 @@ public interface NotificationDAO {
     List<Notification> findNotificationOfToday();
 
     List<Notification> findALl();
+
+    boolean inactiveNoti(Integer notificationId);
 }

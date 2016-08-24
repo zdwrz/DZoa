@@ -10,4 +10,6 @@ import java.util.List;
 public interface NotificationService {
     List<Notification> getAllNotification();
     List<Notification> getNotiForToday();
+
+    boolean removeNotification(Integer notificationId);
 }
