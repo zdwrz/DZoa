@@ -16,9 +16,8 @@
         </div>
     </div>
 </div>
-<script type="javascript">
 
-</script>
+<c:if test="${not empty notiList}">
 <div class="col-lg-12">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -29,7 +28,7 @@
         </div>
     </div>
 </div>
-
+</c:if>
 
 <%@include file="/WEB-INF/views/dashboard_content_timesheet.jsp"%>
 <%@include file="/WEB-INF/views/dashboard_content_doc.jsp"%>

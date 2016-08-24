@@ -1,6 +1,6 @@
 <div class="navbar-wrapper">
 	<div class="container-fluid">
-		<nav class="navbar navbar-fixed-top">
+		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dzoa-navbar-collapse-1" id="side_menu_button">
@@ -22,7 +22,9 @@
 							<ul class="dropdown-menu">
 								<li><a href="<c:url value="/project/create"/>">Create New Project</a></li>
 								<li><a href="<c:url value="/project/manage"/>">View/Update Projects</a></li>
+								<li class="divider"></li>
 								<li><a href="<c:url value="/project/hr"/>">Manage Human Resources</a></li>
+                                <li class="divider"></li>
 								<li><a href="<c:url value="/doc/create"/>">Upload New Documents</a></li>
 								<li><a href="<c:url value="/doc/manage"/>">Find Documents</a></li>
 							</ul></li>
@@ -48,15 +50,17 @@
 												 aria-expanded="false">Other <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="<c:url value="/dashboard"/>">Inspector Check In</a></li>
+                                <li class="divider"></li>
 								<li><a href="<c:url value="/notification"/>">Manage Notification</a></li>
+                                <li class="divider"></li>
 								<li><a href="<c:url value="/location/view"/>">Project Map</a></li>
 							</ul></li>
 					</ul>
 					<ul class="nav navbar-nav pull-right">
 						<li class="dropdown"><a href="#"
 												class="dropdown-toggle" data-toggle="dropdown"
-												role="button" aria-haspopup="true" aria-expanded="false">Signed
-							in as <sec:authentication property="principal.detailInfo.firstName"/> <span class="caret"></span>
+												role="button" aria-haspopup="true" aria-expanded="false">
+							<sec:authentication property="principal.detailInfo.firstName"/> <span class="caret"></span>
 						</a>
 							<ul class="dropdown-menu">
 								<li><a href="<c:url value="/changepwd"/>">Change Password</a></li>
