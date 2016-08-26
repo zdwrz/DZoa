@@ -130,9 +130,9 @@
                             <label for="category" class="col-md-2 control-label">Type</label>
                             <div class="col-md-10">
                                 <select class="form-control" id="category">
-                                    <option>Java</option>
-                                    <option>Database</option>
-                                    <option>Other</option>
+                                    <c:forEach items="${notificationTypeList}" var="type">
+                                        <option value="${type.id}">${type.value}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>

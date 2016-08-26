@@ -29,18 +29,18 @@ public class AdminLookup implements Serializable {
 	private String type;
 
 	private String value;
-
-	//bi-directional many-to-one association to EnterpriseContact
-	@OneToMany(mappedBy="adminLookup")
-	private List<EnterpriseContact> enterpriseContacts;
-
-	//bi-directional many-to-one association to UserRole
-	@OneToMany(mappedBy="adminLookup")
-	private List<UserRole> userRoles;
-
-	//bi-directional many-to-one association to TsApproval
-	@OneToMany(mappedBy="adminLookup")
-	private List<TsApproval> tsApprovals;
+//
+//	//bi-directional many-to-one association to EnterpriseContact
+//	@OneToMany(mappedBy="adminLookup")
+//	private List<EnterpriseContact> enterpriseContacts;
+//
+//	//bi-directional many-to-one association to UserRole
+//	@OneToMany(mappedBy="adminLookup")
+//	private List<UserRole> userRoles;
+//
+//	//bi-directional many-to-one association to TsApproval
+//	@OneToMany(mappedBy="adminLookup")
+//	private List<TsApproval> tsApprovals;
 
 	public AdminLookup() {
 	}
@@ -93,70 +93,70 @@ public class AdminLookup implements Serializable {
 		this.value = value;
 	}
 
-	public List<EnterpriseContact> getEnterpriseContacts() {
-		return this.enterpriseContacts;
-	}
+//	public List<EnterpriseContact> getEnterpriseContacts() {
+//		return this.enterpriseContacts;
+//	}
+//
+//	public void setEnterpriseContacts(List<EnterpriseContact> enterpriseContacts) {
+//		this.enterpriseContacts = enterpriseContacts;
+//	}
 
-	public void setEnterpriseContacts(List<EnterpriseContact> enterpriseContacts) {
-		this.enterpriseContacts = enterpriseContacts;
-	}
+//	public EnterpriseContact addEnterpriseContact(EnterpriseContact enterpriseContact) {
+//		getEnterpriseContacts().add(enterpriseContact);
+//		enterpriseContact.setAdminLookup(this);
+//
+//		return enterpriseContact;
+//	}
+//
+//	public EnterpriseContact removeEnterpriseContact(EnterpriseContact enterpriseContact) {
+//		getEnterpriseContacts().remove(enterpriseContact);
+//		enterpriseContact.setAdminLookup(null);
+//
+//		return enterpriseContact;
+//	}
 
-	public EnterpriseContact addEnterpriseContact(EnterpriseContact enterpriseContact) {
-		getEnterpriseContacts().add(enterpriseContact);
-		enterpriseContact.setAdminLookup(this);
+//	public List<UserRole> getUserRoles() {
+//		return this.userRoles;
+//	}
+//
+//	public void setUserRoles(List<UserRole> userRoles) {
+//		this.userRoles = userRoles;
+//	}
 
-		return enterpriseContact;
-	}
+//	public UserRole addUserRole(UserRole userRole) {
+//		getUserRoles().add(userRole);
+//		userRole.setAdminLookup(this);
+//
+//		return userRole;
+//	}
+//
+//	public UserRole removeUserRole(UserRole userRole) {
+//		getUserRoles().remove(userRole);
+//		userRole.setAdminLookup(null);
+//
+//		return userRole;
+//	}
 
-	public EnterpriseContact removeEnterpriseContact(EnterpriseContact enterpriseContact) {
-		getEnterpriseContacts().remove(enterpriseContact);
-		enterpriseContact.setAdminLookup(null);
+//	public List<TsApproval> getTsApprovals() {
+//		return this.tsApprovals;
+//	}
+//
+//	public void setTsApprovals(List<TsApproval> tsApprovals) {
+//		this.tsApprovals = tsApprovals;
+//	}
 
-		return enterpriseContact;
-	}
-
-	public List<UserRole> getUserRoles() {
-		return this.userRoles;
-	}
-
-	public void setUserRoles(List<UserRole> userRoles) {
-		this.userRoles = userRoles;
-	}
-
-	public UserRole addUserRole(UserRole userRole) {
-		getUserRoles().add(userRole);
-		userRole.setAdminLookup(this);
-
-		return userRole;
-	}
-
-	public UserRole removeUserRole(UserRole userRole) {
-		getUserRoles().remove(userRole);
-		userRole.setAdminLookup(null);
-
-		return userRole;
-	}
-
-	public List<TsApproval> getTsApprovals() {
-		return this.tsApprovals;
-	}
-
-	public void setTsApprovals(List<TsApproval> tsApprovals) {
-		this.tsApprovals = tsApprovals;
-	}
-
-	public TsApproval addTsApproval(TsApproval tsApproval) {
-		getTsApprovals().add(tsApproval);
-		tsApproval.setAdminLookup(this);
-
-		return tsApproval;
-	}
-
-	public TsApproval removeTsApproval(TsApproval tsApproval) {
-		getTsApprovals().remove(tsApproval);
-		tsApproval.setAdminLookup(null);
-
-		return tsApproval;
-	}
+//	public TsApproval addTsApproval(TsApproval tsApproval) {
+//		getTsApprovals().add(tsApproval);
+//		tsApproval.setAdminLookup(this);
+//
+//		return tsApproval;
+//	}
+//
+//	public TsApproval removeTsApproval(TsApproval tsApproval) {
+//		getTsApprovals().remove(tsApproval);
+//		tsApproval.setAdminLookup(null);
+//
+//		return tsApproval;
+//	}
 
 }

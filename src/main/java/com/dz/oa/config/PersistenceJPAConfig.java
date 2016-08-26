@@ -26,7 +26,7 @@ public class PersistenceJPAConfig{
    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
       LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
       em.setDataSource(dataSource());
-      em.setPackagesToScan(new String[] { "com.dz.oa.entity" });
+      em.setPackagesToScan("com.dz.oa.entity");
  
       JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
       em.setJpaVendorAdapter(vendorAdapter);
@@ -41,7 +41,7 @@ public class PersistenceJPAConfig{
       dataSource.setDriverClassName("com.mysql.jdbc.Driver");
       dataSource.setUrl("jdbc:mysql://localhost/dz_oa");
       dataSource.setUsername( "root" );
-      dataSource.setPassword( "1234" );
+      dataSource.setPassword( "0216" );
       return dataSource;
    }
  
