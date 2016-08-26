@@ -10,9 +10,12 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQueries({
+	@NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
+	@NamedQuery(name="User.findUserByName", query="SELECT u FROM User u Where u.userName = :userName")
+})
 public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 123232321L;
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -26,33 +29,12 @@ public class User implements Serializable {
 	@Column(name="user_name")
 	private String userName;
 
-	//bi-directional many-to-one association to UserRole
 	@OneToMany(mappedBy="user")
 	private List<UserRole> userRoles;
 
-	//bi-directional many-to-one association to ProjectUserAssoc
-	@OneToMany(mappedBy="user")
-	private List<ProjectUserAssoc> projectUserAssocs;
-
-	//bi-directional many-to-one association to TsApproval
-	@OneToMany(mappedBy="user")
-	private List<TsApproval> tsApprovals;
-
-	//bi-directional many-to-one association to TsEmpSchedule
-	@OneToMany(mappedBy="user")
-	private List<TsEmpSchedule> tsEmpSchedules;
-
-	//bi-directional many-to-one association to TsMain
-	@OneToMany(mappedBy="user")
-	private List<TsMain> tsMains;
-
-	//bi-directional many-to-one association to UserDetail
 	@OneToOne(mappedBy="user")
 	private UserDetail userDetails;
 
-	//bi-directional many-to-one association to UserDocInfo
-	@OneToMany(mappedBy="user")
-	private List<UserDocInfo> userDocInfos;
 
 	public User() {
 	}
@@ -111,122 +93,12 @@ public class User implements Serializable {
 		return userRole;
 	}
 
-	public List<ProjectUserAssoc> getProjectUserAssocs() {
-		return this.projectUserAssocs;
-	}
-
-	public void setProjectUserAssocs(List<ProjectUserAssoc> projectUserAssocs) {
-		this.projectUserAssocs = projectUserAssocs;
-	}
-
-	public ProjectUserAssoc addProjectUserAssoc(ProjectUserAssoc projectUserAssoc) {
-		getProjectUserAssocs().add(projectUserAssoc);
-		projectUserAssoc.setUser(this);
-
-		return projectUserAssoc;
-	}
-
-	public ProjectUserAssoc removeProjectUserAssoc(ProjectUserAssoc projectUserAssoc) {
-		getProjectUserAssocs().remove(projectUserAssoc);
-		projectUserAssoc.setUser(null);
-
-		return projectUserAssoc;
-	}
-
-	public List<TsApproval> getTsApprovals() {
-		return this.tsApprovals;
-	}
-
-	public void setTsApprovals(List<TsApproval> tsApprovals) {
-		this.tsApprovals = tsApprovals;
-	}
-
-	public TsApproval addTsApproval(TsApproval tsApproval) {
-		getTsApprovals().add(tsApproval);
-		tsApproval.setUser(this);
-
-		return tsApproval;
-	}
-
-	public TsApproval removeTsApproval(TsApproval tsApproval) {
-		getTsApprovals().remove(tsApproval);
-		tsApproval.setUser(null);
-
-		return tsApproval;
-	}
-
-	public List<TsEmpSchedule> getTsEmpSchedules() {
-		return this.tsEmpSchedules;
-	}
-
-	public void setTsEmpSchedules(List<TsEmpSchedule> tsEmpSchedules) {
-		this.tsEmpSchedules = tsEmpSchedules;
-	}
-
-	public TsEmpSchedule addTsEmpSchedule(TsEmpSchedule tsEmpSchedule) {
-		getTsEmpSchedules().add(tsEmpSchedule);
-		tsEmpSchedule.setUser(this);
-
-		return tsEmpSchedule;
-	}
-
-	public TsEmpSchedule removeTsEmpSchedule(TsEmpSchedule tsEmpSchedule) {
-		getTsEmpSchedules().remove(tsEmpSchedule);
-		tsEmpSchedule.setUser(null);
-
-		return tsEmpSchedule;
-	}
-
-	public List<TsMain> getTsMains() {
-		return this.tsMains;
-	}
-
-	public void setTsMains(List<TsMain> tsMains) {
-		this.tsMains = tsMains;
-	}
-
-	public TsMain addTsMain(TsMain tsMain) {
-		getTsMains().add(tsMain);
-		tsMain.setUser(this);
-
-		return tsMain;
-	}
-
-	public TsMain removeTsMain(TsMain tsMain) {
-		getTsMains().remove(tsMain);
-		tsMain.setUser(null);
-
-		return tsMain;
-	}
-
 	public UserDetail getUserDetails() {
 		return this.userDetails;
 	}
 
 	public void setUserDetails(UserDetail userDetails) {
 		this.userDetails = userDetails;
-	}
-
-	public List<UserDocInfo> getUserDocInfos() {
-		return this.userDocInfos;
-	}
-
-	public void setUserDocInfos(List<UserDocInfo> userDocInfos) {
-		this.userDocInfos = userDocInfos;
-	}
-
-	public UserDocInfo addUserDocInfo(UserDocInfo userDocInfo) {
-		getUserDocInfos().add(userDocInfo);
-		userDocInfo.setUser(this);
-
-		return userDocInfo;
-	}
-
-	public UserDocInfo removeUserDocInfo(UserDocInfo userDocInfo) {
-		getUserDocInfos().remove(userDocInfo);
-		userDocInfo.setUser(null);
-
-		return userDocInfo;
 	}
 
 }

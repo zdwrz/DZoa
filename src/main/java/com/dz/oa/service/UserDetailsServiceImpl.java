@@ -8,11 +8,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by daweizhuang on 8/11/16.
  */
 @Service
+@Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
     public static final Logger LOGGER = Logger.getLogger(UserDetailsServiceImpl.class);
 
@@ -22,12 +24,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        LOGGER.debug("...................in custom userdetails service..............................");
         UserDetailsVO userVO = userDAO.findVOByUsername(username);
         if (userVO == null)
             throw new UsernameNotFoundException("username " + username
                     + " not found");
-        LOGGER.debug(".........." + userVO);
+       //LOGGER.debug(".........." + userVO);
         return userVO;
     }
 

@@ -35,7 +35,7 @@ public class AdminUmLookup implements Serializable {
 	private List<EnterpriseModule> enterpriseModules;
 
 	//bi-directional many-to-one association to UserRole
-	@OneToMany(mappedBy="adminUmLookup")
+	@OneToMany(mappedBy= "position")
 	private List<UserRole> userRoles;
 
 	public AdminUmLookup() {
@@ -121,14 +121,14 @@ public class AdminUmLookup implements Serializable {
 
 	public UserRole addUserRole(UserRole userRole) {
 		getUserRoles().add(userRole);
-		userRole.setAdminUmLookup(this);
+		userRole.setPosition(this);
 
 		return userRole;
 	}
 
 	public UserRole removeUserRole(UserRole userRole) {
 		getUserRoles().remove(userRole);
-		userRole.setAdminUmLookup(null);
+		userRole.setPosition(null);
 
 		return userRole;
 	}

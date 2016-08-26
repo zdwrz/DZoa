@@ -33,16 +33,12 @@ public class UserRole implements Serializable {
 	//bi-directional many-to-one association to AdminLookup
 	@ManyToOne
 	@JoinColumn(name="role_id")
-	private AdminLookup adminLookup;
+	private AdminLookup role;
 
 	//bi-directional many-to-one association to AdminUmLookup
 	@ManyToOne
 	@JoinColumn(name="position_id")
-	private AdminUmLookup adminUmLookup;
-
-	//bi-directional many-to-one association to Enterprise
-	@ManyToOne
-	private Enterprise enterprise;
+	private AdminUmLookup position;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -83,28 +79,20 @@ public class UserRole implements Serializable {
 		this.startDate = startDate;
 	}
 
-	public AdminLookup getAdminLookup() {
-		return this.adminLookup;
+	public AdminLookup getRole() {
+		return this.role;
 	}
 
-	public void setAdminLookup(AdminLookup adminLookup) {
-		this.adminLookup = adminLookup;
+	public void setRole(AdminLookup adminLookup) {
+		this.role = adminLookup;
 	}
 
-	public AdminUmLookup getAdminUmLookup() {
-		return this.adminUmLookup;
+	public AdminUmLookup getPosition() {
+		return this.position;
 	}
 
-	public void setAdminUmLookup(AdminUmLookup adminUmLookup) {
-		this.adminUmLookup = adminUmLookup;
-	}
-
-	public Enterprise getEnterprise() {
-		return this.enterprise;
-	}
-
-	public void setEnterprise(Enterprise enterprise) {
-		this.enterprise = enterprise;
+	public void setPosition(AdminUmLookup adminUmLookup) {
+		this.position = adminUmLookup;
 	}
 
 	public User getUser() {

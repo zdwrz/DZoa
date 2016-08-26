@@ -31,10 +31,6 @@ public class Enterprise implements Serializable {
 	@OneToMany(mappedBy="enterprise")
 	private List<EnterpriseModule> enterpriseModules;
 
-	//bi-directional many-to-one association to UserRole
-	@OneToMany(mappedBy="enterprise")
-	private List<UserRole> userRoles;
-
 	//bi-directional many-to-one association to Project
 	@OneToMany(mappedBy="enterprise")
 	private List<Project> projects;
@@ -112,28 +108,6 @@ public class Enterprise implements Serializable {
 		enterpriseModule.setEnterprise(null);
 
 		return enterpriseModule;
-	}
-
-	public List<UserRole> getUserRoles() {
-		return this.userRoles;
-	}
-
-	public void setUserRoles(List<UserRole> userRoles) {
-		this.userRoles = userRoles;
-	}
-
-	public UserRole addUserRole(UserRole userRole) {
-		getUserRoles().add(userRole);
-		userRole.setEnterprise(this);
-
-		return userRole;
-	}
-
-	public UserRole removeUserRole(UserRole userRole) {
-		getUserRoles().remove(userRole);
-		userRole.setEnterprise(null);
-
-		return userRole;
 	}
 
 	public List<Project> getProjects() {
