@@ -13,8 +13,8 @@ import java.util.Date;
 @Table(name="user_role")
 @NamedQuery(name="UserRole.findAll", query="SELECT u FROM UserRole u")
 public class UserRole implements Serializable {
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = 5332068987975094894L;
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;

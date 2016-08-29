@@ -13,8 +13,8 @@ import java.util.List;
 @Table(name="admin_lookup")
 @NamedQuery(name="AdminLookup.findAll", query="SELECT a FROM AdminLookup a")
 public class AdminLookup implements Serializable {
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = -7564025934322238048L;
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;

@@ -45,7 +45,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	        .antMatchers("/", "/dashboard").access("hasAnyRole('USER','ADMIN')")
 	        .antMatchers("/manageEmp", "/manageDept", "/addDept","/addEmp").access("hasRole('SUPER_ADMIN')")
 	            .and()
-	        .formLogin().loginPage("/login").and().exceptionHandling().accessDeniedPage("/deny");  	
+	        .formLogin().loginPage("/login").and().exceptionHandling().accessDeniedPage("/deny");
+
+//		http.csrf().disable();
 	}
 
 }

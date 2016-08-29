@@ -13,8 +13,8 @@ import java.util.Date;
 @Table(name="user_doc_info")
 @NamedQuery(name="UserDocInfo.findAll", query="SELECT u FROM UserDocInfo u")
 public class UserDocInfo implements Serializable {
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = -3669008530605627808L;
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
@@ -43,6 +43,9 @@ public class UserDocInfo implements Serializable {
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	private User user;
+
+	@OneToOne
+	private Doc doc;
 
 	public UserDocInfo() {
 	}
@@ -111,4 +114,11 @@ public class UserDocInfo implements Serializable {
 		this.user = user;
 	}
 
+	public Doc getDoc() {
+		return this.doc;
+	}
+
+	public void setDoc(Doc doc) {
+		this.doc = doc;
+	}
 }

@@ -27,6 +27,7 @@ public class DocIoController {
     }
 
     @RequestMapping("/upload")
+    @ResponseBody
     public String uploadDoc(ModelMap model) {
         LOGGER.debug("File uploading ......");
         return "123";
