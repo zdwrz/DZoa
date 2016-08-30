@@ -116,26 +116,37 @@
                         <div class="form-group">
                             <label for="title" class="col-sm-2 control-label">Title</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="title" placeholder="Title" required="true">
+                                <input type="text" class="form-control" name="title" id="title" placeholder="Title" required="true">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="content" class="col-md-2 control-label">Content</label>
                             <div class="col-md-10">
-                                <textarea class="form-control" rows="10" id="content" required="true"></textarea>
+                                <textarea class="form-control" rows="10" name ="content" id="content" required="true"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="category" class="col-md-2 control-label">Type</label>
                             <div class="col-md-10">
-                                <select class="form-control" id="category">
+                                <select class="form-control" id="category" name="type">
                                     <c:forEach items="${notificationTypeList}" var="type">
                                         <option value="${type.id}">${type.value}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                         </div>
+                    <div class="form-group">
+                        <label for="start_date" class="col-md-2 control-label">From</label>
+                        <div class="col-md-4">
+                            <input type="date" id="start_date" name="from" class="form-control">
+                        </div>
+
+                        <label for="end_date" class="col-md-1 control-label">Until</label>
+                        <div class="col-md-4">
+                            <input type="date" id="end_date" name="to" class="form-control">
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

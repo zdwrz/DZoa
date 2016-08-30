@@ -50,7 +50,7 @@
                         <input type="date" id="start_date" class="form-control">
                     </div>
                     <div class="col-lg-2">
-                        <label for="start_date">End Date:</label>
+                        <label for="end_date">End Date:</label>
                         <input type="date" id="end_date" class="form-control">
                     </div>
                 </div>

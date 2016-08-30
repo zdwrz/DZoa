@@ -1,11 +1,13 @@
 package com.dz.oa.service;
 
 import com.dz.oa.dao.NotificationDAO;
+import com.dz.oa.entity.AdminLookup;
 import com.dz.oa.entity.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,5 +33,16 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public boolean removeNotification(Integer notificationId) {
         return notiDAO.inactiveNoti(notificationId);
+    }
+
+    @Override
+    public Notification saveNoti(Integer type, String title, String content, Date from, Date to) {
+        Notification notification = new Notification();
+        notification.setType(new AdminLookup(type));
+        notification.setTitle(title);
+        notification.setContent(content);
+        notification.setStartDate(from);
+        notification.setExpirationDate(to);
+        return notiDAO.save(notification);
     }
 }

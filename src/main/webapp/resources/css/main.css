@@ -146,3 +146,11 @@ h4{
   /*label {*/
    /*margin-top: 10px;*/
   /*}*/
+.fixed-top{
+  position: fixed;
+  top: 1%;
+  left: 50%;
+  margin-left: -150px;
+  width: 300px;
+  z-index: 9999;
+}

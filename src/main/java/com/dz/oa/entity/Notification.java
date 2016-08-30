@@ -13,7 +13,7 @@ import java.util.Date;
 @NamedQueries({
 		@NamedQuery(name="Notification.findToday",query = "select n from Notification n where n.inactiveInd != 'Y' and CURRENT_DATE between n.startDate and n.expirationDate"),
 		@NamedQuery(name="Notification.inactivate",query = "update Notification n set n.inactiveInd = 'Y' where n.id = :id"),
-		@NamedQuery(name="Notification.findAll", query="SELECT n FROM Notification n where n.inactiveInd != 'Y'")
+		@NamedQuery(name="Notification.findAll", query="SELECT n FROM Notification n where n.inactiveInd != 'Y' order by n.expirationDate desc")
 })
 public class Notification implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -28,7 +28,7 @@ public class Notification implements Serializable {
 	private Date expirationDate;
 
 	@Column(name="inactive_ind")
-	private String inactiveInd;
+	private String inactiveInd = "N";
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="start_date")

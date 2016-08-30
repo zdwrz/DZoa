@@ -2,6 +2,7 @@ package com.dz.oa.service;
 
 import com.dz.oa.entity.Notification;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,4 +13,6 @@ public interface NotificationService {
     List<Notification> getNotiForToday();
 
     boolean removeNotification(Integer notificationId);
+
+    Notification saveNoti(Integer type, String title, String content, Date from, Date to);
 }

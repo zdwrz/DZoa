@@ -45,7 +45,11 @@ public class AdminLookup implements Serializable {
 	public AdminLookup() {
 	}
 
-	public int getId() {
+    public AdminLookup(int id) {
+    	this.id = id;
+    }
+
+    public int getId() {
 		return this.id;
 	}
 
