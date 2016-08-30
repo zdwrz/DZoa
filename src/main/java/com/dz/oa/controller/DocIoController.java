@@ -1,5 +1,6 @@
 package com.dz.oa.controller;
 
+import com.dz.oa.exception.FileContentException;
 import com.dz.oa.service.DocumentService;
 import com.dz.oa.utility.OaUtils;
 import com.dz.oa.vo.FileUploadResponse;
@@ -39,7 +40,7 @@ public class DocIoController {
 
     @RequestMapping("/upload")
     @ResponseBody
-    public String uploadDoc(@RequestParam("file") MultipartFile file) throws Exception {
+    public String uploadDoc(@RequestParam("file") MultipartFile file) throws FileContentException {
         LOGGER.debug("File uploading ......");
         String name = file.getOriginalFilename();
         if (!file.isEmpty()) {
@@ -48,11 +49,11 @@ public class DocIoController {
                 return "You successfully uploaded file=" + name;
             } catch (Exception e) {
                 LOGGER.error("error in uploading .. " + e.getLocalizedMessage());
-                return "You failed to upload " + name + " => " + e.getMessage();
+                throw new FileContentException("Failed to upload the file.");
             }
         } else {
-            return "You failed to upload " + name
-                    + " because the file was empty.";
+            throw new FileContentException( "You failed to upload " + name
+                    + " because the file was empty.");
         }
     }
 
@@ -103,7 +104,7 @@ public class DocIoController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public FileUploadResponse handleValidationException(Exception e){
+    public FileUploadResponse handleValidationException(FileContentException e){
         LOGGER.error(e);
         FileUploadResponse response = new FileUploadResponse();
         response.setError(e.getMessage()); // has to be error field, front end js needs this

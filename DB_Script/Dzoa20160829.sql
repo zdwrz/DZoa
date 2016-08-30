@@ -80,7 +80,7 @@ DROP TABLE IF EXISTS `docs`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `docs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `doc_content` blob NOT NULL,
+  `doc_content` longblob NOT NULL,
   `doc_name` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
