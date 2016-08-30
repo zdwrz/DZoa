@@ -16,36 +16,34 @@ public class UserDocInfo implements Serializable {
 
 	private static final long serialVersionUID = -3669008530605627808L;
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name="doc_name")
+	@Column(name = "doc_name")
 	private String docName;
 
-	@Column(name="file_location")
+	@Column(name = "file_location")
 	private String fileLocation;
 
-	@Column(name="file_type")
+	@Column(name = "file_type")
 	private String fileType;
 
-	@Column(name="inactive_ind")
+	@Column(name = "inactive_ind")
 	private String inactiveInd;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="upload_time")
+	@Column(name = "upload_time")
 	private Date uploadTime;
 
 	//bi-directional many-to-one association to EnterpriseLookup
 	@ManyToOne
-	@JoinColumn(name="doc_type")
+	@JoinColumn(name = "doc_type")
 	private EnterpriseLookup enterpriseLookup;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	private User user;
 
-	@OneToOne
-	private Doc doc;
 
 	public UserDocInfo() {
 	}
@@ -114,11 +112,4 @@ public class UserDocInfo implements Serializable {
 		this.user = user;
 	}
 
-	public Doc getDoc() {
-		return this.doc;
-	}
-
-	public void setDoc(Doc doc) {
-		this.doc = doc;
-	}
 }

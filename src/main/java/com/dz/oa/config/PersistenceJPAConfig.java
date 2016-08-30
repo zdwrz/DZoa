@@ -58,7 +58,7 @@ public class PersistenceJPAConfig{
       return transactionManager;
    }
 
-    @Bean(name = "multipartResolver")
+    @Bean(name = "filterMultipartResolver")
     public CommonsMultipartResolver getMultipartResolver() {
         return new CommonsMultipartResolver();
     }
