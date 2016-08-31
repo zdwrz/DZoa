@@ -9,9 +9,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = { "com.dz.oa" })
 @PropertySource("classpath:file_upload.properties")
-
+@ComponentScan(basePackages = "com.dz.oa.controller")
 public class MvcConfig extends WebMvcConfigurerAdapter {
  
     @Override

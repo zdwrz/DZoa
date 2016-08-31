@@ -22,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:database.properties")
+@ComponentScan(basePackages = { "com.dz.oa" })
 public class PersistenceJPAConfig{
 
    @Autowired

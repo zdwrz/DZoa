@@ -34,7 +34,7 @@ public class NotificationController {
 	public String removeNotification(@RequestParam("notification_to_remove_id") Integer notificationId, final RedirectAttributes redirectAttributes) {
 		LOGGER.debug("///Notification with id " + notificationId + " is deleted./");
 		notiService.removeNotification(notificationId);
-		redirectAttributes.addFlashAttribute("errorMsg","haha");
+		//redirectAttributes.addFlashAttribute("errorMsg","haha");
 		redirectAttributes.addFlashAttribute("successMsg","Removed Successfully!");
 		return "redirect:/notification";
 	}
