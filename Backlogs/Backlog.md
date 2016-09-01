@@ -19,6 +19,9 @@ TODO: Write usage instructions
 
 
 5. User Management
+
+6. Message properties
+
 ## History
 TODO: Write history
 ## Credits

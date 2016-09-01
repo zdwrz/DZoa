@@ -1,16 +1,32 @@
 package com.dz.oa.controller;
 
+import com.dz.oa.utility.Constants;
+import com.dz.oa.vo.ProjectVO;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping({"/project"})
 public class ProjectController {
+    private static final Logger LOGGER = Logger.getLogger(ProjectController.class);
 
-	@RequestMapping("/create")
-	public String createProject(ModelMap model) {
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public String showCreateProject(ModelMap model) {
 		return "/project/create_new_project";
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public String createProject(ProjectVO projectVO, final RedirectAttributes redirectAttributes, HttpSession session) {
+	    LOGGER.info("////////" + projectVO + " " + session.getAttribute(Constants.USER_ID)+ " " + session.getAttribute(Constants.ENTERPRISE_ID));
+        redirectAttributes.addFlashAttribute("successMsg","Project is Created Successfully!");
+
+        return "redirect:/dashboard";
 	}
 
 	@RequestMapping("/manage")

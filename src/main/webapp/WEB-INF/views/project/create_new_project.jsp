@@ -18,16 +18,16 @@
                 </div>
             </c:if>
 
-            <form action="<c:url value="/addDept"/>" method="POST">
+            <form action="<c:url value="/project/create"/>" method="POST">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="row">
                     <div class="col-lg-6">
                         <label for="p_name">Project Name:</label>
-                        <input type="text" class="form-control" id="p_name" name="p_name" placeholder="Project Name"/>
+                        <input type="text" class="form-control" id="p_name" name="name" placeholder="Project Name"/>
                     </div>
                     <div class="col-lg-6">
                         <label for="p_location">Project Location:</label>
-                        <input type="text" class="form-control" id="p_location" name="p_location" placeholder="Project Location"/>
+                        <input type="text" class="form-control" id="p_location" name="location" placeholder="Project Location"/>
                     </div>
                 </div>
                 <div class="row">
@@ -47,17 +47,17 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <label for="start_date">Start Date:</label>
-                        <input type="date" id="start_date" class="form-control">
+                        <input type="date" id="start_date" name="startDate" class="form-control">
                     </div>
                     <div class="col-lg-2">
                         <label for="end_date">End Date:</label>
-                        <input type="date" id="end_date" class="form-control">
+                        <input type="date" id="end_date" name="endDate" class="form-control">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12" style="margin-top: 20px">
                         <button type="submit" class="btn btn-primary">Add</button>
-                        <a href="/dashboard"><button type="button" class="btn btn-primary">Cancel </button></a>
+                        <a href="/dashboard"><button type="button" class="btn btn-default">Cancel </button></a>
                     </div>
                 </div>
             </form>

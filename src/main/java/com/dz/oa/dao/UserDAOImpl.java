@@ -35,6 +35,7 @@ public class UserDAOImpl implements UserDAO {
         if(user.getUserDetails() != null) {
             detailInfo.setFirstName(user.getUserDetails().getFirstName());
             detailInfo.setLastName(user.getUserDetails().getLastName());
+            detailInfo.setId(user.getUserDetails().getId());
         }else{
             LOGGER.error("///The user is found but no UserDetails entry is found.");
             return null;
