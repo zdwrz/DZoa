@@ -2,6 +2,7 @@ package com.dz.oa.controller;
 
 import com.dz.oa.component.Dropdown;
 import com.dz.oa.entity.AdminLookup;
+import com.dz.oa.service.MessageService;
 import com.dz.oa.service.NotificationService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ public class NotificationController {
 	NotificationService notiService;
 	@Autowired
     Dropdown dropdown;
-
+	@Autowired
+	MessageService msg;
 
 	@RequestMapping({"/notification"})
 	public String manageNotification(ModelMap model) {
@@ -35,7 +37,7 @@ public class NotificationController {
 		LOGGER.debug("///Notification with id " + notificationId + " is deleted./");
 		notiService.removeNotification(notificationId);
 		//redirectAttributes.addFlashAttribute("errorMsg","haha");
-		redirectAttributes.addFlashAttribute("successMsg","Removed Successfully!");
+		redirectAttributes.addFlashAttribute("successMsg",msg.getMessage("notification_removed_success",null));
 		return "redirect:/notification";
 	}
 
@@ -43,7 +45,7 @@ public class NotificationController {
 	public String createOrUpdateNotification(String title, String content, Integer type, @DateTimeFormat(pattern="yyyy-MM-dd")Date from, @DateTimeFormat(pattern="yyyy-MM-dd")Date to, final RedirectAttributes redirectAttributes) {
 		LOGGER.debug("title: " + title + " content:" + content + " type:" + type + "Date from / to" + from +" / " + to);
 		notiService.saveNoti(type, title, content, from, to);
-		redirectAttributes.addFlashAttribute("successMsg","Added Successfully!");
+		redirectAttributes.addFlashAttribute("successMsg",msg.getMessage("notification_added_success",null));
 
 		return "redirect:/notification";
 	}

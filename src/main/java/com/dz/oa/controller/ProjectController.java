@@ -1,8 +1,10 @@
 package com.dz.oa.controller;
 
+import com.dz.oa.service.MessageService;
 import com.dz.oa.utility.Constants;
 import com.dz.oa.vo.ProjectVO;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,8 @@ import javax.servlet.http.HttpSession;
 @RequestMapping({"/project"})
 public class ProjectController {
     private static final Logger LOGGER = Logger.getLogger(ProjectController.class);
+	@Autowired
+	MessageService msg;
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String showCreateProject(ModelMap model) {
@@ -24,7 +28,7 @@ public class ProjectController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createProject(ProjectVO projectVO, final RedirectAttributes redirectAttributes, HttpSession session) {
 	    LOGGER.info("////////" + projectVO + " " + session.getAttribute(Constants.USER_ID)+ " " + session.getAttribute(Constants.ENTERPRISE_ID));
-        redirectAttributes.addFlashAttribute("successMsg","Project is Created Successfully!");
+        redirectAttributes.addFlashAttribute("successMsg",msg.getMessage("project_created_success",null));
 
         return "redirect:/dashboard";
 	}

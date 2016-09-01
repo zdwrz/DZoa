@@ -2,12 +2,14 @@ package com.dz.oa.controller;
 
 import com.dz.oa.exception.FileContentException;
 import com.dz.oa.service.DocumentService;
+import com.dz.oa.service.MessageService;
 import com.dz.oa.utility.OaUtils;
 import com.dz.oa.vo.FileUploadResponse;
 import org.apache.commons.fileupload.FileUpload;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.Locale;
 
 @Controller
 @RequestMapping({"/doc"})
@@ -38,6 +41,9 @@ public class DocIoController {
     @Autowired
     DocumentService documentService;
 
+    @Autowired
+    MessageService msg;
+
     @RequestMapping("/upload")
     @ResponseBody
     public String uploadDoc(@RequestParam("file") MultipartFile file) throws FileContentException {
@@ -46,7 +52,7 @@ public class DocIoController {
         if (!file.isEmpty()) {
             try{
                 documentService.saveFile(file.getBytes(), OaUtils.timeStampPrefix(name), 1);
-                return "You successfully uploaded file=" + name;
+                return msg.getMessage("file_uploaded_success",new String[]{name});
             } catch (Exception e) {
                 LOGGER.error("error in uploading .. " + e.getLocalizedMessage());
                 throw new FileContentException("Failed to upload the file.");
