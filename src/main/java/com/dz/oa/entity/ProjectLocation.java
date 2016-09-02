@@ -31,11 +31,17 @@ public class ProjectLocation implements Serializable {
 	//bi-directional many-to-one association to Project
 	@ManyToOne
 	private Project project;
-
-	public ProjectLocation() {
+	public ProjectLocation(){}
+	public ProjectLocation(String location, int id) {
+		this.address1 = location;
+		this.project = new Project(id);
 	}
 
-	public int getId() {
+    public ProjectLocation(String location) {
+    	this.address1 = location;
+    }
+
+    public int getId() {
 		return this.id;
 	}
 

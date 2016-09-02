@@ -13,7 +13,6 @@ public class ProjectVO {
     private String name;
     private String desc;
     private String location;
-    private ProjectLocation locationDetail;
     private Integer enterpriseId;
 
     public Integer getEnterpriseId() {
@@ -60,14 +59,6 @@ public class ProjectVO {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public ProjectLocation getLocationDetail() {
-        return locationDetail;
-    }
-
-    public void setLocationDetail(ProjectLocation locationDetail) {
-        this.locationDetail = locationDetail;
     }
 
     public Date getStartDate() {

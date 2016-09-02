@@ -34,7 +34,7 @@ public class ProjectController {
 	public String createProject(ProjectVO projectVO, final RedirectAttributes redirectAttributes, HttpSession session) {
 	    LOGGER.info("////////" + projectVO + " " + session.getAttribute(Constants.USER_ID)+ " " + session.getAttribute(Constants.ENTERPRISE_ID));
 		projectVO.setEnterpriseId((Integer)session.getAttribute(Constants.ENTERPRISE_ID));
-		if(projectService.saveProject(projectVO)) {
+		if(projectService.saveProject(projectVO) != null) {
 			redirectAttributes.addFlashAttribute("successMsg", msg.getMessage("project_created_success", null));
 		}else{
 

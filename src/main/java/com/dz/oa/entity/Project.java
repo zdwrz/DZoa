@@ -17,7 +17,7 @@ public class Project implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="complete_date")
@@ -60,11 +60,15 @@ public class Project implements Serializable {
 	public Project() {
 	}
 
-	public int getId() {
+	public Project(int id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
