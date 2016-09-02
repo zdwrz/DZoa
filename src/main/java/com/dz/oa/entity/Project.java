@@ -24,7 +24,7 @@ public class Project implements Serializable {
 	private Date completeDate;
 
 	@Column(name="inactive_ind")
-	private String inactiveInd;
+	private String inactiveInd = "N";
 
 	private String name;
 
@@ -39,7 +39,7 @@ public class Project implements Serializable {
 	//bi-directional many-to-one association to ProjectLookup
 	@ManyToOne
 	@JoinColumn(name="status")
-	private ProjectLookup projectLookup;
+	private ProjectLookup status;
 
 	//bi-directional many-to-one association to ProjectLocation
 	@OneToMany(mappedBy="project")
@@ -108,12 +108,12 @@ public class Project implements Serializable {
 		this.enterprise = enterprise;
 	}
 
-	public ProjectLookup getProjectLookup() {
-		return this.projectLookup;
+	public ProjectLookup getStatus() {
+		return this.status;
 	}
 
-	public void setProjectLookup(ProjectLookup projectLookup) {
-		this.projectLookup = projectLookup;
+	public void setStatus(ProjectLookup projectLookup) {
+		this.status = projectLookup;
 	}
 
 	public List<ProjectLocation> getProjectLocations() {

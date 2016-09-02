@@ -27,7 +27,7 @@ public class ProjectLookup implements Serializable {
 	private String value;
 
 	//bi-directional many-to-one association to Project
-	@OneToMany(mappedBy="projectLookup")
+	@OneToMany(mappedBy= "status")
 	private List<Project> projects;
 
 	//bi-directional many-to-one association to Enterprise
@@ -43,6 +43,10 @@ public class ProjectLookup implements Serializable {
 	private ProjectUserAssoc projectUserAssoc;
 
 	public ProjectLookup() {
+	}
+
+	public ProjectLookup(int id) {
+		this.id = id;
 	}
 
 	public int getId() {
@@ -87,14 +91,14 @@ public class ProjectLookup implements Serializable {
 
 	public Project addProject(Project project) {
 		getProjects().add(project);
-		project.setProjectLookup(this);
+		project.setStatus(this);
 
 		return project;
 	}
 
 	public Project removeProject(Project project) {
 		getProjects().remove(project);
-		project.setProjectLookup(null);
+		project.setStatus(null);
 
 		return project;
 	}

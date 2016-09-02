@@ -14,6 +14,15 @@ public class ProjectVO {
     private String desc;
     private String location;
     private ProjectLocation locationDetail;
+    private Integer enterpriseId;
+
+    public Integer getEnterpriseId() {
+        return enterpriseId;
+    }
+
+    public void setEnterpriseId(Integer enterpriseId) {
+        this.enterpriseId = enterpriseId;
+    }
 
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date startDate;

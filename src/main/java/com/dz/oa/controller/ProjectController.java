@@ -1,6 +1,7 @@
 package com.dz.oa.controller;
 
 import com.dz.oa.service.MessageService;
+import com.dz.oa.service.ProjectService;
 import com.dz.oa.utility.Constants;
 import com.dz.oa.vo.ProjectVO;
 import org.apache.log4j.Logger;
@@ -17,6 +18,10 @@ import javax.servlet.http.HttpSession;
 @RequestMapping({"/project"})
 public class ProjectController {
     private static final Logger LOGGER = Logger.getLogger(ProjectController.class);
+
+	@Autowired
+	ProjectService projectService;
+
 	@Autowired
 	MessageService msg;
 
@@ -28,8 +33,12 @@ public class ProjectController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createProject(ProjectVO projectVO, final RedirectAttributes redirectAttributes, HttpSession session) {
 	    LOGGER.info("////////" + projectVO + " " + session.getAttribute(Constants.USER_ID)+ " " + session.getAttribute(Constants.ENTERPRISE_ID));
-        redirectAttributes.addFlashAttribute("successMsg",msg.getMessage("project_created_success",null));
+		projectVO.setEnterpriseId((Integer)session.getAttribute(Constants.ENTERPRISE_ID));
+		if(projectService.saveProject(projectVO)) {
+			redirectAttributes.addFlashAttribute("successMsg", msg.getMessage("project_created_success", null));
+		}else{
 
+		}
         return "redirect:/dashboard";
 	}
 

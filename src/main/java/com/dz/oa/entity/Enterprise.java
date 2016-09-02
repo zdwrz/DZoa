@@ -16,7 +16,7 @@ public class Enterprise implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	@Column(name="inactive_ind")
 	private String inactiveInd = "N";
@@ -42,11 +42,15 @@ public class Enterprise implements Serializable {
 	public Enterprise() {
 	}
 
-	public int getId() {
+    public Enterprise(Integer id) {
+    	this.id = id;
+    }
+
+    public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
