@@ -1,6 +1,77 @@
 <%@include file="/WEB-INF/views/includes/header.jsp" %>
 <%@include file="/WEB-INF/views/includes/navi.jsp" %>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvHPcYjqYci87EUq4Ua42TNoXJ15ENTx0&libraries=places&callback=initAutocomplete"
+        async defer>
+</script>
 
+<script>
+    // This example displays an address form, using the autocomplete feature
+    // of the Google Places API to help users fill in the information.
+
+    // This example requires the Places library. Include the libraries=places
+    // parameter when you first load the API. For example:
+    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+    var placeSearch, autocomplete;
+    var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+    };
+
+    function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+                /** @type {!HTMLInputElement} */(document.getElementById('p_location')),
+                {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+    }
+
+    function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        for (var component in componentForm) {
+            document.getElementById(component).value = '';
+            document.getElementById(component).disabled = false;
+        }
+
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm[addressType]) {
+                var val = place.address_components[i][componentForm[addressType]];
+                document.getElementById(addressType).value = val;
+            }
+        }
+    }
+
+    // Bias the autocomplete object to the user's geographical location,
+    // as supplied by the browser's 'navigator.geolocation' object.
+    function geolocate() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                var circle = new google.maps.Circle({
+                    center: geolocation,
+                    radius: position.coords.accuracy
+                });
+                autocomplete.setBounds(circle.getBounds());
+            });
+        }
+    }
+</script>
 <div class="col-lg-12">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -20,6 +91,12 @@
 
             <form action="<c:url value="/project/create"/>" method="POST">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <input id="street_number" name="streetNumber" type="hidden"/>
+                    <input id="route" name="route" type="hidden"/>
+                    <input id="locality" name="locality" type="hidden"/>
+                    <input id="administrative_area_level_1" name="state" type="hidden"/>
+                    <input id="postal_code" name="zip" type="hidden"/>
+                    <input id="country" name="country" type="hidden"/></td>
                 <div class="row">
                     <div class="col-lg-6">
                         <label for="p_name">Project Name:</label>
@@ -27,7 +104,7 @@
                     </div>
                     <div class="col-lg-6">
                         <label for="p_location">Project Location:</label>
-                        <input type="text" class="form-control" id="p_location" name="location" placeholder="Project Location"/>
+                        <input type="text" class="form-control" id="p_location" name="location" placeholder="Project Location"  onFocus="geolocate()"/>
                     </div>
                 </div>
                 <div class="row">
