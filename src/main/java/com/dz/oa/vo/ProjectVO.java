@@ -12,9 +12,8 @@ public class ProjectVO {
     private Integer id;
     private String name;
     private String desc;
-    private String location;
     private Integer enterpriseId;
-
+    private ProjectLocation locationDetail;
     public Integer getEnterpriseId() {
         return enterpriseId;
     }
@@ -23,11 +22,21 @@ public class ProjectVO {
         this.enterpriseId = enterpriseId;
     }
 
+    public ProjectLocation getLocationDetail() {
+        return locationDetail;
+    }
+
+    public void setLocationDetail(ProjectLocation locationDetail) {
+        this.locationDetail = locationDetail;
+    }
+
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date startDate;
 
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date endDate;
+
+    private String statusStr;
 
     public Integer getId() {
         return id;
@@ -53,14 +62,6 @@ public class ProjectVO {
         this.desc = desc;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public Date getStartDate() {
         return startDate;
     }
@@ -77,13 +78,21 @@ public class ProjectVO {
         this.endDate = endDate;
     }
 
+    public String getStatusStr() {
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
+
     @Override
     public String toString() {
         return "ProjectVO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", desc='" + desc + '\'' +
-                ", location=" + location +
+                ", location=" + locationDetail.getCustomAddress() +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 '}';

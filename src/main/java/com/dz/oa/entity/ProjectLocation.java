@@ -24,20 +24,35 @@ public class ProjectLocation implements Serializable {
 
 	private String city;
 
+	private String state;
+
 	private String country;
 
 	private String zip;
+	@Column(name="custom_address")
+	private String customAddress;
 
+	private String lat;
+
+	private String lng;
 	//bi-directional many-to-one association to Project
 	@ManyToOne
 	private Project project;
 	public ProjectLocation(){}
 	public ProjectLocation(String location, int id) {
-		this.address1 = location;
+		this.customAddress = location;
 		this.project = new Project(id);
 	}
 
-    public ProjectLocation(String location) {
+	public String getCustomAddress() {
+		return customAddress;
+	}
+
+	public void setCustomAddress(String customAddress) {
+		this.customAddress = customAddress;
+	}
+
+	public ProjectLocation(String location) {
     	this.address1 = location;
     }
 
@@ -73,6 +88,14 @@ public class ProjectLocation implements Serializable {
 		this.city = city;
 	}
 
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 	public String getCountry() {
 		return this.country;
 	}
@@ -97,4 +120,19 @@ public class ProjectLocation implements Serializable {
 		this.project = project;
 	}
 
+	public String getLat() {
+		return lat;
+	}
+
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+
+	public String getLng() {
+		return lng;
+	}
+
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
 }

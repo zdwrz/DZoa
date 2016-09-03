@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Created by Dawei on 9/1/16.
@@ -18,5 +19,10 @@ public class ProjectDAOImpl implements ProjectDAO {
     @Override
     public Project saveProject(Project project) {
         return em.merge(project);
+    }
+
+    @Override
+    public List<Project> getProjectWithLocation() {
+        return em.createNamedQuery("Project.findAll", Project.class).getResultList();
     }
 }

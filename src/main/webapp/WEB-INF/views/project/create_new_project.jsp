@@ -42,7 +42,9 @@
             document.getElementById(component).value = '';
             document.getElementById(component).disabled = false;
         }
-
+//Longti lati
+        document.getElementById("lat").value = place.geometry.location.lat();
+        document.getElementById("lng").value = place.geometry.location.lng();
         // Get each component of the address from the place details
         // and fill the corresponding field on the form.
         for (var i = 0; i < place.address_components.length; i++) {
@@ -89,32 +91,34 @@
                 </div>
             </c:if>
 
-            <form action="<c:url value="/project/create"/>" method="POST">
+            <form:form action="/project/create" method="POST" modelAttribute="projectVO">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <input id="street_number" name="streetNumber" type="hidden"/>
-                    <input id="route" name="route" type="hidden"/>
-                    <input id="locality" name="locality" type="hidden"/>
-                    <input id="administrative_area_level_1" name="state" type="hidden"/>
-                    <input id="postal_code" name="zip" type="hidden"/>
-                    <input id="country" name="country" type="hidden"/></td>
+                    <form:input path="locationDetail.address1" id="street_number" name="streetNumber" type="hidden"/>
+                    <form:input path="locationDetail.address2" id="route" name="route" type="hidden"/>
+                    <form:input path="locationDetail.city" id="locality" name="locality" type="hidden"/>
+                    <form:input path="locationDetail.state" id="administrative_area_level_1" name="state" type="hidden"/>
+                    <form:input path="locationDetail.zip" id="postal_code" name="zip" type="hidden"/>
+                    <form:input path="locationDetail.country" id="country" name="country" type="hidden"/>
+                    <form:input path="locationDetail.lat" id="lat" name="lat" type="hidden"/>
+                    <form:input path="locationDetail.lng" id="lng" name="lng" type="hidden"/>
                 <div class="row">
                     <div class="col-lg-6">
                         <label for="p_name">Project Name:</label>
-                        <input type="text" class="form-control" id="p_name" name="name" placeholder="Project Name"/>
+                        <form:input path="name" type="text" class="form-control" id="p_name" placeholder="Project Name"/>
                     </div>
                     <div class="col-lg-6">
                         <label for="p_location">Project Location:</label>
-                        <input type="text" class="form-control" id="p_location" name="location" placeholder="Project Location"  onFocus="geolocate()"/>
+                        <form:input path="locationDetail.customAddress" type="text" class="form-control" id="p_location" name="location" placeholder="Project Location"  onFocus="geolocate()"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <label for="desc">Description:</label>
-                        <textarea class="form-control" id="desc" name="desc" placeholder="Description"></textarea>
+                        <form:textarea path="desc" class="form-control" id="desc" name="desc" placeholder="Description"/>
                     </div>
                     <div class="col-lg-6">
                         <label for="type">Type:</label>
-                        <select class="form-control" id="type" name="type">
+                        <select path="type" class="form-control" id="type" name="type">
                             <option value="1">type1</option>
                             <option value="2">type2</option>
                             <option value="3">type3</option>
@@ -124,11 +128,11 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <label for="start_date">Start Date:</label>
-                        <input type="date" id="start_date" name="startDate" class="form-control">
+                        <form:input path="startDate" type="date" id="start_date" name="startDate" class="form-control"/>
                     </div>
                     <div class="col-lg-2">
                         <label for="end_date">End Date:</label>
-                        <input type="date" id="end_date" name="endDate" class="form-control">
+                        <form:input path="endDate" type="date" id="end_date" name="endDate" class="form-control"/>
                     </div>
                 </div>
                 <div class="row">
@@ -137,7 +141,7 @@
                         <a href="/dashboard"><button type="button" class="btn btn-default">Cancel </button></a>
                     </div>
                 </div>
-            </form>
+            </form:form>
         </div>
 
     </div>
