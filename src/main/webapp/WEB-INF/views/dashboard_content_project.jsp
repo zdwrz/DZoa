@@ -26,7 +26,7 @@
 							</button></td>
 						<td>${proj.name}</td>
 						<td>${proj.desc}</td>
-						<td>${proj.startDate}</td>
+						<td><fmt:formatDate value="${proj.startDate}" pattern="MM/dd/yyyy" /></td>
 						<td>${proj.locationDetail.customAddress}</td>
 						<td>${proj.statusStr}</td>
 					</tr>

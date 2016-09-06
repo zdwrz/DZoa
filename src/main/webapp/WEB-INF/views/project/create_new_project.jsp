@@ -74,23 +74,12 @@
         }
     }
 </script>
-<div class="col-lg-12">
+<div class="col-md-12">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>Create New Project</h4>
         </div>
         <div class="panel-body">
-            <c:if test="${success != null}">
-                <div class="alert alert-success">
-                    <p>${success}</p>
-                </div>
-            </c:if>
-            <c:if test="${fail != null}">
-                <div class="alert alert-danger">
-                    <p>${fail}</p>
-                </div>
-            </c:if>
-
             <form:form action="/project/create" method="POST" modelAttribute="projectVO">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <form:input path="locationDetail.address1" id="street_number" name="streetNumber" type="hidden"/>
@@ -102,21 +91,21 @@
                     <form:input path="locationDetail.lat" id="lat" name="lat" type="hidden"/>
                     <form:input path="locationDetail.lng" id="lng" name="lng" type="hidden"/>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                         <label for="p_name">Project Name:</label>
                         <form:input path="name" type="text" class="form-control" id="p_name" placeholder="Project Name"/>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                         <label for="p_location">Project Location:</label>
                         <form:input path="locationDetail.customAddress" type="text" class="form-control" id="p_location" name="location" placeholder="Project Location"  onFocus="geolocate()"/>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                         <label for="desc">Description:</label>
                         <form:textarea path="desc" class="form-control" id="desc" name="desc" placeholder="Description"/>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                         <label for="type">Type:</label>
                         <select path="type" class="form-control" id="type" name="type">
                             <option value="1">type1</option>
@@ -126,17 +115,17 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2">
+                    <div class="col-md-2">
                         <label for="start_date">Start Date:</label>
                         <form:input path="startDate" type="date" id="start_date" name="startDate" class="form-control"/>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-md-2">
                         <label for="end_date">End Date:</label>
                         <form:input path="endDate" type="date" id="end_date" name="endDate" class="form-control"/>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12" style="margin-top: 20px">
+                    <div class="col-md-12" style="margin-top: 20px">
                         <button type="submit" class="btn btn-primary">Add</button>
                         <a href="/dashboard"><button type="button" class="btn btn-default">Cancel </button></a>
                     </div>

@@ -49,8 +49,8 @@
                             </button>
                         </td>
                         <td>${notification.title}</td>
-                        <td>${notification.startDate}</td>
-                        <td>${notification.expirationDate}</td>
+                        <td><fmt:formatDate value="${notification.startDate}" pattern="MM/dd/yyyy" /></td>
+                        <td><fmt:formatDate value="${notification.expirationDate}" pattern="MM/dd/yyyy" /></td>
                         <td>${notification.type.value}</td>
                     </tr>
                     <tr>
