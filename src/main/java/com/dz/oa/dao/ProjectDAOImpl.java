@@ -22,7 +22,7 @@ public class ProjectDAOImpl implements ProjectDAO {
     }
 
     @Override
-    public List<Project> getProjectWithLocation() {
+    public List<Project> getProject() {
         return em.createNamedQuery("Project.findAll", Project.class).getResultList();
     }
 }

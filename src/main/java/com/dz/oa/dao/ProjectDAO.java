@@ -10,5 +10,5 @@ import java.util.List;
 public interface ProjectDAO {
     Project saveProject(Project project);
 
-    List<Project> getProjectWithLocation();
+    List<Project> getProject();
 }

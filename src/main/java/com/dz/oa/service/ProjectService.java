@@ -14,4 +14,6 @@ public interface ProjectService {
     List<ProjectVO> getProjListForDashboard();
 
     List<ProjectVO> getProjListForMap();
+
+    List<ProjectVO> getProjListForDocumentTree();
 }

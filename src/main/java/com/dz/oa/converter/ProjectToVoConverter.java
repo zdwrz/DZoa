@@ -11,6 +11,7 @@ import java.util.List;
 public class ProjectToVoConverter {
     public static ProjectVO convertProjectToVO(Project project) {
         ProjectVO vo = new ProjectVO();
+        vo.setId(project.getId());
         vo.setName(project.getName());
         vo.setDesc(project.getDescription());
         vo.setStartDate(project.getStartDate());

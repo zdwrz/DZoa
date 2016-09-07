@@ -18,7 +18,7 @@ public class ExceptionHandlerController {
     private static final Logger LOGGER = Logger.getLogger(ExceptionHandlerController.class);
     @ExceptionHandler(value = {Exception.class, RuntimeException.class})
     public String defaultErrorHandler(HttpServletRequest request, Exception e) {
-        LOGGER.error("Got this exception : " + e);
+        LOGGER.error("Got this exception : " + e, e);
         return DEFAULT_ERROR_VIEW;
     }
 }

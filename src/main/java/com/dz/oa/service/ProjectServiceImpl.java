@@ -55,7 +55,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     @Transactional
     public List<ProjectVO> getProjListForDashboard() {
-        List<Project> projectList = projectDAO.getProjectWithLocation();
+        List<Project> projectList = projectDAO.getProject();
         List<ProjectVO> voList = new ArrayList<>();
         for (Project proj : projectList) {
             Hibernate.initialize(proj.getProjectLocations());
@@ -65,8 +65,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @Transactional
     public List<ProjectVO> getProjListForMap() {
-        List<Project> projectList = projectDAO.getProjectWithLocation();
+        List<Project> projectList = projectDAO.getProject();
         List<ProjectVO> voList = new ArrayList<>();
         for (Project proj : projectList) {
             Hibernate.initialize(proj.getProjectLocations());
@@ -74,4 +75,17 @@ public class ProjectServiceImpl implements ProjectService {
         }
         return voList;
     }
+
+    @Override
+    @Transactional
+    public List<ProjectVO> getProjListForDocumentTree() {
+        List<ProjectVO> voList = new ArrayList<>();
+        List<Project> projectList = projectDAO.getProject();
+        for (Project proj : projectList) {
+            Hibernate.initialize(proj.getProjectLocations());
+            voList.add(ProjectToVoConverter.convertProjectToVO(proj));
+        }
+        return voList;
+    }
+
 }
