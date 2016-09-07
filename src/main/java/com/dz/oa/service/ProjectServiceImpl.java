@@ -63,4 +63,15 @@ public class ProjectServiceImpl implements ProjectService {
         }
         return voList;
     }
+
+    @Override
+    public List<ProjectVO> getProjListForMap() {
+        List<Project> projectList = projectDAO.getProjectWithLocation();
+        List<ProjectVO> voList = new ArrayList<>();
+        for (Project proj : projectList) {
+            Hibernate.initialize(proj.getProjectLocations());
+            voList.add(ProjectToVoConverter.convertProjectToVO(proj));
+        }
+        return voList;
+    }
 }

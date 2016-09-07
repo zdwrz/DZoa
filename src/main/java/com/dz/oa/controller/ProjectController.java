@@ -53,6 +53,7 @@ public class ProjectController {
 
     @RequestMapping("/manage")
     public String showProject(ModelMap model) {
+        model.addAttribute("projList",projectService.getProjListForDashboard());
         return "/project/update_project";
     }
 

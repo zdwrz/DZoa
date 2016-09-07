@@ -12,4 +12,6 @@ public interface ProjectService {
     Project saveProject(ProjectVO projectVO);
 
     List<ProjectVO> getProjListForDashboard();
+
+    List<ProjectVO> getProjListForMap();
 }

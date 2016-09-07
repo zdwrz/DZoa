@@ -7,7 +7,7 @@
             <h4>Project List</h4>
         </div>
         <div class="panel-body">
-            <table class="table table-condensed"
+            <table class="table table-condensed table-hover"
                    style="border-collapse: collapse;">
 
                 <thead>
@@ -15,37 +15,25 @@
                     <th>&nbsp;</th>
                     <th>Project. Name</th>
                     <th>Description</th>
-                    <th>Contact Email</th>
-                    <th>Contact number</th>
+                    <th>Start Date</th>
+                    <th>Location</th>
                     <th>Status</th>
                 </tr>
                 </thead>
-
                 <tbody>
-                <c:forEach items="${projectList}" var="proj">
+                <c:forEach items="${projList}" var="proj">
                     <tr data-toggle="collapse" data-target="#dept_${proj.id}"
                         class="accordion-toggle">
-                        <td><button class="btn btn-default btn-sm">
+                        <td><button class="btn btn-default btn-md">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button></td>
                         <td>${proj.name}</td>
-                        <td>${proj.name}</td>
-                        <td>${proj.email}</td>
-                        <td>${proj.email}</td>
-                        <td>In progress</td>
+                        <td>${proj.desc}</td>
+                        <td><fmt:formatDate value="${proj.startDate}" pattern="MM/dd/yyyy" /></td>
+                        <td>${proj.locationDetail.customAddress}</td>
+                        <td>${proj.statusStr}</td>
                     </tr>
-                 </c:forEach>
-                <tr data-toggle="collapse" data-target="#dept_test"
-                    class="accordion-toggle">
-                    <td><button class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button></td>
-                    <td>test project </td>
-                    <td>test description</td>
-                    <td>abc@gmail.com</td>
-                    <td>123123123</td>
-                    <td>In progress</td>
-                </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
