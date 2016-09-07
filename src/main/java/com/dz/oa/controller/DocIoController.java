@@ -107,7 +107,7 @@ public class DocIoController {
         return "documents/findDoc";
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(FileContentException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
     public FileUploadResponse handleValidationException(FileContentException e){
