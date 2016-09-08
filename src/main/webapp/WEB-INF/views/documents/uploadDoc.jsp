@@ -5,24 +5,22 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources//themes/default/style.min.css"/>
 <script src="${pageContext.request.contextPath}/resources/js/jstree.min.js"></script>
+
+<div class="row">
+    <div class="col-md-1">
+        <button type="button" class="btn btn-primary" id="refresh_btn">Refresh</button>
+    </div>
+    <div class="col-md-2" id="button_div">
+        <button type="button" class="btn btn-primary" id="upload_btn">Upload</button>
+        <button type="button" class="btn btn-primary" id="download_btn">Download</button>
+        <button type="button" class="btn btn-danger" id="delete_btn">Delete</button>
+        <button type="button" class="btn btn-primary" id="rename_btn">Rename</button>
+    </div>
+
+</div>
 <div class="row">
     <div class="col-md-4">
         <div id="jstree">
-            <%--<!-- in this example the tree is populated from inline HTML -->--%>
-            <%--<ul>--%>
-                <%--<li>Root node 1--%>
-                    <%--<ul>--%>
-                        <%--<li data-jstree='{ "type" : "file" }'>Child node 1</li>--%>
-                        <%--<li data-jstree='{ "type" : "file" }'>Child node 2</li>--%>
-                        <%--<li>sfsdf--%>
-                            <%--<ul>--%>
-                                <%--<li data-jstree='{ "type" : "file" }'>Child node 1</li>--%>
-                                <%--<li data-jstree='{ "type" : "file" }'>Child node 2</li>--%>
-                            <%--</ul>--%>
-                        <%--</li>--%>
-                    <%--</ul>--%>
-                <%--</li>--%>
-            <%--</ul>--%>
         </div>
     </div>
 </div>
@@ -41,31 +39,9 @@
                         return { 'id' : node.id };
                     }
                 },
-//                'data' : [
-//
-//                    {
-//                        'text' : 'All Projects',
-//                        'state' : {
-//                            'opened' : true,
-//                            'selected' : true
-//                        },
-//                        'children' : [
-//                            { 'text' : 'project 1',
-//                                'children' : [
-//                                    {
-//                                        'text' : 'project 1', 'type' : 'file'
-//                                    }
-//                                ],
-//                             'type':'folder'
-//                            },
-//                            {'text' : 'project 2', 'type':'folder', 'type':'folder'},
-//                            { 'text' : 'project 3' , 'type':'folder'}
-//                        ]
-//                        , 'type':'root'
-//                    }
-//                ],
                 'force_text' : true,
                 'check_callback' : true,
+                'multiple': false,
                 'themes' : {
                     'responsive' : false
                 }
@@ -87,11 +63,11 @@
                     "valid_children" : []
                 }
             },
-            'plugins' : ['state','dnd','contextmenu','wholerow','types']
+            'plugins' : ['state','wholerow','types']
         });
         // 7 bind to events triggered on the tree
         $('#jstree').on("changed.jstree", function (e, data) {
-            console.log(data.selected);
+            docTreeNodeSelected(e,data);
         });
         // 8 interact with the tree - either way is OK
 //        $('button').on('click', function () {
@@ -100,6 +76,28 @@
 //            $.jstree.reference('#jstree').select_node('child_node_1');
 //        });
     });
+    function docTreeNodeSelected(e,data){
+        var selectedNode = data.instance.get_node(data.selected[0]);
+        console.log(selectedNode.id   + " " + selectedNode.type);
+        //
+        switch(selectedNode.type){
+            case 'file':
+                if ( $("#download_btn").css('display') == 'none' ){
+                    disableAllButtons();
+                    $("#download_btn, #rename_btn, #delete_btn").fadeToggle();
+                }
+                break;
+            case 'folder':
+                disableAllButtons();
+                $("#upload_btn").fadeIn();break;
+            default:
+                disableAllButtons();
+        }
+    }
+    function disableAllButtons() {
+        $("#button_div :input").hide();
+    }
+
 </script>
 
 
