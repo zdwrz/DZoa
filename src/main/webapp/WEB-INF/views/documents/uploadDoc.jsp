@@ -8,13 +8,13 @@
 
 <div class="row">
     <div class="col-md-1">
-        <button type="button" class="btn btn-primary" id="refresh_btn">Refresh</button>
+        <button type="button" class="btn btn-primary" id="refresh_btn"><span class="glyphicon glyphicon-refresh"></span></button>
     </div>
-    <div class="col-md-2" id="button_div">
-        <button type="button" class="btn btn-primary" id="upload_btn">Upload</button>
-        <button type="button" class="btn btn-primary" id="download_btn">Download</button>
-        <button type="button" class="btn btn-danger" id="delete_btn">Delete</button>
-        <button type="button" class="btn btn-primary" id="rename_btn">Rename</button>
+    <div class="col-md-6" id="button_div">
+        <button type="button" class="btn btn-primary" id="upload_btn"><span class="glyphicon glyphicon-cloud-upload"></span>Upload</button>
+        <button type="button" class="btn btn-primary" id="download_btn"><span class="glyphicon glyphicon-save"></span>Download</button>
+        <button type="button" class="btn btn-danger" id="delete_btn"><span class="glyphicon glyphicon-trash"></span>Delete</button>
+        <button type="button" class="btn btn-primary" id="rename_btn"><span class="glyphicon glyphicon-italic"></span>Rename</button>
     </div>
 
 </div>
