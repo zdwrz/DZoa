@@ -41,19 +41,19 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     @Transactional(rollbackFor = IOException.class)
     public boolean saveFile(byte[] file, String fileName, int userId, int projId) throws IOException {
-        this.saveFileToPath(file, fileName);
+        String fileLocation = this.saveFileToPath(file, fileName);
         ProjDocInfo projDocInfo = new ProjDocInfo();
         projDocInfo.setProject(new Project(projId));
         projDocInfo.setUploadTime(new Date());
         projDocInfo.setUser(new User(userId));
         projDocInfo.setDocName(fileName);
-        projDocInfo.setFileLocation(tempFileLocation + File.separator + "tmpFiles");//TODO
+        projDocInfo.setFileLocation(fileLocation);
         projDocInfo.setFileType("test");//TODO
         docDAO.saveFileInfo(projDocInfo);
         return true;
     }
 
-    private void saveFileToPath(byte[] file, String fileName) throws IOException {
+    private String saveFileToPath(byte[] file, String fileName) throws IOException {
 
         // Creating the directory to store file
         // String rootPath = System.getProperty("catalina.home");
@@ -72,5 +72,6 @@ public class DocumentServiceImpl implements DocumentService {
         LOGGER.info("Server File Location="
                 + serverFile.getAbsolutePath());
 
+        return serverFile.getAbsolutePath();
     }
 }
