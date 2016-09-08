@@ -3,6 +3,7 @@ package com.dz.oa.controller;
 import com.dz.oa.exception.FileContentException;
 import com.dz.oa.service.DocumentService;
 import com.dz.oa.service.MessageService;
+import com.dz.oa.utility.Constants;
 import com.dz.oa.utility.OaUtils;
 import com.dz.oa.vo.FileUploadResponse;
 import org.apache.commons.fileupload.FileUpload;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.Locale;
 
@@ -46,12 +48,12 @@ public class DocIoController {
 
     @RequestMapping("/upload")
     @ResponseBody
-    public String uploadDoc(@RequestParam("file") MultipartFile file) throws FileContentException {
+    public String uploadDoc(@RequestParam("file") MultipartFile file, @RequestParam("project_id")int id, HttpSession session) throws FileContentException {
         LOGGER.debug("File uploading ......");
         String name = file.getOriginalFilename();
         if (!file.isEmpty()) {
             try{
-                documentService.saveFile(file.getBytes(), OaUtils.timeStampPrefix(name), 1);
+                documentService.saveFile(file.getBytes(), name, (int)session.getAttribute(Constants.USER_ID), id);
                 return msg.getMessage("file_uploaded_success",new String[]{name});
             } catch (Exception e) {
                 LOGGER.error("error in uploading .. " + e.getLocalizedMessage());
@@ -110,7 +112,16 @@ public class DocIoController {
     @ExceptionHandler(FileContentException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public FileUploadResponse handleValidationException(FileContentException e){
+    public FileUploadResponse handleFileContentException(FileContentException e){
+        LOGGER.error(e);
+        FileUploadResponse response = new FileUploadResponse();
+        response.setError(e.getMessage()); // has to be error field, front end js needs this
+        return response;
+    }
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public FileUploadResponse handleException(FileContentException e){
         LOGGER.error(e);
         FileUploadResponse response = new FileUploadResponse();
         response.setError(e.getMessage()); // has to be error field, front end js needs this

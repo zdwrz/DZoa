@@ -9,4 +9,6 @@ import java.io.IOException;
  */
 public interface DocumentService {
     boolean saveFile(byte[] file, String fileName, int userId) throws IOException;
+
+    boolean saveFile(byte[] bytes, String s, int attribute, int id) throws IOException;
 }

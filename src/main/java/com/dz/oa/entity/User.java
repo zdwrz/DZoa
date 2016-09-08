@@ -35,8 +35,10 @@ public class User implements Serializable {
 	@OneToOne(mappedBy="user")
 	private UserDetail userDetails;
 
-
 	public User() {
+	}
+	public User(int userId) {
+		this.id = userId;
 	}
 
 	public int getId() {
