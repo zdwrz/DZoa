@@ -1,14 +1,19 @@
 package com.dz.oa.controller;
 
+import com.dz.oa.entity.ProjDocInfo;
 import com.dz.oa.entity.Project;
+import com.dz.oa.exception.FileContentException;
+import com.dz.oa.service.DocumentService;
 import com.dz.oa.service.ProjectService;
+import com.dz.oa.utility.Constants;
+import com.dz.oa.vo.FileUploadResponse;
 import com.dz.oa.vo.ProjectVO;
 import com.dz.oa.vo.TreeNodeStateVO;
 import com.dz.oa.vo.TreeNodeVO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +29,9 @@ public class TreeStructureController {
     @Autowired
     ProjectService projectService;
 
+    @Autowired
+    DocumentService documentService;
+
     @RequestMapping
     public TreeNodeVO getProjectNodes(){
         List<ProjectVO> projList = projectService.getProjListForDocumentTree();
@@ -38,7 +46,7 @@ public class TreeStructureController {
         List<TreeNodeVO> children = new ArrayList<>();
         for (ProjectVO pV : projList) {
             TreeNodeVO child = new TreeNodeVO();
-            child.setId(pV.getId().toString());
+            child.setId(Constants.PROJECT_ID_PREFIX+pV.getId());
             child.setValue(pV.getName() + " -- " + pV.getLocationDetail().getCustomAddress());
             child.setType("folder");
             child.setChildren(true);
@@ -52,20 +60,29 @@ public class TreeStructureController {
     @RequestMapping("/doc")
     public List<TreeNodeVO> getDocs(String id){
         LOGGER.info(id);
-        List<TreeNodeVO> children = new ArrayList<>();
-        TreeNodeVO child1 = new TreeNodeVO();
-        child1.setId("f1" + id);
-        child1.setValue("file 1");
-        child1.setType("file");
+        String realId = id.replace(Constants.PROJECT_ID_PREFIX, "");
+        List<ProjDocInfo> files = documentService.getDocInfoByProjectId(Integer.parseInt(realId));
 
-        TreeNodeVO child2 = new TreeNodeVO();
-        child2.setId("f2" + id);
-        child2.setValue("file 2");
-        child2.setType("file");
+        List<TreeNodeVO> docs = new ArrayList<>();
+        for (ProjDocInfo doc : files) {
+            TreeNodeVO docVO = new TreeNodeVO();
+            docVO.setId(String.valueOf(doc.getId()));
+            docVO.setType("file");
+            docVO.setValue(doc.getDocName());
+            docs.add(docVO);
+        }
 
-        children.add(child1);
-        children.add(child2);
-        return children;
+        return docs;
 
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public FileUploadResponse handleException(Exception e){
+        LOGGER.error(e);
+        FileUploadResponse response = new FileUploadResponse();
+        response.setError(e.getMessage()); // has to be error field, front end js needs this
+        return response;
     }
 }

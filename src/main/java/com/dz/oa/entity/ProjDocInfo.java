@@ -13,7 +13,7 @@ import java.util.Date;
 @Table(name="project_doc_info")
 @NamedQueries({
 		@NamedQuery(name = "ProjDocInfo.findAll", query = "SELECT p FROM ProjDocInfo p"),
-		@NamedQuery(name = "ProjDocInfo.findByProjId", query = "SELECT p FROM ProjDocInfo p where p.project.id=:projId")
+		@NamedQuery(name = "ProjDocInfo.findByProjId", query = "SELECT p FROM ProjDocInfo p where p.project.id=:projId order by p.uploadTime desc")
 })
 public class ProjDocInfo implements Serializable {
 
@@ -32,7 +32,7 @@ public class ProjDocInfo implements Serializable {
 	private String fileType;
 
 	@Column(name = "inactive_ind")
-	private String inactiveInd;
+	private String inactiveInd = "N";
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "uploaded_time")

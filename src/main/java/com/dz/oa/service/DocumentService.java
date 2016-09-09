@@ -1,14 +1,18 @@
 package com.dz.oa.service;
 
+import com.dz.oa.entity.ProjDocInfo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by daweizhuang on 8/30/16.
  */
 public interface DocumentService {
-    boolean saveFile(byte[] file, String fileName, int userId) throws IOException;
+    boolean saveFile(MultipartFile file, int userId) throws IOException;
 
-    boolean saveFile(byte[] bytes, String s, int attribute, int id) throws IOException;
+    boolean saveFile(MultipartFile file,  int userId, int projId) throws IOException;
+
+    List<ProjDocInfo> getDocInfoByProjectId(int id);
 }

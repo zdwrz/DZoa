@@ -48,12 +48,13 @@ public class DocIoController {
 
     @RequestMapping("/upload")
     @ResponseBody
-    public String uploadDoc(@RequestParam("file") MultipartFile file, @RequestParam("project_id")int id, HttpSession session) throws FileContentException {
+    public String uploadDoc(@RequestParam("file") MultipartFile file, @RequestParam("project_id")String pid, HttpSession session) throws FileContentException {
         LOGGER.debug("File uploading ......");
         String name = file.getOriginalFilename();
         if (!file.isEmpty()) {
             try{
-                documentService.saveFile(file.getBytes(), name, (int)session.getAttribute(Constants.USER_ID), id);
+                String id = pid.replace(Constants.PROJECT_ID_PREFIX, "");
+                documentService.saveFile(file,(int)session.getAttribute(Constants.USER_ID), Integer.parseInt(id));
                 return msg.getMessage("file_uploaded_success",new String[]{name});
             } catch (Exception e) {
                 LOGGER.error("error in uploading .. " + e.getLocalizedMessage());
@@ -121,7 +122,7 @@ public class DocIoController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public FileUploadResponse handleException(FileContentException e){
+    public FileUploadResponse handleException(Exception e){
         LOGGER.error(e);
         FileUploadResponse response = new FileUploadResponse();
         response.setError(e.getMessage()); // has to be error field, front end js needs this

@@ -10,13 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by daweizhuang on 8/30/16.
@@ -33,24 +34,30 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     @Transactional
-    public boolean saveFile(byte[] file, String fileName, int userId) throws IOException {
-        this.saveFileToPath(file, fileName);
+    public boolean saveFile(MultipartFile file, int userId) throws IOException {
+        this.saveFileToPath(file.getBytes(), file.getOriginalFilename());
         return true;
     }
 
     @Override
     @Transactional(rollbackFor = IOException.class)
-    public boolean saveFile(byte[] file, String fileName, int userId, int projId) throws IOException {
-        String fileLocation = this.saveFileToPath(file, fileName);
+    public boolean saveFile(MultipartFile file, int userId, int projId) throws IOException {
+        String fileLocation = this.saveFileToPath(file.getBytes(), file.getOriginalFilename());
         ProjDocInfo projDocInfo = new ProjDocInfo();
         projDocInfo.setProject(new Project(projId));
         projDocInfo.setUploadTime(new Date());
         projDocInfo.setUser(new User(userId));
-        projDocInfo.setDocName(fileName);
+        projDocInfo.setDocName(file.getOriginalFilename());
         projDocInfo.setFileLocation(fileLocation);
-        projDocInfo.setFileType("test");//TODO
+        projDocInfo.setFileType(file.getContentType());
         docDAO.saveFileInfo(projDocInfo);
         return true;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ProjDocInfo> getDocInfoByProjectId(int id) {
+        return docDAO.getDocInfoByProjId(id);
     }
 
     private String saveFileToPath(byte[] file, String fileName) throws IOException {
