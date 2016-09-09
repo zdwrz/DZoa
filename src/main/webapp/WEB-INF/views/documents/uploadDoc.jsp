@@ -50,9 +50,11 @@
             </div>
         </div>
     </div>
-
-
 </div>
+<form id="file_download_form" action="/doc/download" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <input type="hidden" id="file_download_id" name="fileId"/>
+</form>
 <script src="${pageContext.request.contextPath}/resources/js/doc_upload.js"></script>
 <link href="${pageContext.request.contextPath}/resources/css/doc_upload.css" rel="stylesheet">
 

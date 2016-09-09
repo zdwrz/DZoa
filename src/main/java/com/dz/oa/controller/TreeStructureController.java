@@ -14,9 +14,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import sun.java2d.pipe.SpanShapeRenderer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by daweizhuang on 9/7/16.
@@ -32,6 +33,8 @@ public class TreeStructureController {
     @Autowired
     DocumentService documentService;
 
+    private static final String FOLDER_PROJECT = "folder_proj";
+    private static final String FOLDER_TIME = "folder_time";
     @RequestMapping
     public TreeNodeVO getProjectNodes(){
         List<ProjectVO> projList = projectService.getProjListForDocumentTree();
@@ -48,7 +51,7 @@ public class TreeStructureController {
             TreeNodeVO child = new TreeNodeVO();
             child.setId(Constants.PROJECT_ID_PREFIX+pV.getId());
             child.setValue(pV.getName() + " -- " + pV.getLocationDetail().getCustomAddress());
-            child.setType("folder");
+            child.setType(FOLDER_PROJECT);
             child.setChildren(true);
             children.add(child);
         }
@@ -63,16 +66,39 @@ public class TreeStructureController {
         String realId = id.replace(Constants.PROJECT_ID_PREFIX, "");
         List<ProjDocInfo> files = documentService.getDocInfoByProjectId(Integer.parseInt(realId));
 
-        List<TreeNodeVO> docs = new ArrayList<>();
-        for (ProjDocInfo doc : files) {
+        List<TreeNodeVO> timeFolders = new ArrayList<>();
+        Map<Date, TreeNodeVO> timeFolderMap = new HashMap<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+        for(ProjDocInfo doc : files){
+            String formattedDate = sdf.format(doc.getFileTime());
+            //create the doc node first.
             TreeNodeVO docVO = new TreeNodeVO();
             docVO.setId(String.valueOf(doc.getId()));
             docVO.setType("file");
             docVO.setValue(doc.getDocName());
-            docs.add(docVO);
+
+            if(timeFolderMap.containsKey(doc.getFileTime())){
+                //add to node.
+                TreeNodeVO timeNode = timeFolderMap.get(doc.getFileTime());
+                List<TreeNodeVO> children =(ArrayList)timeNode.getChildren();
+                children.add(docVO);
+            }else{
+                //create new node
+                TreeNodeVO timeNode = new TreeNodeVO();
+                timeFolderMap.put(doc.getFileTime(), timeNode);
+                timeNode.setId(realId+"_"+formattedDate); // projId + time
+                timeNode.setType(FOLDER_TIME);
+                timeNode.setValue(formattedDate);
+                timeFolders.add(timeNode);
+                //add the doc into this new node
+                List<TreeNodeVO> children = new ArrayList<>();
+                children.add(docVO);
+                timeNode.setChildren(children);
+            }
         }
 
-        return docs;
+        return timeFolders;
 
     }
 

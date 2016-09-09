@@ -25,9 +25,12 @@ $(function () {
                 "valid_children" : ["root"]
             },
             "root" : {
-                "valid_children" : ["folder"]
+                "valid_children" : ["folder_proj"]
             },
-            "folder" : {
+            "folder_proj" : {
+                "valid_children" : ["folder_time"]
+            },
+            "folder_time" : {
                 "valid_children" : ["file"]
             },
             "file" : {
@@ -59,12 +62,21 @@ function docTreeNodeSelected(e,data){
                 $("#download_btn, #rename_btn, #delete_btn").fadeToggle();
             }
             break;
-        case 'folder':
+        case 'folder_proj':
             if ( $("#upload_btn").css('display') == 'none' ) {
                 disableAllButtons();
                 $("#upload_btn").fadeIn();
             }
             $("#project_id").val(selectedNode.id );
+            break;
+        case 'folder_time':
+            if ( $("#upload_btn").css('display') == 'none' ) {
+                disableAllButtons();
+                $("#upload_btn").fadeIn();
+            }
+            var pId = data.instance.get_parent(selectedNode);
+            $("#project_id").val(pId);
+            alert(selectedNode.text);
             break;
         default:
             disableAllButtons();
@@ -85,7 +97,14 @@ $("#button_div2").on("click","#upload_btn",function(){
     if(mm<10) {mm='0'+mm}
     today = yyyy+'-'+mm+'-'+dd;
     $("#file_date").val(today);
+    $("#file_date_submit").val(today);
     $("#upload_file_modal_dialog").modal("toggle");
+});
+$("#button_div2").on("click","#download_btn",function(){
+    var fileId = $.jstree.reference('#jstree').get_selected(true)[0].id;
+    $("#file_download_id").val(fileId);
+    $("#file_download_form").submit();
+    // /download/{file_name}
 });
 $("#done_button_div").on("click","#done_button",function(){
     refreshTree();

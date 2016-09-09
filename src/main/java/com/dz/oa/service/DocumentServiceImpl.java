@@ -61,6 +61,11 @@ public class DocumentServiceImpl implements DocumentService {
         return docDAO.getDocInfoByProjId(id);
     }
 
+    @Override
+    public ProjDocInfo getDocInfoById(int fileId) {
+        return docDAO.getDocInfoById(fileId);
+    }
+
     private String saveFileToPath(byte[] file, String fileName) throws IOException {
 
         // Creating the directory to store file

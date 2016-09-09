@@ -16,4 +16,6 @@ public interface DocumentService {
     boolean saveFile(MultipartFile file,  int userId, int projId , Date fileDate) throws IOException;
 
     List<ProjDocInfo> getDocInfoByProjectId(int id);
+
+    ProjDocInfo getDocInfoById(int fileId);
 }

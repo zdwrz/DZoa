@@ -1,5 +1,6 @@
 package com.dz.oa.controller;
 
+import com.dz.oa.entity.ProjDocInfo;
 import com.dz.oa.exception.FileContentException;
 import com.dz.oa.service.DocumentService;
 import com.dz.oa.service.MessageService;
@@ -71,28 +72,31 @@ public class DocIoController {
         }
     }
 
-    @RequestMapping(value = "/download/{file_name}", method = RequestMethod.GET)
-    public void getFile(@PathVariable("file_name") String fileName, HttpServletResponse response,
-                                      HttpServletRequest request) throws IOException {
-        File downloadFile = new File("/Users/daweizhuang/Documents/Resumes/Vincent Yin.docx");
-        FileInputStream inputStream = new FileInputStream(downloadFile);
+    @RequestMapping(value = "/download", method = RequestMethod.POST)
+    public void getProjFile(int fileId, HttpServletResponse response,
+                        HttpServletRequest request) throws IOException {
+        getFile(fileId,response,request);
+    }
 
+    private void getFile(int fileId, HttpServletResponse response,
+                         HttpServletRequest request) throws IOException{
+        ProjDocInfo docInfo = documentService.getDocInfoById(fileId);
+        File downloadFile = new File(docInfo.getFileLocation());
+        FileInputStream inputStream = new FileInputStream(downloadFile);
         // get MIME type of the file
-        String mimeType = request.getServletContext().getMimeType("/Users/daweizhuang/Documents/Resumes/Vincent Yin.docx");
+        String mimeType = request.getServletContext().getMimeType(docInfo.getFileLocation());
         if (mimeType == null) {
             // set to binary type if MIME mapping not found
             mimeType = "application/octet-stream";
         }
-        System.out.println("MIME type: " + mimeType);
-
         // set content attributes for the response
         response.setContentType(mimeType);
         response.setContentLength((int) downloadFile.length());
-
         // set headers for the response
         String headerKey = "Content-Disposition";
         String headerValue = String.format("attachment; filename=\"%s\"",
-                downloadFile.getName());
+                //downloadFile.getName());
+                docInfo.getDocName());
         response.setHeader(headerKey, headerValue);
 
         // get output stream of the response
@@ -109,6 +113,45 @@ public class DocIoController {
         inputStream.close();
         outStream.close();
     }
+//
+//    @RequestMapping(value = "/download/{file_name}", method = RequestMethod.GET)
+//    public void getFile(@PathVariable("file_name") String fileName, HttpServletResponse response,
+//                                      HttpServletRequest request) throws IOException {
+//        File downloadFile = new File("/Users/daweizhuang/Documents/Resumes/Vincent Yin.docx");
+//        FileInputStream inputStream = new FileInputStream(downloadFile);
+//
+//        // get MIME type of the file
+//        String mimeType = request.getServletContext().getMimeType("/Users/daweizhuang/Documents/Resumes/Vincent Yin.docx");
+//        if (mimeType == null) {
+//            // set to binary type if MIME mapping not found
+//            mimeType = "application/octet-stream";
+//        }
+//        System.out.println("MIME type: " + mimeType);
+//
+//        // set content attributes for the response
+//        response.setContentType(mimeType);
+//        response.setContentLength((int) downloadFile.length());
+//
+//        // set headers for the response
+//        String headerKey = "Content-Disposition";
+//        String headerValue = String.format("attachment; filename=\"%s\"",
+//                downloadFile.getName());
+//        response.setHeader(headerKey, headerValue);
+//
+//        // get output stream of the response
+//        OutputStream outStream = response.getOutputStream();
+//
+//        byte[] buffer = new byte[4096];
+//        int bytesRead = -1;
+//
+//        // write bytes read from the input stream into the output stream
+//        while ((bytesRead = inputStream.read(buffer)) != -1) {
+//            outStream.write(buffer, 0, bytesRead);
+//        }
+//
+//        inputStream.close();
+//        outStream.close();
+//    }
 
     @RequestMapping("/manage")
     public String findDocs(ModelMap model) {

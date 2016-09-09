@@ -25,4 +25,9 @@ public class DocumentDAOImpl implements DocumentDAO {
     public ProjDocInfo saveFileInfo(ProjDocInfo projDocInfo) {
         return em.merge(projDocInfo);
     }
+
+    @Override
+    public ProjDocInfo getDocInfoById(int fileId) {
+        return em.createNamedQuery("ProjDocInfo.findById",ProjDocInfo.class).setParameter("fileId",fileId).getSingleResult();
+    }
 }

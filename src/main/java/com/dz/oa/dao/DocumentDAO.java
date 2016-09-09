@@ -11,4 +11,6 @@ public interface DocumentDAO {
     List<ProjDocInfo> getDocInfoByProjId(int projId);
 
     ProjDocInfo saveFileInfo(ProjDocInfo projDocInfo);
+
+    ProjDocInfo getDocInfoById(int fileId);
 }
