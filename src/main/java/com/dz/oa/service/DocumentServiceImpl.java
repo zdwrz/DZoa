@@ -41,7 +41,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     @Transactional(rollbackFor = IOException.class)
-    public boolean saveFile(MultipartFile file, int userId, int projId) throws IOException {
+    public boolean saveFile(MultipartFile file, int userId, int projId, Date fileDate) throws IOException {
         String fileLocation = this.saveFileToPath(file.getBytes(), file.getOriginalFilename());
         ProjDocInfo projDocInfo = new ProjDocInfo();
         projDocInfo.setProject(new Project(projId));
@@ -50,6 +50,7 @@ public class DocumentServiceImpl implements DocumentService {
         projDocInfo.setDocName(file.getOriginalFilename());
         projDocInfo.setFileLocation(fileLocation);
         projDocInfo.setFileType(file.getContentType());
+        projDocInfo.setFileTime(fileDate);
         docDAO.saveFileInfo(projDocInfo);
         return true;
     }

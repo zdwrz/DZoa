@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.util.Date;
 import java.util.Locale;
 
 @Controller
@@ -48,13 +50,16 @@ public class DocIoController {
 
     @RequestMapping("/upload")
     @ResponseBody
-    public String uploadDoc(@RequestParam("file") MultipartFile file, @RequestParam("project_id")String pid, HttpSession session) throws FileContentException {
+    public String uploadProjDoc(@RequestParam("file") MultipartFile file, @RequestParam("project_id")String pid, @RequestParam("file_date") @DateTimeFormat(pattern="yyyy-MM-dd")Date fileDate, HttpSession session) throws FileContentException {
         LOGGER.debug("File uploading ......");
         String name = file.getOriginalFilename();
+        if (fileDate == null) {
+            fileDate = new Date();
+        }
         if (!file.isEmpty()) {
             try{
                 String id = pid.replace(Constants.PROJECT_ID_PREFIX, "");
-                documentService.saveFile(file,(int)session.getAttribute(Constants.USER_ID), Integer.parseInt(id));
+                documentService.saveFile(file,(int)session.getAttribute(Constants.USER_ID), Integer.parseInt(id),fileDate);
                 return msg.getMessage("file_uploaded_success",new String[]{name});
             } catch (Exception e) {
                 LOGGER.error("error in uploading .. " + e.getLocalizedMessage());
