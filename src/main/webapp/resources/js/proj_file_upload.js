@@ -121,6 +121,9 @@ $("#done_button_div").on("click","#done_button",function(){
     refreshTree();
     clearFileUploadArea();
 });
+$("#done_button_div").on("click","#process_upload",function(){
+    Dropzone.forElement("#file_upload_form").processQueue();
+});
 function refreshTree(){
     var tree = $.jstree.reference("#jstree");
     // var currentNode = tree._get_node(null, false);

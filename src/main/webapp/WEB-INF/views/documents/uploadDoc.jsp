@@ -45,7 +45,8 @@
 
                 <input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
                 <div class="col-lg-12" style="margin-top: 20px" id="done_button_div">
-                    <button class="btn btn-primary" data-dismiss="modal" id="done_button">Done</button>
+                    <button class="btn btn-primary" id="process_upload">Upload</button>
+                    <button class="btn btn-primary" data-dismiss="modal" id="done_button">close</button>
                 </div>
             </div>
         </div>
