@@ -15,6 +15,7 @@ import java.util.Date;
 		@NamedQuery(name="Notification.inactivate",query = "update Notification n set n.inactiveInd = 'Y' where n.id = :id"),
 		@NamedQuery(name="Notification.findAll", query="SELECT n FROM Notification n where n.inactiveInd != 'Y' order by n.expirationDate desc")
 })
+@Table(name = "notification")
 public class Notification implements Serializable {
 	private static final long serialVersionUID = 1L;
 
