@@ -115,7 +115,11 @@ $("#button_div2").on("click","#download_btn",function(){
     var fileId = $.jstree.reference('#jstree').get_selected(true)[0].id;
     $("#file_download_id").val(fileId);
     $("#file_download_form").submit();
-    // /download/{file_name}
+});
+$("#button_div2").on("click","#delete_btn",function(){
+    var fileId = $.jstree.reference('#jstree').get_selected(true)[0].id;
+    alert(fileId);
+
 });
 $("#done_button_div").on("click","#done_button",function(){
     refreshTree();
