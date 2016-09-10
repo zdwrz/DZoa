@@ -76,7 +76,10 @@ function docTreeNodeSelected(e,data){
             }
             var pId = data.instance.get_parent(selectedNode);
             $("#project_id").val(pId);
-            alert(selectedNode.text);
+            var splitDate = selectedNode.text.split('/');
+            var date = splitDate[2]+ "-"+splitDate[0] +"-"+ splitDate[1];
+            $("#file_date").val(date);
+            $("#file_date_submit").val(date);
             break;
         default:
             disableAllButtons();
@@ -88,16 +91,24 @@ function disableAllButtons() {
 $("#button_div1").on("click","#refresh_btn",function(){
     refreshTree();
 });
-$("#button_div2").on("click","#upload_btn",function(){
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
-    if(dd<10) {dd='0'+dd}
-    if(mm<10) {mm='0'+mm}
-    today = yyyy+'-'+mm+'-'+dd;
-    $("#file_date").val(today);
-    $("#file_date_submit").val(today);
+$("#button_div2").on("click","#upload_btn",function() {
+    var selectedNode = $.jstree.reference('#jstree').get_selected(true)[0];
+
+    if (selectedNode.type === "folder_proj") {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        today = yyyy + '-' + mm + '-' + dd;
+        $("#file_date").val(today);
+        $("#file_date_submit").val(today);
+    }
     $("#upload_file_modal_dialog").modal("toggle");
 });
 $("#button_div2").on("click","#download_btn",function(){
