@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -29,5 +30,12 @@ public class DocumentDAOImpl implements DocumentDAO {
     @Override
     public ProjDocInfo getDocInfoById(int fileId) {
         return em.createNamedQuery("ProjDocInfo.findById",ProjDocInfo.class).setParameter("fileId",fileId).getSingleResult();
+    }
+
+    @Override
+    public List<ProjDocInfo> getLatestDocs(int size) {
+        Query query = em.createNamedQuery("ProjDocInfo.findLatestBySize",ProjDocInfo.class);
+        query.setMaxResults(size);
+        return query.getResultList();
     }
 }

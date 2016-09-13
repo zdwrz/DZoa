@@ -52,6 +52,29 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="delete_doc_modal_dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <form id="delete_form" class="form-horizontal"  method="post" action="/doc/delete">
+                <input id="doc_to_remove_id" name="doc_to_remove_id" type="hidden"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <div class="modal-body">
+                    <fieldset>
+                        <p class="col-lg-9 ">Are you sure you want to delete <label id="doc_to_remove_name"></label>?</p>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-danger" id="delete_yes_button" data-loading-text="<i class='icon-spinner icon-spin icon-large'></i> Deleting...">Yes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <form id="file_download_form" action="/doc/download" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="hidden" id="file_download_id" name="fileId"/>

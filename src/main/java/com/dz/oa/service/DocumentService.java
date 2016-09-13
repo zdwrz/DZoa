@@ -1,6 +1,7 @@
 package com.dz.oa.service;
 
 import com.dz.oa.entity.ProjDocInfo;
+import com.dz.oa.vo.ProjDocVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -18,4 +19,6 @@ public interface DocumentService {
     List<ProjDocInfo> getDocInfoByProjectId(int id);
 
     ProjDocInfo getDocInfoById(int fileId);
+
+    List<ProjDocVO> getLatestDoc();
 }

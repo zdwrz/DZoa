@@ -1,6 +1,9 @@
 package com.dz.oa.converter;
 
+import com.dz.oa.entity.ProjDocInfo;
 import com.dz.oa.entity.Project;
+import com.dz.oa.entity.UserDetail;
+import com.dz.oa.vo.ProjDocVO;
 import com.dz.oa.vo.ProjectVO;
 
 import java.util.List;
@@ -20,5 +23,24 @@ public class ProjectToVoConverter {
             vo.setLocationDetail(project.getProjectLocations().get(0));
         }
         return vo;
+    }
+
+    public static ProjDocVO convertDocInfoToVO(ProjDocInfo doc) {
+        ProjDocVO vo = new ProjDocVO();
+        vo.setFileName(doc.getDocName());
+        vo.setFileId(doc.getId());
+        if(doc.getProject() != null) {
+            vo.setProjectName(doc.getProject().getName());
+        }
+        if(doc.getUser()!= null && doc.getUser().getUserDetails()!=null) {
+            vo.setUploadedBy(convertUserToDisplayName(doc.getUser().getUserDetails()));
+        }
+        vo.setUploadedTime(doc.getUploadTime());
+        return vo;
+    }
+
+    public static String convertUserToDisplayName(UserDetail userDetails) {
+        String res = userDetails.getLastName() + ", " + userDetails.getFirstName();
+        return res;
     }
 }

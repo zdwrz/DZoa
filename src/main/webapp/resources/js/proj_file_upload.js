@@ -117,8 +117,13 @@ $("#button_div2").on("click","#download_btn",function(){
     $("#file_download_form").submit();
 });
 $("#button_div2").on("click","#delete_btn",function(){
-    var fileId = $.jstree.reference('#jstree').get_selected(true)[0].id;
-    alert(fileId);
+    var selectedNode = $.jstree.reference('#jstree').get_selected(true)[0];
+
+   // alert(selectedNode.id + " " + selectedNode.text);
+    $("#doc_to_remove_name").text(selectedNode.text);
+    $("#doc_to_remove_id").val(selectedNode.id);
+
+    $("#delete_doc_modal_dialog").modal("toggle");
 
 });
 $("#done_button_div").on("click","#done_button",function(){

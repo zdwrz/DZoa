@@ -1,6 +1,7 @@
 package com.dz.oa.dao;
 
 import com.dz.oa.entity.ProjDocInfo;
+import com.dz.oa.vo.ProjDocVO;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface DocumentDAO {
     ProjDocInfo saveFileInfo(ProjDocInfo projDocInfo);
 
     ProjDocInfo getDocInfoById(int fileId);
+
+    List<ProjDocInfo> getLatestDocs(int size);
 }

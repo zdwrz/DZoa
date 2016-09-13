@@ -1,10 +1,12 @@
 package com.dz.oa.service;
 
+import com.dz.oa.converter.ProjectToVoConverter;
 import com.dz.oa.dao.DocumentDAO;
 import com.dz.oa.entity.ProjDocInfo;
 import com.dz.oa.entity.Project;
 import com.dz.oa.entity.User;
 import com.dz.oa.utility.OaUtils;
+import com.dz.oa.vo.ProjDocVO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +18,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -62,8 +65,20 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ProjDocInfo getDocInfoById(int fileId) {
         return docDAO.getDocInfoById(fileId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ProjDocVO> getLatestDoc() {
+        List<ProjDocInfo> docs = docDAO.getLatestDocs(5);
+        List<ProjDocVO> res = new ArrayList<>();
+        for (ProjDocInfo doc : docs) {
+            res.add(ProjectToVoConverter.convertDocInfoToVO(doc));
+        }
+        return res;
     }
 
     private String saveFileToPath(byte[] file, String fileName) throws IOException {

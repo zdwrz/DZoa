@@ -77,7 +77,12 @@ public class DocIoController {
                         HttpServletRequest request) throws IOException {
         getFile(fileId,response,request);
     }
-
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public void removeProjFile(@RequestParam("doc_to_remove_id") int fileId, HttpServletResponse response,
+                            HttpServletRequest request) throws IOException {
+       LOGGER.info("delete: " + fileId);
+    }
     private void getFile(int fileId, HttpServletResponse response,
                          HttpServletRequest request) throws IOException{
         ProjDocInfo docInfo = documentService.getDocInfoById(fileId);

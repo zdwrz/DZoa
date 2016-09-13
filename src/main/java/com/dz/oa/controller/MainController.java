@@ -1,5 +1,6 @@
 package com.dz.oa.controller;
 
+import com.dz.oa.service.DocumentService;
 import com.dz.oa.service.NotificationService;
 import com.dz.oa.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,14 @@ public class MainController {
 	@Autowired
 	ProjectService projectService;
 
+	@Autowired
+	DocumentService documentService;
+
 	@RequestMapping("/dashboard")
 	public String showMain(ModelMap model) {
 		model.addAttribute("notiList",notiService.getNotiForToday());
 		model.addAttribute("projList",projectService.getProjListForDashboard());
+		model.addAttribute("docList",documentService.getLatestDoc());
 		return "dashboard";
 	}
 	@RequestMapping("/changepwd")

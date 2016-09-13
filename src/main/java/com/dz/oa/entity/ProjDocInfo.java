@@ -14,6 +14,7 @@ import java.util.Date;
 @NamedQueries({
 		@NamedQuery(name = "ProjDocInfo.findAll", query = "SELECT p FROM ProjDocInfo p"),
 		@NamedQuery(name = "ProjDocInfo.findByProjId", query = "SELECT p FROM ProjDocInfo p where p.project.id=:projId and p.inactiveInd = 'N' order by p.uploadTime desc"),
+		@NamedQuery(name = "ProjDocInfo.findLatestBySize", query = "SELECT p FROM ProjDocInfo p where p.inactiveInd = 'N' order by p.uploadTime desc"),
 		@NamedQuery(name = "ProjDocInfo.findById", query = "SELECT distinct p FROM ProjDocInfo p where p.id=:fileId and p.inactiveInd = 'N'")
 })
 public class ProjDocInfo implements Serializable {
