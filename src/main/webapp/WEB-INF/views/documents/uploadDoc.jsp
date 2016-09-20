@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-1" id="button_div1">
-        <button type="button" class="btn btn-primary" id="refresh_btn"><span class="glyphicon glyphicon-refresh"></span></button>
+        <button type="button" class="btn btn-primary" id="refresh_btn"><span class="glyphicon glyphicon-refresh"></span>Reload</button>
     </div>
     <div class="col-md-6" id="button_div2">
         <button type="button" style="display: none" class="btn btn-primary" id="upload_btn"><span class="glyphicon glyphicon-cloud-upload"></span>Upload</button>
