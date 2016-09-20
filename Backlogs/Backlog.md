@@ -18,6 +18,7 @@ TODO: Write usage instructions
 
 6. Message properties
 
+7. Testing
     
 ## History
 TODO: Write history
