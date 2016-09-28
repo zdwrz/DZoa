@@ -21,7 +21,7 @@ public class TimesheetServiceImpl implements TimesheetService {
 
         Calendar cal = Calendar.getInstance();
         List<TimeSheetDateVO> resList = new ArrayList<>();
-        for(int i = 0 ; i < 14; i++) {
+        for(int i = 0 ; i < 7; i++) {
             resList.add(new TimeSheetDateVO(cal.getTime()));
             cal.add(Calendar.DAY_OF_MONTH,1);
         }

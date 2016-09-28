@@ -57,13 +57,6 @@
                 <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
             </tr>
             <tr>
                 <td class="bill_code_ts">
@@ -76,25 +69,11 @@
                 <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
             </tr>
             <tr>
                 <td class="bill_code_ts">
                     code number 3 - Desk
                 </td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
@@ -135,13 +114,6 @@
                 <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
             </tr>
             <tr>
                 <td class="bill_code_ts">
@@ -154,25 +126,11 @@
                 <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
             </tr>
             <tr>
                 <td class="proj_name_ts">
                     <strong>Total:</strong>
                 </td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
                 <td ><input type="text" class="slot_ts"/></td>
