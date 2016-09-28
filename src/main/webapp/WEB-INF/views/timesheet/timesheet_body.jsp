@@ -22,122 +22,37 @@
                     Project Name & Bill Code
                 </td>
             </tr>
-            <tr>
-                <td class="proj_name_ts">
-                    <strong>first project here with name</strong>
-                </td>
-                <%--<td class="slot_ts">09/29/2016 Monday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Tuesday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Wednesday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Thursday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Friday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Saturday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Sunday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Monday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Tuesday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Wednesday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Thursday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Friday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Saturday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Sunday</td>--%>
-                <c:forEach items="${dateList}" var="date">
-                    <td class="slot_ts"><fmt:formatDate value="${date.date}" pattern="MM/dd/yyyy" /> ${date.day}</td>
+            <form>
+                <c:forEach items="${projTsList}" var="projTs" varStatus="status">
+                    <tr>
+                        <td class="proj_name_ts">
+                            <strong>${projTs.project.name}</strong>
+                        </td>
+                        <c:if test="${status.first}">
+                            <c:forEach items="${dateList}" var="date" varStatus="statusOfHeader">
+                                <td class="slot_ts"><fmt:formatDate value="${date.date}" pattern="MM/dd/yyyy" /> ${date.day}</td>
+                                <c:if test="${statusOfHeader.first}">
+                                    <input type="hidden" name="dateOfMonday" value="${date.date}"/>
+                                </c:if>
+                            </c:forEach>
+                        </c:if>
+                    </tr>
+                    <c:forEach items="${projTs.billCodeList}" var="billCodeTs">
+                        <tr>
+                            <td class="bill_code_ts">
+                                ${billCodeTs.billCode.codeValue}
+                            </td>
+                            <td ><input type="text" class="slot_ts" value="${billCodeTs.slots.monday.value}" title="${billCodeTs.slots.monday.comment}" name="${projTs.project.id}_${billCodeTs.billCode.id}_monday"/></td>
+                            <td ><input type="text" class="slot_ts" value="${billCodeTs.slots.tuesday.value}" title="${billCodeTs.slots.tuesday.comment}" name="${projTs.project.id}_${billCodeTs.billCode.id}_tuesday"/></td>
+                            <td ><input type="text" class="slot_ts" value="${billCodeTs.slots.wednesday.value}" title="${billCodeTs.slots.wednesday.comment}" name="${projTs.project.id}_${billCodeTs.billCode.id}_wednesday"/></td>
+                            <td ><input type="text" class="slot_ts" value="${billCodeTs.slots.thursday.value}" title="${billCodeTs.slots.thursday.comment}" name="${projTs.project.id}_${billCodeTs.billCode.id}_thursday"/></td>
+                            <td ><input type="text" class="slot_ts" value="${billCodeTs.slots.friday.value}" title="${billCodeTs.slots.friday.comment}" name="${projTs.project.id}_${billCodeTs.billCode.id}_friday"/></td>
+                            <td ><input type="text" class="slot_ts" value="${billCodeTs.slots.saturday.value}" title="${billCodeTs.slots.saturday.comment}" name="${projTs.project.id}_${billCodeTs.billCode.id}_saturday"/></td>
+                            <td ><input type="text" class="slot_ts" value="${billCodeTs.slots.sunday.value}" title="${billCodeTs.slots.sunday.comment}" name="${projTs.project.id}_${billCodeTs.billCode.id}_sunday"/></td>
+                        </tr>
+                    </c:forEach>
                 </c:forEach>
-            </tr>
 
-
-            <tr>
-                <td class="bill_code_ts">
-                    code number 1 - Wall
-                </td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-            </tr>
-            <tr>
-                <td class="bill_code_ts">
-                    code number 2 - chairs
-                </td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-            </tr>
-            <tr>
-                <td class="bill_code_ts">
-                    code number 3 - Desk
-                </td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-            </tr>
-
-            <tr>
-                <td class="proj_name_ts">
-                    <strong>Here is the second project</strong>
-                </td>
-                <%--<td class="slot_ts">09/29/2016 Monday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Tuesday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Wednesday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Thursday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Friday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Saturday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Sunday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Monday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Tuesday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Wednesday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Thursday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Friday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Saturday</td>--%>
-                <%--<td class="slot_ts">09/29/2016 Sunday</td>--%>
-
-            </tr>
-            <tr>
-                <td class="bill_code_ts">
-                    code number 1 - Wall
-                </td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-            </tr>
-            <tr>
-                <td class="bill_code_ts">
-                    code number 2 - Desk
-                </td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-            </tr>
-            <tr>
-                <td class="proj_name_ts">
-                    <strong>Total:</strong>
-                </td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-                <td ><input type="text" class="slot_ts"/></td>
-            </tr>
+            </form>
         </table>
 </body>

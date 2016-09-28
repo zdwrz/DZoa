@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class BillCodeVO {
     private TsBillCodeLookup billCode;
-    private Map<Date, TimeSheetSlotVO> slots;
+    private Map<String, TimeSheetSlotVO> slots;
 
     public TsBillCodeLookup getBillCode() {
         return billCode;
@@ -20,11 +20,11 @@ public class BillCodeVO {
         this.billCode = billCode;
     }
 
-    public Map<Date, TimeSheetSlotVO> getSlots() {
+    public Map<String, TimeSheetSlotVO> getSlots() {
         return slots;
     }
 
-    public void setSlots(Map<Date, TimeSheetSlotVO> slots) {
+    public void setSlots(Map<String, TimeSheetSlotVO> slots) {
         this.slots = slots;
     }
 }

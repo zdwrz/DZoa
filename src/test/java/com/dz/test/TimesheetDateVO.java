@@ -1,5 +1,6 @@
 package com.dz.test;
 
+import com.dz.oa.utility.OaUtils;
 import com.dz.oa.vo.TimeSheetDateVO;
 import org.junit.Test;
 
@@ -14,5 +15,10 @@ public class TimesheetDateVO {
         TimeSheetDateVO vo = new TimeSheetDateVO(new Date());
         System.out.println(vo.getDay());
         System.out.println(vo.getDate());
+    }
+
+    @Test
+    public void testUtil() {
+        System.out.println(OaUtils.getMondayOfThisWeek());
     }
 }

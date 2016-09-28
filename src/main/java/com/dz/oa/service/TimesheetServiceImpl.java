@@ -1,15 +1,11 @@
 package com.dz.oa.service;
 
 import com.dz.oa.entity.TsBillCodeLookup;
-import com.dz.oa.vo.BillCodeVO;
-import com.dz.oa.vo.ProjectVO;
-import com.dz.oa.vo.TimeSheetDateVO;
-import com.dz.oa.vo.TimeSheetProjectVO;
+import com.dz.oa.utility.OaUtils;
+import com.dz.oa.vo.*;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by daweizhuang on 9/27/16.
@@ -18,8 +14,8 @@ import java.util.List;
 public class TimesheetServiceImpl implements TimesheetService {
     @Override
     public List<TimeSheetDateVO> getCurrentTimesheetDate() {
-
         Calendar cal = Calendar.getInstance();
+        cal.setTime(OaUtils.getMondayOfThisWeek());
         List<TimeSheetDateVO> resList = new ArrayList<>();
         for(int i = 0 ; i < 7; i++) {
             resList.add(new TimeSheetDateVO(cal.getTime()));
@@ -39,11 +35,41 @@ public class TimesheetServiceImpl implements TimesheetService {
         List<BillCodeVO> codeList = new ArrayList<>();
             BillCodeVO billCodeVO1 = new BillCodeVO();
                 TsBillCodeLookup lookup = new TsBillCodeLookup();
-                lookup.setCodeValue("Here we go - Chair");
+                lookup.setCodeValue("Code #2 - Chair");
                 billCodeVO1.setBillCode(lookup);
             codeList.add(billCodeVO1);
+            BillCodeVO billCodeVO2 = new BillCodeVO();
+            TsBillCodeLookup lookup2 = new TsBillCodeLookup();
+            lookup2.setCodeValue("Code # 1 - Desk");
+            billCodeVO2.setBillCode(lookup2);
+            Map<String, TimeSheetSlotVO> slots = new HashMap<>();
+            TimeSheetSlotVO slot1 = new TimeSheetSlotVO();
+            slot1.setValue(100);
+            slot1.setComment("fuck you");
+            slots.put("monday",slot1);
+            billCodeVO2.setSlots(slots);
+            codeList.add(billCodeVO2);
         vo.setBillCodeList(codeList);
         resList.add(vo);
+
+        TimeSheetProjectVO vo2 = new TimeSheetProjectVO();
+        ProjectVO pVO1 = new ProjectVO();
+        pVO1.setId(123);
+        pVO1.setName("Test Project for temp usage");
+        vo2.setProject(pVO1);
+        List<BillCodeVO> codeList1 = new ArrayList<>();
+        BillCodeVO billCodeVO11 = new BillCodeVO();
+        TsBillCodeLookup lookup22 = new TsBillCodeLookup();
+        lookup22.setCodeValue("Code #4 - Floor");
+        billCodeVO11.setBillCode(lookup22);
+        codeList1.add(billCodeVO11);
+        BillCodeVO billCodeVO22 = new BillCodeVO();
+        TsBillCodeLookup lookup223 = new TsBillCodeLookup();
+        lookup223.setCodeValue("Code #5 - Concrete");
+        billCodeVO22.setBillCode(lookup223);
+        codeList1.add(billCodeVO22);
+        vo2.setBillCodeList(codeList1);
+        resList.add(vo2);
         return resList;
     }
 }
