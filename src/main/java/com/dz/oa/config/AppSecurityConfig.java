@@ -42,7 +42,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 //				.antMatchers("/confidential/**").access("hasRole('ROLE_SUPERADMIN')").and().formLogin();
 		  http.userDetailsService(userDetailsService)
 	        .authorizeRequests()
-	        .antMatchers("/", "/dashboard").access("hasAnyRole('USER','ADMIN')")
+	        .antMatchers("/", "/dashboard","/project/**","/timesheet/**").access("hasAnyRole('USER','ADMIN')")
 	        .antMatchers("/manageEmp", "/manageDept", "/addDept","/addEmp").access("hasRole('SUPER_ADMIN')")
 	            .and()
 	        .formLogin().loginPage("/login").and().exceptionHandling().accessDeniedPage("/deny");

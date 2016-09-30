@@ -118,11 +118,9 @@
                     <h4 class="modal-title">Hours and Comment</h4>
                 </div>
                     <div class="modal-body">
-                            <div class="row">
-                                <label for="ts_hours" class="col-md-2 control-label">Hours:</label>
-                                <input type="text" class="form-control" name="ts_hours" id="ts_hours" required="true">
-                            </div>
-                            <label for="ts_comment" class="col-md-2 control-label">Comment:</label>
+                            <label for="ts_hours" class="control-label">Hours:</label>
+                            <input type="text" class="form-control" name="ts_hours" id="ts_hours" required="true" style="width:50px">
+                            <label for="ts_comment" class="control-label">Comment:</label>
                             <textarea class="form-control" rows="5" name ="ts_comment" id="ts_comment" required="true"></textarea>
 
                         <div class="modal-footer" id="ts_dialog">

@@ -12,10 +12,12 @@ import java.util.*;
  */
 @Service
 public class TimesheetServiceImpl implements TimesheetService {
+
     @Override
-    public List<TimeSheetDateVO> getCurrentTimesheetDate() {
+    public List<TimeSheetDateVO> getCurrentTimesheetDate(Integer offset) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(OaUtils.getMondayOfThisWeek());
+        cal.add(Calendar.WEEK_OF_YEAR, offset);
         List<TimeSheetDateVO> resList = new ArrayList<>();
         for(int i = 0 ; i < 7; i++) {
             resList.add(new TimeSheetDateVO(cal.getTime()));
@@ -23,7 +25,6 @@ public class TimesheetServiceImpl implements TimesheetService {
         }
         return resList;
     }
-
     @Override
     public List<TimeSheetProjectVO> getProjTimesheetData() {
         List<TimeSheetProjectVO> resList = new ArrayList<>();
@@ -60,20 +61,29 @@ public class TimesheetServiceImpl implements TimesheetService {
         pVO1.setName("Test Project for temp usage");
         vo2.setProject(pVO1);
         List<BillCodeVO> codeList1 = new ArrayList<>();
-        BillCodeVO billCodeVO11 = new BillCodeVO();
-        TsBillCodeLookup lookup22 = new TsBillCodeLookup();
-        lookup22.setCodeValue("Code #4 - Floor");
-        lookup22.setId(1);
-        billCodeVO11.setBillCode(lookup22);
+            BillCodeVO billCodeVO11 = new BillCodeVO();
+            TsBillCodeLookup lookup22 = new TsBillCodeLookup();
+            lookup22.setCodeValue("Code #4 - Floor");
+            lookup22.setId(3);
+            billCodeVO11.setBillCode(lookup22);
         codeList1.add(billCodeVO11);
         BillCodeVO billCodeVO22 = new BillCodeVO();
-        TsBillCodeLookup lookup223 = new TsBillCodeLookup();
-        lookup223.setCodeValue("Code #5 - Concrete");
-        lookup223.setId(3);
-        billCodeVO22.setBillCode(lookup223);
+            TsBillCodeLookup lookup223 = new TsBillCodeLookup();
+            lookup223.setCodeValue("Code #5 - Concrete");
+            lookup223.setId(5);
+            billCodeVO22.setBillCode(lookup223);
         codeList1.add(billCodeVO22);
+        BillCodeVO billCodeVO224 = new BillCodeVO();
+            TsBillCodeLookup lookup224 = new TsBillCodeLookup();
+            lookup224.setCodeValue("Code #6 - road");
+            lookup224.setId(4);
+        billCodeVO224.setBillCode(lookup224);
+        codeList1.add(billCodeVO224);
+
         vo2.setBillCodeList(codeList1);
         resList.add(vo2);
         return resList;
     }
+
+
 }
