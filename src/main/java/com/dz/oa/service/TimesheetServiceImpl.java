@@ -13,6 +13,7 @@ import java.util.*;
 @Service
 public class TimesheetServiceImpl implements TimesheetService {
 
+
     @Override
     public List<TimeSheetDateVO> getCurrentTimesheetDate(Integer offset) {
         Calendar cal = Calendar.getInstance();
@@ -26,7 +27,16 @@ public class TimesheetServiceImpl implements TimesheetService {
         return resList;
     }
     @Override
-    public List<TimeSheetProjectVO> getProjTimesheetData() {
+    public List<TimeSheetProjectVO> getProjTimesheetData(Integer offset, int userId) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(OaUtils.getMondayOfThisWeek());
+        cal.add(Calendar.WEEK_OF_YEAR, offset);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE,0);
+        cal.set(Calendar.SECOND,0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date startDate = cal.getTime();
+
         List<TimeSheetProjectVO> resList = new ArrayList<>();
         TimeSheetProjectVO vo = new TimeSheetProjectVO();
             ProjectVO pVO = new ProjectVO();
