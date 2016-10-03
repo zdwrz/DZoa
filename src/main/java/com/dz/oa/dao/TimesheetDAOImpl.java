@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,8 +25,11 @@ public class TimesheetDAOImpl implements TimesheetDAO {
 
 
     @Override
-    @Transactional(readOnly = true)
-    public List<TsMain> getTimeSheetDateFor(int userId, Date startDate) {
-        return null;
+    public List<TsMain> getTimeSheetDateFor(int userId, Date startDate, Date endDate) {
+        Query query = em.createNamedQuery("TsMain.findForUserIdWithStartDate",TsMain.class);
+        query.setParameter("userId", userId);
+        query.setParameter("startDate",startDate);
+        query.setParameter("endDate",endDate);
+        return query.getResultList();
     }
 }

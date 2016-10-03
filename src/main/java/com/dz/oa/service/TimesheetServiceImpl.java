@@ -1,11 +1,17 @@
 package com.dz.oa.service;
 
-import com.dz.oa.entity.TsBillCodeLookup;
+import com.dz.oa.dao.TimesheetDAO;
+import com.dz.oa.dao.UserDAO;
+import com.dz.oa.entity.*;
 import com.dz.oa.utility.OaUtils;
 import com.dz.oa.vo.*;
+import org.hibernate.Hibernate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by daweizhuang on 9/27/16.
@@ -14,7 +20,14 @@ import java.util.*;
 public class TimesheetServiceImpl implements TimesheetService {
 
 
+    @Autowired
+    TimesheetDAO timesheetDAO;
+
+    @Autowired
+    UserDAO userDAO;
+
     @Override
+    @Transactional(readOnly = true)
     public List<TimeSheetDateVO> getCurrentTimesheetDate(Integer offset) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(OaUtils.getMondayOfThisWeek());
@@ -27,7 +40,10 @@ public class TimesheetServiceImpl implements TimesheetService {
         return resList;
     }
     @Override
+    @Transactional(readOnly = true)
     public List<TimeSheetProjectVO> getProjTimesheetData(Integer offset, int userId) {
+
+        //calculate the start date and end date
         Calendar cal = Calendar.getInstance();
         cal.setTime(OaUtils.getMondayOfThisWeek());
         cal.add(Calendar.WEEK_OF_YEAR, offset);
@@ -36,62 +52,74 @@ public class TimesheetServiceImpl implements TimesheetService {
         cal.set(Calendar.SECOND,0);
         cal.set(Calendar.MILLISECOND, 0);
         Date startDate = cal.getTime();
+        cal.add(Calendar.DAY_OF_MONTH,6);
+        Date endDate = cal.getTime();
+        List<TsMain> entityList = timesheetDAO.getTimeSheetDateFor(userId,startDate,endDate);
+        entityList.stream().forEach(e -> Hibernate.initialize(e.getUser().getTsSchedule()));
+        //this map stores existing project ts data
+        Map<Project, List<TsMain>> entityMap = entityList.stream().collect(Collectors.groupingBy(o -> o.getBillCode().getProject()));
+        //add those empty project data. as to display them
+        User user = userDAO.findUserById(userId);
+        List<TsEmpSchedule> scheduleList = user.getTsSchedule();
+        Hibernate.initialize(user.getTsSchedule());
 
+        for(TsEmpSchedule schedule : scheduleList){
+            if(!entityMap.containsKey(schedule.getBillCode().getProject())){
+             //add a empty list
+                entityMap.put(schedule.getBillCode().getProject(), new ArrayList<>());
+            }
+        }
+
+        //final result
         List<TimeSheetProjectVO> resList = new ArrayList<>();
-        TimeSheetProjectVO vo = new TimeSheetProjectVO();
-            ProjectVO pVO = new ProjectVO();
-                pVO.setId(1234);
-                pVO.setName("Test Project for temp usage");
-            vo.setProject(pVO);
-        List<BillCodeVO> codeList = new ArrayList<>();
-            BillCodeVO billCodeVO1 = new BillCodeVO();
-                TsBillCodeLookup lookup = new TsBillCodeLookup();
-                lookup.setCodeValue("Code #2 - Chair");
-                lookup.setId(1);
-                billCodeVO1.setBillCode(lookup);
-            codeList.add(billCodeVO1);
-            BillCodeVO billCodeVO2 = new BillCodeVO();
-            TsBillCodeLookup lookup2 = new TsBillCodeLookup();
-            lookup2.setCodeValue("Code # 1 - Desk");
-            lookup2.setId(2);
-            billCodeVO2.setBillCode(lookup2);
-            Map<String, TimeSheetSlotVO> slots = new HashMap<>();
-            TimeSheetSlotVO slot1 = new TimeSheetSlotVO();
-            slot1.setValue(100);
-            slot1.setComment("fuck you");
-            slots.put("monday",slot1);
-            billCodeVO2.setSlots(slots);
-            codeList.add(billCodeVO2);
-        vo.setBillCodeList(codeList);
-        resList.add(vo);
+        for(Map.Entry<Project, List<TsMain>> mainEntry : entityMap.entrySet()){
+            //for each VO we need to set projectVO
+            TimeSheetProjectVO vo = new TimeSheetProjectVO();
+                //get current project
+                Project proj = mainEntry.getKey();
+                ProjectVO pVO = new ProjectVO();
+                pVO.setId(proj.getId());
+                pVO.setName(proj.getName());
+                vo.setProject(pVO);
+                //Add all bill code - we have bill code in TsEmpSchedule, and its subset in TsMain.
+                List<BillCodeVO> codeList = new ArrayList<>();
+                //inside billcode vo , we have the code info and slot data.
+                //TsMainSchedule
+//                List<TsEmpSchedule> scheduleList = mainEntry.getValue().get(0).getUser().getTsSchedule();
+                for(TsEmpSchedule schedule : scheduleList){
+                    if(schedule.getBillCode().getProject().getId() == proj.getId()) {
+                        BillCodeVO billCodeVO = new BillCodeVO();
+                        //set bill code info
+                        TsBillCodeLookup code = new TsBillCodeLookup();
+                        code.setId(schedule.getBillCode().getId());
+                        code.setCodeValue(schedule.getBillCode().getCodeValue());
+                        //this is schedule, so no slot.
+                        billCodeVO.setBillCode(code);
+                        codeList.add(billCodeVO);
+                    }
+                }
+                vo.setBillCodeList(codeList);
+                //--end schedule, all code are in codelist now.
+                // start to populate exsisting data.
+                List<TsMain> existingTsEntity = mainEntry.getValue();
+                for (TsMain main : existingTsEntity) {
+                    for (BillCodeVO code : vo.getBillCodeList()) {
+                        if(code.getBillCode().getId() == main.getBillCode().getId()){
+                            Map<String, TimeSheetSlotVO> slots = code.getSlots();
+                            if(slots == null){
+                                slots = new HashMap<>();
+                            }
+                            TimeSheetSlotVO slot = new TimeSheetSlotVO();
+                            slot.setValue(main.getValue());
+                            slot.setComment(main.getComment());
+                            slots.put(OaUtils.getDayOfWeek(main.getSlot().getDate()),slot);
+                            code.setSlots(slots);
+                        }
+                    }
+                }
+            resList.add(vo);
+        }
 
-        TimeSheetProjectVO vo2 = new TimeSheetProjectVO();
-        ProjectVO pVO1 = new ProjectVO();
-        pVO1.setId(123);
-        pVO1.setName("Test Project for temp usage");
-        vo2.setProject(pVO1);
-        List<BillCodeVO> codeList1 = new ArrayList<>();
-            BillCodeVO billCodeVO11 = new BillCodeVO();
-            TsBillCodeLookup lookup22 = new TsBillCodeLookup();
-            lookup22.setCodeValue("Code #4 - Floor");
-            lookup22.setId(3);
-            billCodeVO11.setBillCode(lookup22);
-        codeList1.add(billCodeVO11);
-        BillCodeVO billCodeVO22 = new BillCodeVO();
-            TsBillCodeLookup lookup223 = new TsBillCodeLookup();
-            lookup223.setCodeValue("Code #5 - Concrete");
-            lookup223.setId(5);
-            billCodeVO22.setBillCode(lookup223);
-        codeList1.add(billCodeVO22);
-        BillCodeVO billCodeVO224 = new BillCodeVO();
-            TsBillCodeLookup lookup224 = new TsBillCodeLookup();
-            lookup224.setCodeValue("Code #6 - road");
-            lookup224.setId(4);
-        billCodeVO224.setBillCode(lookup224);
-        codeList1.add(billCodeVO224);
-
-        vo2.setBillCodeList(codeList1);
-        resList.add(vo2);
         return resList;
     }
 

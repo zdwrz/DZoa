@@ -6,19 +6,20 @@ TODO: Describe the installation process
 ## Usage
 TODO: Write usage instructions
 ## Contributing
-1. Document
+###1. Document
 
-2. Project management
+###2. Project management
 
-3. Time sheet
+###3. Time sheet 
+ create user / create bill code / assign bill code to user / save / submit/ approval TS
 
-4. Report
+###4. Report
 
-5. User Management
+###5. User Management
+    
+###6. Message properties
 
-6. Message properties
-
-7. Testing
+###7. Testing
     
 ## History
 TODO: Write history

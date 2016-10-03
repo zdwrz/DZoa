@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface TimesheetDAO {
 
-    List<TsMain> getTimeSheetDateFor(int userId, Date startDate);
+    List<TsMain> getTimeSheetDateFor(int userId, Date startDate, Date endDate);
 }

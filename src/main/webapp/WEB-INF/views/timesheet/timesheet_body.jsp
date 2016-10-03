@@ -25,20 +25,18 @@
                 <td class="proj_name_ts">
                     Project Name & Bill Code
                 </td>
+                    <c:forEach items="${dateList}" var="date" varStatus="statusOfHeader">
+                        <td class="slot_ts"><fmt:formatDate value="${date.date}" pattern="MM/dd/yyyy" /> ${date.day}</td>
+
+                            <input type="hidden" name="dateOfMonday" value="<fmt:formatDate value="${date.date}" pattern="MM/dd/yyyy" />"/>
+                    </c:forEach>
             </tr>
                 <c:forEach items="${projTsList}" var="projTs" varStatus="status">
                     <tr>
-                        <td class="proj_name_ts">
+                        <td class="proj_name_ts" colspan="8">
                             <strong>${projTs.project.name}</strong>
                         </td>
-                        <c:if test="${status.first}">
-                            <c:forEach items="${dateList}" var="date" varStatus="statusOfHeader">
-                                <td class="slot_ts"><fmt:formatDate value="${date.date}" pattern="MM/dd/yyyy" /> ${date.day}</td>
-                                <c:if test="${statusOfHeader.first}">
-                                    <input type="hidden" name="dateOfMonday" value="<fmt:formatDate value="${date.date}" pattern="MM/dd/yyyy" />"/>
-                                </c:if>
-                            </c:forEach>
-                        </c:if>
+
                     </tr>
                     <c:forEach items="${projTs.billCodeList}" var="billCodeTs">
                         <tr class="slot_tr_ts">
@@ -87,10 +85,10 @@
                 </c:forEach>
             </tr>
             <tr>
-                <td class="proj_name_ts">
+                <td class="proj_name_ts" >
                     <strong>Sum:</strong>
                 </td>
-                <td style="text-align: center;" id="hrs_sum">
+                <td style="text-align:center;" id="hrs_sum" colspan="7">
                     0
                 </td>
             </tr>
