@@ -2,6 +2,9 @@ package com.dz.test;
 
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.regex.Pattern;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -15,5 +18,11 @@ public class dummyTest {
 
         System.out.println(bCEncoder.matches("1", "$2a$10$buNS49tuUVqCzKcAyqxAT.73H/9I44C43B4iJcq4IK0dB3uqodb0G"));
         assertTrue(true);
+    }
+
+    @Test
+    public void testTsInputKey() {
+        String input = "0_0_adf";
+        assertTrue(input.matches("^[0-9]+_[0-9]+_[A-Za-z]+$"));
     }
 }

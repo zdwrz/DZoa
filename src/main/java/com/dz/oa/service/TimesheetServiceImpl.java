@@ -3,6 +3,7 @@ package com.dz.oa.service;
 import com.dz.oa.dao.TimesheetDAO;
 import com.dz.oa.dao.UserDAO;
 import com.dz.oa.entity.*;
+import com.dz.oa.exception.TimesheetException;
 import com.dz.oa.utility.OaUtils;
 import com.dz.oa.vo.*;
 import org.hibernate.Hibernate;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -39,6 +42,37 @@ public class TimesheetServiceImpl implements TimesheetService {
         }
         return resList;
     }
+
+    @Override
+    public void saveTs(Date dateOfMonday, Map<String, String> allInputs) throws TimesheetException {
+        if(dateOfMonday == null){
+            throw new TimesheetException("dateofmonday is null");
+        }
+        if(checkInputsForTs(allInputs)){
+            throw new TimesheetException("input not valid");
+        }
+        for (String key : allInputs.keySet()) {
+
+
+
+        }
+    }
+
+    private static final Pattern VALID_TS_INPUT_KEY = Pattern.compile("^[0-9]+_[0-9]+_[A-Za-z]+$");
+
+    private boolean checkInputsForTs(Map<String, String> allInputs) {
+        boolean res = true;
+        Matcher matcher = null;
+        for (String key : allInputs.keySet()) {
+            matcher = VALID_TS_INPUT_KEY .matcher(key);
+            if(!matcher.matches()){
+                res = false;
+                break;
+            }
+        }
+        return res;
+    }
+
     @Override
     @Transactional(readOnly = true)
     public List<TimeSheetProjectVO> getProjTimesheetData(Integer offset, int userId) {
