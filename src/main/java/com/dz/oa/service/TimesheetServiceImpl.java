@@ -6,6 +6,8 @@ import com.dz.oa.entity.*;
 import com.dz.oa.exception.TimesheetException;
 import com.dz.oa.utility.OaUtils;
 import com.dz.oa.vo.*;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 @Service
 public class TimesheetServiceImpl implements TimesheetService {
 
+    private final static Logger LOGGER = Logger.getLogger(TimesheetServiceImpl.class);
 
     @Autowired
     TimesheetDAO timesheetDAO;
@@ -44,17 +47,46 @@ public class TimesheetServiceImpl implements TimesheetService {
     }
 
     @Override
-    public void saveTs(Date dateOfMonday, Map<String, String> allInputs) throws TimesheetException {
+    @Transactional(rollbackFor = {TimesheetException.class,RuntimeException.class})
+    public void saveTs(Date dateOfMonday, Map<String, String> allInputs, int userId) throws TimesheetException {
         if(dateOfMonday == null){
             throw new TimesheetException("dateofmonday is null");
         }
         if(checkInputsForTs(allInputs)){
             throw new TimesheetException("input not valid");
         }
-        for (String key : allInputs.keySet()) {
+        try {
+            for (String key : allInputs.keySet()) {
+                if( StringUtils.isEmpty(allInputs.get(key))){
+                    continue;//skip the empty inputs
+                }
+                String[] splitKey = key.split("_");
+                int projId = Integer.parseInt(splitKey[0]);
+                int billCodeId = Integer.parseInt(splitKey[1]);
+                String weekDay = splitKey[2];
+                Date slotDate = OaUtils.getDateOfWeekDay(dateOfMonday, weekDay);//TODO test
+                TsSlotLookup slot = timesheetDAO.createSlot(slotDate);
+                if (splitKey.length == 3) {
+                    //hour information
+                    int hour = Integer.parseInt(allInputs.get(key));
+                    TsMain main = new TsMain();
+                    main.setUser(new User(userId));
+                    main.setBillCode(new TsBillCodeLookup(billCodeId));
+                    main.setSlot(slot);
+                    main.setValue(hour);
+                    main.setComment(allInputs.get(key+"_comment"));
+                    timesheetDAO.saveTimeSheetMain(main);
+                } else if (splitKey.length == 4) {
+                    //comment information, ignored
+                    //String comment = splitKey[3];
 
-
-
+                } else {
+                    throw new TimesheetException("input not valid");
+                }
+            }
+        }catch (NumberFormatException e){
+            LOGGER.error(e);
+            throw new TimesheetException("Cannot parse projId and billCodeId");
         }
     }
 

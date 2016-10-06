@@ -14,7 +14,9 @@ $(document).ready(function(){
         $("#ts_hours").val(hrs);
         $("#slot_input_modal_dialog").modal("toggle");
     });
-
+    $('#slot_input_modal_dialog').on('shown.bs.modal', function () {
+        $("#ts_hours").focus();
+    })
     $("#ts_dialog").on("click","#ts_yes_button",function(){
         var newHrs = $("#ts_hours").val();
         var newCmnt = $("#ts_comment").val();

@@ -1,8 +1,10 @@
 package com.dz.test;
 
+import com.dz.oa.utility.OaUtils;
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertTrue;
@@ -24,5 +26,14 @@ public class dummyTest {
     public void testTsInputKey() {
         String input = "0_0_adf";
         assertTrue(input.matches("^[0-9]+_[0-9]+_[A-Za-z]+$"));
+    }
+
+    @Test
+    public void testUtilDate(){
+        Date dateOfMonday = new Date();
+        String weekDay = "sunday";
+        Date slotDate = OaUtils.getDateOfWeekDay(dateOfMonday, weekDay);
+        System.out.println(dateOfMonday);
+        System.out.println(slotDate);
     }
 }

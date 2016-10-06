@@ -16,5 +16,5 @@ public interface TimesheetService {
 
     public List<TimeSheetDateVO> getCurrentTimesheetDate(Integer offset);
 
-    void saveTs(Date dateOfMonday, Map<String, String> allInputs) throws TimesheetException;
+    void saveTs(Date dateOfMonday, Map<String, String> allInputs, int userId) throws TimesheetException;
 }

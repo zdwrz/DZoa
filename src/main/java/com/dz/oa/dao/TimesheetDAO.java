@@ -1,6 +1,7 @@
 package com.dz.oa.dao;
 
 import com.dz.oa.entity.TsMain;
+import com.dz.oa.entity.TsSlotLookup;
 
 import java.util.Date;
 import java.util.List;
@@ -11,4 +12,8 @@ import java.util.List;
 public interface TimesheetDAO {
 
     List<TsMain> getTimeSheetDateFor(int userId, Date startDate, Date endDate);
+
+    TsSlotLookup createSlot(Date slotDate);
+
+    TsMain saveTimeSheetMain(TsMain main);
 }
