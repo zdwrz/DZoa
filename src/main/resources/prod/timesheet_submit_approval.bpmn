@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="www.aweiz.com">
+  <process id="time_sheet_process" name="Time Sheet Process" isExecutable="true">
+    <startEvent id="timesheet_submit" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="ts_submit_id" name="ts_submit_id" writable="false" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="ts_validation" name="Validate Timssheet" activiti:expression="#{approvalTsService.validate(execution)}"></serviceTask>
+    <exclusiveGateway id="valid" name="Valid"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="ts_validation" targetRef="valid"></sequenceFlow>
+    <serviceTask id="disable_and_save_for_approval" name="Save for approval" activiti:expression="#{approvalTsService.save(execution)}"></serviceTask>
+    <sequenceFlow id="flow3" name="Valid" sourceRef="valid" targetRef="disable_and_save_for_approval">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${valid == true}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="invalid_ts_notification" name="Invalid_notification" activiti:expression="#{approvalTsService.invalidNotify(execution)}"></serviceTask>
+    <sequenceFlow id="flow5" name="Invalid" sourceRef="valid" targetRef="invalid_ts_notification">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${valid == false}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="approve_decision" name="Approver Review">
+      <extensionElements>
+        <activiti:formProperty id="tsId" name="tsId" writable="true" required="true"></activiti:formProperty>
+      </extensionElements>
+      <humanPerformer>
+        <resourceAssignmentExpression>
+          <formalExpression>${reviewerName}</formalExpression>
+        </resourceAssignmentExpression>
+      </humanPerformer>
+    </userTask>
+    <sequenceFlow id="flow7" sourceRef="disable_and_save_for_approval" targetRef="approve_decision"></sequenceFlow>
+    <exclusiveGateway id="approval_result" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow8" sourceRef="approve_decision" targetRef="approval_result"></sequenceFlow>
+    <serviceTask id="timesheet_approved_task" name="Approval" activiti:expression="#{approvalTsService.approve(execution)}"></serviceTask>
+    <sequenceFlow id="flow9" name="Approved" sourceRef="approval_result" targetRef="timesheet_approved_task">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${requestApproved == true}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow11" sourceRef="timesheet_approved_task" targetRef="endevent2"></sequenceFlow>
+    <serviceTask id="deny_task" name="Denial Task" activiti:expression="#{approvalTsService.deny(execution)}"></serviceTask>
+    <sequenceFlow id="flow12" name="Denied" sourceRef="approval_result" targetRef="deny_task">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${requestApproved == false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="deny_task" targetRef="scripttask1"></sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="scripttask1" targetRef="endevent2"></sequenceFlow>
+    <scriptTask id="scripttask1" name="Email Notification Task" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>out:println "send email...."</script>
+    </scriptTask>
+    <sequenceFlow id="flow15" sourceRef="invalid_ts_notification" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="timesheet_submit" targetRef="ts_validation"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_time_sheet_process">
+    <bpmndi:BPMNPlane bpmnElement="time_sheet_process" id="BPMNPlane_time_sheet_process">
+      <bpmndi:BPMNShape bpmnElement="timesheet_submit" id="BPMNShape_timesheet_submit">
+        <omgdc:Bounds height="35.0" width="35.0" x="176.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ts_validation" id="BPMNShape_ts_validation">
+        <omgdc:Bounds height="55.0" width="105.0" x="300.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="valid" id="BPMNShape_valid">
+        <omgdc:Bounds height="40.0" width="40.0" x="460.0" y="117.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="disable_and_save_for_approval" id="BPMNShape_disable_and_save_for_approval">
+        <omgdc:Bounds height="55.0" width="105.0" x="570.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="invalid_ts_notification" id="BPMNShape_invalid_ts_notification">
+        <omgdc:Bounds height="55.0" width="105.0" x="428.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approve_decision" id="BPMNShape_approve_decision">
+        <omgdc:Bounds height="55.0" width="105.0" x="709.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approval_result" id="BPMNShape_approval_result">
+        <omgdc:Bounds height="40.0" width="40.0" x="742.0" y="246.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timesheet_approved_task" id="BPMNShape_timesheet_approved_task">
+        <omgdc:Bounds height="55.0" width="105.0" x="900.0" y="239.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1050.0" y="249.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="1050.0" y="249.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="deny_task" id="BPMNShape_deny_task">
+        <omgdc:Bounds height="55.0" width="105.0" x="710.0" y="345.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="910.0" y="345.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="405.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="460.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="500.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="137.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="23.0" x="529.0" y="137.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="480.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="75.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="31.0" x="495.0" y="91.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="675.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="709.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="761.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="762.0" y="246.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="782.0" y="266.0"></omgdi:waypoint>
+        <omgdi:waypoint x="900.0" y="266.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="47.0" x="782.0" y="266.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="1005.0" y="266.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1050.0" y="266.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="762.0" y="286.0"></omgdi:waypoint>
+        <omgdi:waypoint x="762.0" y="345.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="34.0" x="768.0" y="319.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="815.0" y="372.0"></omgdi:waypoint>
+        <omgdi:waypoint x="910.0" y="372.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="1015.0" y="372.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="372.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="284.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="533.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="249.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="211.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
