@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="DZoa:war exploded">
-    <output-path>$PROJECT_DIR$/target/DZoa-1.0-SNAPSHOT</output-path>
+    <output-path>$PROJECT_DIR$/target/DZoa</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -52,10 +52,24 @@
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:4.0.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:4.0.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.activiti:activiti-engine:5.18.0" />
+          <element id="library" level="project" name="Maven: org.activiti:activiti-bpmn-converter:5.18.0" />
+          <element id="library" level="project" name="Maven: org.activiti:activiti-bpmn-model:5.18.0" />
+          <element id="library" level="project" name="Maven: org.activiti:activiti-process-validation:5.18.0" />
+          <element id="library" level="project" name="Maven: org.activiti:activiti-image-generator:5.18.0" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-email:1.4" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.2" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1.1" />
+          <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.2.5" />
+          <element id="library" level="project" name="Maven: joda-time:joda-time:2.6" />
+          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.6" />
+          <element id="library" level="project" name="Maven: org.activiti:activiti-spring:5.18.0" />
+          <element id="library" level="project" name="Maven: org.codehaus.groovy:groovy-all:2.4.3" />
+          <element id="library" level="project" name="Maven: com.h2database:h2:1.3.168" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/DZoa-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/DZoa/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="DZoa/web/Web" />
     </root>
