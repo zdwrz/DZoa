@@ -1,38 +1,49 @@
 package com.dz.oa.service.activiti.timesheet;
 
+import com.dz.oa.dao.TimesheetDAO;
+import com.dz.oa.dao.UserDAO;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.DelegateExecution;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * The backing service of the process flow.
+ */
 @Service
 public class ApprovalTsService {
-
+	private static final Logger LOGGER = Logger.getLogger(ApprovalTsService.class);
 	@Autowired
 	private RuntimeService runtimeService;
 	@Autowired
 	private TaskService taskService;
-
+	@Autowired
+	private TimesheetDAO tsDAO;
+	@Autowired
+	private UserDAO userDAO;
 	public void deny(DelegateExecution execution) {
-		System.out.println("deny you ts id:" + execution.getVariable("tsSubId") + "  submitterId: " + execution.getVariable("submitterId") + "  reviewerName: " + execution.getVariable("reviewerName"));
+		LOGGER.info("/////////////////////////////////////////deny you ts id:" + execution.getVariable("tsSubId") + "  submitterId: " + execution.getVariable("submitterId") + "  reviewerName: " + execution.getVariable("reviewerName"));
 	}
 	
 	public void validate(DelegateExecution execution) {
-		System.out.println("validate you ts id:" + execution.getVariable("tsSubId") + "  submitterId: " + execution.getVariable("submitterId") + "  reviewerName: " + execution.getVariable("reviewerName"));
+		LOGGER.info("/////////////////////////////////////////validate you ts id:" + execution.getVariable("tsSubId") + "  submitterId: " + execution.getVariable("submitterId") + "  reviewerName: " + execution.getVariable("reviewerName"));
 		execution.setVariable("valid", true);
 	}
 	
 	public void save(DelegateExecution execution) {
-		System.out.println("save you ts id:" + execution.getVariable("tsSubId") + "  submitterId: " + execution.getVariable("submitterId") + "  reviewerName: " + execution.getVariable("reviewerName"));
+		LOGGER.info("/////////////////////////////////////////save you ts id:" + execution.getVariable("tsSubId") + "  submitterId: " + execution.getVariable("submitterId") + "  reviewerName: " + execution.getVariable("reviewerName"));
+		Integer subId = (Integer) execution.getVariable("tsSubId");
+		tsDAO.submitTs(subId);
 	}
 	
 	public void invalidNotify(DelegateExecution execution) {
-		System.out.println("notify you invalid ts id:" + execution.getVariable("tsSubId") + "  submitterId: " + execution.getVariable("submitterId") + "  reviewerName: " + execution.getVariable("reviewerName"));
+		LOGGER.info("/////////////////////////////////////////notify you invalid ts id:" + execution.getVariable("tsSubId") + "  submitterId: " + execution.getVariable("submitterId") + "  reviewerName: " + execution.getVariable("reviewerName"));
 	}
 	
 	public void approve(DelegateExecution execution) {
-		System.out.println("approved you ts id:" + execution.getVariable("tsSubId") + "  submitterId: " + execution.getVariable("submitterId") + "  reviewerName: " + execution.getVariable("reviewerName"));
+		LOGGER.info("/////////////////////////////////////////approved you ts id:" + execution.getVariable("tsSubId") + "  submitterId: " + execution.getVariable("submitterId") + "  reviewerName: " + execution.getVariable("reviewerName"));
 	}
 
 }

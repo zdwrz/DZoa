@@ -1,12 +1,17 @@
 package com.dz.oa.service.activiti.timesheet;
 
 import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.engine.task.Task;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by daweizhuang on 10/14/16.
  */
-public interface TsService {
+public interface TsActivitiService {
      void validate(DelegateExecution execution);
-     void submit(int userId, int tsSubId);
+     Integer submit(int userId, Date dateOfMonday);
      void approve(int userId, int tsSubId);
+     List<Task> getAllTasks(int userId, String taskName);
 }

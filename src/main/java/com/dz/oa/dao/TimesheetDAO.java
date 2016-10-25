@@ -1,5 +1,6 @@
 package com.dz.oa.dao;
 
+import com.dz.oa.entity.TsApproval;
 import com.dz.oa.entity.TsMain;
 import com.dz.oa.entity.TsSlotLookup;
 
@@ -16,4 +17,8 @@ public interface TimesheetDAO {
     TsSlotLookup createSlot(Date slotDate);
 
     TsMain saveTimeSheetMain(TsMain main);
+
+    TsApproval createSubmit(int userId, Date dateOfMonday);
+
+    void submitTs(Integer subId);
 }

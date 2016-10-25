@@ -4,6 +4,7 @@ import com.dz.oa.dao.TimesheetDAO;
 import com.dz.oa.dao.UserDAO;
 import com.dz.oa.entity.*;
 import com.dz.oa.exception.TimesheetException;
+import com.dz.oa.service.activiti.timesheet.TsActivitiService;
 import com.dz.oa.utility.OaUtils;
 import com.dz.oa.vo.*;
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +20,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
+ * Timesheet operation on main database.
  * Created by daweizhuang on 9/27/16.
  */
 @Service
@@ -31,6 +33,9 @@ public class TimesheetServiceImpl implements TimesheetService {
 
     @Autowired
     UserDAO userDAO;
+
+    @Autowired
+    TsActivitiService tsActivitiService;
 
     @Override
     @Transactional(readOnly = true)
@@ -64,7 +69,7 @@ public class TimesheetServiceImpl implements TimesheetService {
                 int projId = Integer.parseInt(splitKey[0]);
                 int billCodeId = Integer.parseInt(splitKey[1]);
                 String weekDay = splitKey[2];
-                Date slotDate = OaUtils.getDateOfWeekDay(dateOfMonday, weekDay);//TODO test
+                Date slotDate = OaUtils.getDateOfWeekDay(dateOfMonday, weekDay);
                 TsSlotLookup slot = timesheetDAO.createSlot(slotDate);
                 if (splitKey.length == 3) {
                     //hour information
@@ -88,6 +93,14 @@ public class TimesheetServiceImpl implements TimesheetService {
             LOGGER.error(e);
             throw new TimesheetException("Cannot parse projId and billCodeId");
         }
+    }
+
+    @Override
+    public boolean submitTs(Date dateOfMonday, int userId) {
+        LOGGER.debug("Starting submiting Timesheet from :" + dateOfMonday + " userID: " + userId);
+        //start activiti process
+        tsActivitiService.submit(userId, dateOfMonday);//timesheet approval table id
+        return true;
     }
 
     private static final Pattern VALID_TS_INPUT_KEY = Pattern.compile("^[0-9]+_[0-9]+_[A-Za-z]+$");

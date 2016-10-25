@@ -23,13 +23,13 @@
 		<property name="defaultAutoCommit" value="false" />
 	</bean>
 
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="activitiTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSourceActiviti" />
 	</bean>
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 		<property name="databaseType" value="mysql" />
 		<property name="dataSource" ref="dataSourceActiviti" />
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionManager" ref="activitiTransactionManager" />
 		<!--<property name="databaseSchemaUpdate" value="true" />-->
 		<property name="databaseSchemaUpdate" value="create-drop" />
 		<property name="deploymentResources">

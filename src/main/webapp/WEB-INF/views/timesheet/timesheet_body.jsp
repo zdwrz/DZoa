@@ -18,7 +18,7 @@
 </style>
 <body>
 <div id="timesheet_body">
-<form id="timesheet_form" action="${pageContext.request.contextPath}/timesheet/save/${weekId}" method="post">
+<form id="timesheet_form" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <table border="solid" class="table_ts" id="table_ts">
             <tr>
@@ -95,8 +95,8 @@
         </table>
         <div class="row">
             <div class="col-md-4" style="margin-top: 20px">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-primary">Save & Submit</button>
+                <button type="submit" class="btn btn-primary" formaction="${pageContext.request.contextPath}/timesheet/save/${weekId}">Save</button>
+                <button type="submit" class="btn btn-primary" formaction="${pageContext.request.contextPath}/timesheet/saveUpdate/${weekId}">Save & Submit</button>
                 <button type="button" class="btn btn-default">Cancel</button>
             </div>
             <div class="col-md-4" style="margin-top: 20px">
