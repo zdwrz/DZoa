@@ -105,4 +105,19 @@ public class TimesheetDAOImpl implements TimesheetDAO {
         int submitterId = approval.getSubmitter().getId();
         em.createNamedQuery("TsMain.updateApprovalStatus").setParameter("startDate", startDate).setParameter("endDate", endDate).setParameter("userId", submitterId).setParameter("subId", subId).executeUpdate();
     }
+
+    @Override
+    public List<TsApproval> getTimeSheetApprovalStatus(Date startMonday, int userId) {
+        return em.createNamedQuery("TsApproval.findByUserIdAndStartMonday",TsApproval.class).setParameter("submitterId", userId).setParameter("startMonday",startMonday).getResultList();
+    }
+
+    @Override
+    public List<TsMain> getTsToApproveFor(int approverId, List<Integer> approvalIdList) {
+        return em.createNamedQuery("TsApproval.findPendingTsToApproveByApproverId",TsMain.class).setParameter("approverId", approverId).setParameter("approvalIdList",approvalIdList).setParameter("statusId", Constants.DEFAULT_TS_SUBMIT_STATUS_ID).getResultList();
+    }
+
+    @Override
+    public void updateApprovalStatus(int tsSubId, int statusId) {
+        em.createNamedQuery("TsApproval.updateStatusById").setParameter("approvalId",tsSubId).setParameter("statusId",statusId).setParameter("statusDate",new Date()).executeUpdate();
+    }
 }

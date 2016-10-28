@@ -30,8 +30,8 @@
 		<property name="databaseType" value="mysql" />
 		<property name="dataSource" ref="dataSourceActiviti" />
 		<property name="transactionManager" ref="activitiTransactionManager" />
-		<!--<property name="databaseSchemaUpdate" value="true" />-->
-		<property name="databaseSchemaUpdate" value="create-drop" />
+		<property name="databaseSchemaUpdate" value="true" />
+		<!--<property name="databaseSchemaUpdate" value="create-drop" />-->
 		<property name="deploymentResources">
 			<list>
 				<value> classpath*:timesheet_submit_approval.bpmn</value>

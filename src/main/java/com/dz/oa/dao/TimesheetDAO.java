@@ -21,4 +21,10 @@ public interface TimesheetDAO {
     TsApproval createSubmit(int userId, Date dateOfMonday);
 
     void submitTs(Integer subId);
+
+    List<TsApproval> getTimeSheetApprovalStatus(Date startMonday, int userId);
+
+    List<TsMain> getTsToApproveFor(int approverId, List<Integer> approvalIdList);
+
+    void updateApprovalStatus(int tsSubId, int i);
 }

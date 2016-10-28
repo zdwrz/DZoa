@@ -8,26 +8,26 @@
     http://www.springframework.org/schema/context 
     http://www.springframework.org/schema/context/spring-context.xsd">
 	<context:component-scan base-package="com.dz.oa.service.activiti" />
-	<!--<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">-->
-	<!--<property name="driverClass" value="org.h2.Driver" />-->
-	<!--<property name="url" value="jdbc:h2:mem:activiti;DB_CLOSE_DELAY=1000" />-->
-	<!--<property name="username" value="sa" />-->
-	<!--<property name="password" value="" />-->
-	<!--</bean>-->
-	<context:property-placeholder location="classpath:database.properties"/>
-	<bean id="dataSourceActiviti" class="org.apache.commons.dbcp.BasicDataSource" >
-		<property name="driverClassName" value="${jdbc.driverClassName}" />
-		<property name="url" value="${jdbc.url.activiti}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<property name="defaultAutoCommit" value="false" />
+	<bean id="dataSourceActiviti" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+	<property name="driverClass" value="org.h2.Driver" />
+	<property name="url" value="jdbc:h2:mem:activiti;DB_CLOSE_DELAY=1000" />
+	<property name="username" value="sa" />
+	<property name="password" value="" />
 	</bean>
+	<context:property-placeholder location="classpath:database.properties"/>
+	<!--<bean id="dataSourceActiviti" class="org.apache.commons.dbcp.BasicDataSource" >-->
+		<!--<property name="driverClassName" value="${jdbc.driverClassName}" />-->
+		<!--<property name="url" value="${jdbc.url.activiti}" />-->
+		<!--<property name="username" value="${jdbc.username}" />-->
+		<!--<property name="password" value="${jdbc.password}" />-->
+		<!--<property name="defaultAutoCommit" value="false" />-->
+	<!--</bean>-->
 
 	<bean id="activitiTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSourceActiviti" />
 	</bean>
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
-		<property name="databaseType" value="mysql" />
+		<property name="databaseType" value="h2" />
 		<property name="dataSource" ref="dataSourceActiviti" />
 		<property name="transactionManager" ref="activitiTransactionManager" />
 		<!--<property name="databaseSchemaUpdate" value="true" />-->

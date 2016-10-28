@@ -14,12 +14,19 @@
     .table_ts{
         border-collapse: collapse;
     }
-
 </style>
 <body>
+<c:out value="${ts_status}"/>
 <div id="timesheet_body">
 <form id="timesheet_form" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <div class="row">
+        <div class="col-md-4" style="margin-top: 20px">
+            <a role="button" class="btn btn-info" href="<c:url value="/timesheet/ts/${weekId - 1}"/>">Prev</a>
+            <a role="button" class="btn btn-info" href="<c:url value="/timesheet/ts/0"/>">Current</a>
+            <a role="button" class="btn btn-info" href="<c:url value="/timesheet/ts/${weekId + 1}"/>">Next</a>
+        </div>
+    </div>
         <table border="solid" class="table_ts" id="table_ts">
             <tr>
                 <td class="proj_name_ts">
@@ -94,16 +101,13 @@
             </tr>
         </table>
         <div class="row">
+            <c:if test="${editable}">
             <div class="col-md-4" style="margin-top: 20px">
                 <button type="submit" class="btn btn-primary" formaction="${pageContext.request.contextPath}/timesheet/save/${weekId}">Save</button>
-                <button type="submit" class="btn btn-primary" formaction="${pageContext.request.contextPath}/timesheet/saveUpdate/${weekId}">Save & Submit</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submit_modal_dialog">Save & Submit</button>
                 <button type="button" class="btn btn-default">Cancel</button>
             </div>
-            <div class="col-md-4" style="margin-top: 20px">
-                <a role="button" class="btn btn-info" href="<c:url value="/timesheet/ts/${weekId - 1}"/>">Prev</a>
-                <a role="button" class="btn btn-info" href="<c:url value="/timesheet/ts/0"/>">Current</a>
-                <a role="button" class="btn btn-info" href="<c:url value="/timesheet/ts/${weekId + 1}"/>">Next</a>
-            </div>
+            </c:if>
         </div>
         </form>
 </div>
@@ -129,5 +133,28 @@
             </div>
         </div>
     </div>
+
+<div class="modal fade" id="submit_modal_dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Delete</h4>
+            </div>
+
+                <div class="modal-body">
+                    <fieldset>
+                        <p class="col-lg-12 ">After submitting the timesheet, you cannot edit it. Are you sure to submit?</p>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary" form="timesheet_form" formaction="${pageContext.request.contextPath}/timesheet/saveUpdate/${weekId}">Yes</button>
+                </div>
+
+        </div>
+    </div>
+</div>
+
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/timesheet.js"></script>

@@ -1,5 +1,7 @@
 package com.dz.oa.service;
 
+import com.dz.oa.entity.TsApproval;
+import com.dz.oa.entity.TsMain;
 import com.dz.oa.exception.TimesheetException;
 import com.dz.oa.vo.TimeSheetDateVO;
 import com.dz.oa.vo.TimeSheetProjectVO;
@@ -19,4 +21,10 @@ public interface TimesheetService {
     void saveTs(Date dateOfMonday, Map<String, String> allInputs, int userId) throws TimesheetException;
 
     boolean submitTs(Date dateOfMonday, int userId);
+
+    boolean approveOrDenyTs(int approverId, int approvalSubId, Boolean approved);
+
+    TsApproval getTimesheetStatus(Integer weekId, int userId);
+
+    Map<TsApproval, List<TsMain>> getPendingSubmittedTs(int approverId);
 }

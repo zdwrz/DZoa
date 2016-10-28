@@ -4,6 +4,7 @@ import com.dz.oa.dao.TimesheetDAO;
 import com.dz.oa.dao.UserDAO;
 import com.dz.oa.entity.TsApproval;
 import com.dz.oa.entity.User;
+import com.dz.oa.utility.Constants;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -14,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * All user task method is defined in this class.
@@ -68,12 +66,13 @@ public class TsActivitiServiceImpl implements TsActivitiService{
 //    }
     @Override
     @Transactional
-    public void approve(int userId, int tsSubId) {
+    public void approve(int userId, int tsSubId, Boolean approved) {
 //        List<Task> tList = taskService.createTaskQuery().list();
         User user = userDAO.findUserById(userId);
         Task aTask = taskService.createTaskQuery().taskAssignee(user.getUserName()).processInstanceBusinessKey(tsSubId + "").taskName("Approver Review").singleResult();
         Map<String, Object> variableMap = new HashMap<String, Object>();
-        variableMap.put("requestApproved", true);
+        variableMap.put("requestApproved", approved);
+        tsDAO.updateApprovalStatus(tsSubId,approved?Constants.TS_APPROVED_ID: Constants.TS_DENIED_ID);
        // taskService.resolveTask(aTask.getId(),variableMap);
         LOGGER.info("/////////////////////////////////////////" + aTask.getName() + " is done. process id is " + tsSubId);
         taskService.complete(aTask.getId(),variableMap);
@@ -87,6 +86,20 @@ public class TsActivitiServiceImpl implements TsActivitiService{
         }
         User user = userDAO.findUserById(userId);
         return taskService.createTaskQuery().taskAssignee(user.getUserName()).taskName(taskName).list();
+    }
+
+    @Override
+    public List<Integer> getAllPendingApprovalTasksId(int approverId) {
+        User user = userDAO.findUserById(approverId);
+        List<Task> reviewTaskList = taskService.createTaskQuery().taskAssignee(user.getUserName()).taskName("Approver Review").list();
+        List<Integer> resList = new ArrayList<>();
+        for(Task task : reviewTaskList) {
+            String pIdStr = runtimeService.createProcessInstanceQuery().processInstanceId(task.getProcessInstanceId()).singleResult().getBusinessKey();
+            if (pIdStr != null) {
+                resList.add(Integer.parseInt(pIdStr));
+            }
+        }
+        return resList;
     }
 
     private String getReviewerName(int tsSubId) {

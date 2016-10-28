@@ -7,6 +7,7 @@ import com.dz.oa.exception.TimesheetException;
 import com.dz.oa.service.activiti.timesheet.TsActivitiService;
 import com.dz.oa.utility.OaUtils;
 import com.dz.oa.vo.*;
+import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
@@ -101,6 +102,48 @@ public class TimesheetServiceImpl implements TimesheetService {
         //start activiti process
         tsActivitiService.submit(userId, dateOfMonday);//timesheet approval table id
         return true;
+    }
+
+    @Override
+    public boolean approveOrDenyTs(int approverId, int approvalSubId, Boolean approved) {
+
+        tsActivitiService.approve(approverId, approvalSubId, approved);//timesheet approval table id
+        return true;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public TsApproval getTimesheetStatus(Integer offset, int userId) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(OaUtils.getMondayOfThisWeek());
+        cal.add(Calendar.WEEK_OF_YEAR, offset);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        List<TsApproval> appList = timesheetDAO.getTimeSheetApprovalStatus(cal.getTime(), userId);
+        if (appList != null && appList.size() > 0){
+            return appList.get(0);
+        }
+        else {
+            return null;
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Map<TsApproval, List<TsMain>> getPendingSubmittedTs(int approverId) {
+        //double check with Activiti process engine
+        //get all current process with task Review
+        //then get data from db using those approvalIds.
+        List<Integer> approvalIdList = tsActivitiService.getAllPendingApprovalTasksId(approverId);
+        if(approvalIdList != null && approvalIdList.size() > 0) {
+            List<TsMain> entityList = timesheetDAO.getTsToApproveFor(approverId, approvalIdList);
+            Map<TsApproval, List<TsMain>> entityMap = entityList.stream().collect(Collectors.groupingBy(o -> o.getApproval()));
+            return entityMap;
+        }else{
+            return null;
+        }
     }
 
     private static final Pattern VALID_TS_INPUT_KEY = Pattern.compile("^[0-9]+_[0-9]+_[A-Za-z]+$");
@@ -201,6 +244,5 @@ public class TimesheetServiceImpl implements TimesheetService {
 
         return resList;
     }
-
 
 }
