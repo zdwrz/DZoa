@@ -104,6 +104,10 @@ public class TimesheetDAOImpl implements TimesheetDAO {
         Date endDate = OaUtils.getTimesheetEndDate(startDate);
         int submitterId = approval.getSubmitter().getId();
         em.createNamedQuery("TsMain.updateApprovalStatus").setParameter("startDate", startDate).setParameter("endDate", endDate).setParameter("userId", submitterId).setParameter("subId", subId).executeUpdate();
+        em.createNativeQuery("update ts_approval a set a.total_hrs = (select sum(value) from ts_main t " +
+                "where t.user_id = ? and t.inactive_ind = 'N' and t.approval_id = ?) where a.id= ?;")
+                .setParameter(1, submitterId).setParameter(2, subId).setParameter(3, subId)
+                .executeUpdate();
     }
 
     @Override
@@ -119,5 +123,19 @@ public class TimesheetDAOImpl implements TimesheetDAO {
     @Override
     public void updateApprovalStatus(int tsSubId, int statusId) {
         em.createNamedQuery("TsApproval.updateStatusById").setParameter("approvalId",tsSubId).setParameter("statusId",statusId).setParameter("statusDate",new Date()).executeUpdate();
+    }
+
+    @Override
+    public List<TsUserEnrollment> getUserEnrollmentByUserId(int userId) {
+        return em.createNamedQuery("TsUserEnrollment.findByUserId",TsUserEnrollment.class).setParameter("userId", userId).getResultList();
+    }
+
+    @Override
+    public TsApproval getTimeSheetApprovalById(Integer id) {
+        List<TsApproval> list = em.createNamedQuery("TsApproval.findById",TsApproval.class).setParameter("id", id).getResultList();
+        if (list != null && list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
     }
 }

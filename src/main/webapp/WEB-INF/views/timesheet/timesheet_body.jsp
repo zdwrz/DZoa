@@ -20,13 +20,13 @@
 <div id="timesheet_body">
 <form id="timesheet_form" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <div class="row">
-        <div class="col-md-4" style="margin-top: 20px">
-            <a role="button" class="btn btn-info" href="<c:url value="/timesheet/ts/${weekId - 1}"/>">Prev</a>
-            <a role="button" class="btn btn-info" href="<c:url value="/timesheet/ts/0"/>">Current</a>
-            <a role="button" class="btn btn-info" href="<c:url value="/timesheet/ts/${weekId + 1}"/>">Next</a>
-        </div>
-    </div>
+    <%--<div class="row">--%>
+        <%--<div class="col-md-4" style="margin-top: 20px">--%>
+            <%--<a role="button" class="btn btn-info" href="<c:url value="/timesheet/ts/${weekId - 1}"/>">Prev</a>--%>
+            <%--<a role="button" class="btn btn-info" href="<c:url value="/timesheet/ts/0"/>">Current</a>--%>
+            <%--<a role="button" class="btn btn-info" href="<c:url value="/timesheet/ts/${weekId + 1}"/>">Next</a>--%>
+        <%--</div>--%>
+    <%--</div>--%>
         <table border="solid" class="table_ts" id="table_ts">
             <tr>
                 <td class="proj_name_ts">
@@ -105,9 +105,11 @@
             <div class="col-md-4" style="margin-top: 20px">
                 <button type="submit" class="btn btn-primary" formaction="${pageContext.request.contextPath}/timesheet/save/${weekId}">Save</button>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submit_modal_dialog">Save & Submit</button>
-                <button type="button" class="btn btn-default">Cancel</button>
             </div>
             </c:if>
+            <div class="col-md-4" style="margin-top: 20px">
+                <button type="button" class="btn btn-default"><a href="${pageContext.request.contextPath}/timesheet/ts" >Cancel</a></button>
+            </div>
         </div>
         </form>
 </div>

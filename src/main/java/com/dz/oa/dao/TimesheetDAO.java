@@ -3,6 +3,7 @@ package com.dz.oa.dao;
 import com.dz.oa.entity.TsApproval;
 import com.dz.oa.entity.TsMain;
 import com.dz.oa.entity.TsSlotLookup;
+import com.dz.oa.entity.TsUserEnrollment;
 
 import java.util.Date;
 import java.util.List;
@@ -27,4 +28,8 @@ public interface TimesheetDAO {
     List<TsMain> getTsToApproveFor(int approverId, List<Integer> approvalIdList);
 
     void updateApprovalStatus(int tsSubId, int i);
+
+    List<TsUserEnrollment> getUserEnrollmentByUserId(int userId);
+
+    TsApproval getTimeSheetApprovalById(Integer aId);
 }

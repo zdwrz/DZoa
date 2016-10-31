@@ -1,9 +1,9 @@
 package com.dz.oa.service;
 
 import com.dz.oa.entity.TsApproval;
-import com.dz.oa.entity.TsMain;
 import com.dz.oa.exception.TimesheetException;
 import com.dz.oa.vo.TimeSheetDateVO;
+import com.dz.oa.vo.TimeSheetListItemVO;
 import com.dz.oa.vo.TimeSheetProjectVO;
 
 import java.util.Date;
@@ -16,6 +16,8 @@ import java.util.Map;
 public interface TimesheetService {
     List<TimeSheetProjectVO>  getProjTimesheetData(Integer offset, int userId);
 
+    List<TimeSheetProjectVO> getProjTimesheetDate(int userId, Date startDate, Date endDate);
+
     List<TimeSheetDateVO> getCurrentTimesheetDate(Integer offset);
 
     void saveTs(Date dateOfMonday, Map<String, String> allInputs, int userId) throws TimesheetException;
@@ -26,5 +28,7 @@ public interface TimesheetService {
 
     TsApproval getTimesheetStatus(Integer weekId, int userId);
 
-    Map<TsApproval, List<TsMain>> getPendingSubmittedTs(int approverId);
+    Map<TsApproval,List<TimeSheetProjectVO>> getPendingSubmittedTs(int approverId);
+
+    List<TimeSheetListItemVO> getTimesheetListForUser(int userId);
 }

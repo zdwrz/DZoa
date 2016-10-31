@@ -75,8 +75,7 @@ public class GeneralTest {
         List<Integer> approvalIdList = tsService.getAllPendingApprovalTasksId(1);
         approvalIdList.forEach(System.out::println);
         assertTrue(approvalIdList.size() == 3);
-        Map<TsApproval, List<TsMain>> resMap = timesheetServiceTop.getPendingSubmittedTs(1);
-        assertTrue(resMap.size() == 1);
+
 
     }
 }
