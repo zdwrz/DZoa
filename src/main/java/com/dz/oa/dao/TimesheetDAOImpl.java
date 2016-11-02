@@ -121,8 +121,8 @@ public class TimesheetDAOImpl implements TimesheetDAO {
     }
 
     @Override
-    public void updateApprovalStatus(int tsSubId, int statusId) {
-        em.createNamedQuery("TsApproval.updateStatusById").setParameter("approvalId",tsSubId).setParameter("statusId",statusId).setParameter("statusDate",new Date()).executeUpdate();
+    public void updateApprovalStatus(int tsSubId, String comment, int statusId) {
+        em.createNamedQuery("TsApproval.updateStatusById").setParameter("approvalId",tsSubId).setParameter("statusId",statusId).setParameter("comment",comment).setParameter("statusDate",new Date()).executeUpdate();
     }
 
     @Override

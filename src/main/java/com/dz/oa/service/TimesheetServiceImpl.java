@@ -104,9 +104,9 @@ public class TimesheetServiceImpl implements TimesheetService {
     }
 
     @Override
-    public boolean approveOrDenyTs(int approverId, int approvalSubId, Boolean approved) {
+    public boolean approveOrDenyTs(int approverId, int approvalSubId, String comment, Boolean approved) {
 
-        tsActivitiService.approve(approverId, approvalSubId, approved);//timesheet approval table id
+        tsActivitiService.approve(approverId, approvalSubId, comment, approved);//timesheet approval table id
         return true;
     }
 
@@ -140,12 +140,24 @@ public class TimesheetServiceImpl implements TimesheetService {
         if(approvalIdList != null && approvalIdList.size() > 0) {
             for (Integer aId : approvalIdList) {
                 TsApproval approval = timesheetDAO.getTimeSheetApprovalById(aId);
+                setApprovalDateList(approval);
                 if(approval !=null){
                     resultMap.put(approval,this.getProjTimesheetDate(approval.getSubmitter().getId(),approval.getStartMonday()));
                 }
             }
         }
         return resultMap;
+    }
+
+    private void setApprovalDateList(final TsApproval approval) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(OaUtils.trimTimeFromDate(approval.getStartMonday()));
+        List<Date> dateList = new ArrayList<>();
+        for(int i = 0 ; i < 7; i++) {
+            dateList.add(cal.getTime());
+            cal.add(Calendar.DAY_OF_MONTH,1);
+        }
+        approval.setDateList(dateList);
     }
 
     @Override
@@ -165,7 +177,7 @@ public class TimesheetServiceImpl implements TimesheetService {
         int offset = OaUtils.getOffsetOf(entity.getStartDate());
         List<TimeSheetListItemVO> resList = new ArrayList<>();
         Date startDate = entity.getStartDate();
-        for(int i = 0; i >= offset ; i--) {
+        for(int i = offset; i <= 0 ; i++) {
             Date endDate = OaUtils.getTimesheetEndDate(startDate);
             TimeSheetListItemVO vo = new TimeSheetListItemVO(i,startDate,endDate);
             TsApproval approvalStatus = getTimesheetStatus(i,userId);

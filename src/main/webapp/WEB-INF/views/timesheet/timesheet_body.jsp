@@ -17,7 +17,12 @@
 </style>
 <body>
 <c:out value="${ts_status}"/>
-<div id="timesheet_body">
+<c:out value="${status_comment}"/>
+
+<div class="panel panel-default">
+<div class="panel-body">
+
+<div id="timesheet_body"  class="center-block col-md-10" style="float: none;">
 <form id="timesheet_form" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <%--<div class="row">--%>
@@ -75,7 +80,7 @@
                                 <input type="hidden" class="slot_ts_comment" value="${billCodeTs.slots.saturday.comment}" name="${projTs.project.id}_${billCodeTs.billCode.id}_saturday_comment"/>
                             </td>
                             <td class="slot_td_ts">
-                                <input type="text" class="slot_ts" value="${billCodeTs.slots.sunday.value}"  name="${projTs.project.id}_${billCodeTs.billCode.id}_sunday"/>
+                                <input type="text" readonly class="slot_ts" value="${billCodeTs.slots.sunday.value}"  name="${projTs.project.id}_${billCodeTs.billCode.id}_sunday"/>
                                 <input type="hidden" class="slot_ts_comment" value="${billCodeTs.slots.sunday.comment}" name="${projTs.project.id}_${billCodeTs.billCode.id}_sunday_comment"/>
                             </td>
                         </tr>
@@ -108,12 +113,13 @@
             </div>
             </c:if>
             <div class="col-md-4" style="margin-top: 20px">
-                <button type="button" class="btn btn-default"><a href="${pageContext.request.contextPath}/timesheet/ts" >Cancel</a></button>
+                <a href="${pageContext.request.contextPath}/timesheet/ts" ><button type="button" class="btn btn-default">Cancel</button></a>
             </div>
         </div>
         </form>
 </div>
 
+</div></div>
     <div class="modal fade" id="slot_input_modal_dialog" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -160,3 +166,10 @@
 
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/timesheet.js"></script>
+<c:if test="${not editable}">
+    <script>
+        $(document).ready(function () {
+            $(".slot_ts").prop('disabled', true);
+        });
+    </script>
+</c:if>

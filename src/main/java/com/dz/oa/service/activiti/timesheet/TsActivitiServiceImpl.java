@@ -66,13 +66,13 @@ public class TsActivitiServiceImpl implements TsActivitiService{
 //    }
     @Override
     @Transactional
-    public void approve(int userId, int tsSubId, Boolean approved) {
+    public void approve(int userId, int tsSubId, String comment, Boolean approved) {
 //        List<Task> tList = taskService.createTaskQuery().list();
         User user = userDAO.findUserById(userId);
         Task aTask = taskService.createTaskQuery().taskAssignee(user.getUserName()).processInstanceBusinessKey(tsSubId + "").taskName("Approver Review").singleResult();
         Map<String, Object> variableMap = new HashMap<String, Object>();
         variableMap.put("requestApproved", approved);
-        tsDAO.updateApprovalStatus(tsSubId,approved?Constants.TS_APPROVED_ID: Constants.TS_DENIED_ID);
+        tsDAO.updateApprovalStatus(tsSubId,comment,approved?Constants.TS_APPROVED_ID: Constants.TS_DENIED_ID);
        // taskService.resolveTask(aTask.getId(),variableMap);
         LOGGER.info("/////////////////////////////////////////" + aTask.getName() + " is done. process id is " + tsSubId);
         taskService.complete(aTask.getId(),variableMap);

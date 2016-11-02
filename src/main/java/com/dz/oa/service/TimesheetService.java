@@ -24,7 +24,7 @@ public interface TimesheetService {
 
     boolean submitTs(Date dateOfMonday, int userId);
 
-    boolean approveOrDenyTs(int approverId, int approvalSubId, Boolean approved);
+    boolean approveOrDenyTs(int approverId, int approvalSubId, String comment, Boolean approved);
 
     TsApproval getTimesheetStatus(Integer weekId, int userId);
 

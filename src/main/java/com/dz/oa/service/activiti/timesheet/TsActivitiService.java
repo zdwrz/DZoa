@@ -12,7 +12,7 @@ import java.util.List;
 public interface TsActivitiService {
      void validate(DelegateExecution execution);
      Integer submit(int userId, Date dateOfMonday);
-     void approve(int userId, int tsSubId, Boolean approved);
+     void approve(int userId, int tsSubId, String comment, Boolean approved);
      List<Task> getAllTasks(int userId, String taskName);
 
     List<Integer> getAllPendingApprovalTasksId(int approverId);

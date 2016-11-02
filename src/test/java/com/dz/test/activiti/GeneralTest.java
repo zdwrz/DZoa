@@ -24,8 +24,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by daweizhuang on 10/21/16.
@@ -60,9 +60,9 @@ public class GeneralTest {
         int subId13 = tsService.submit(1,new Date());
         List<Task> taskList = tsService.getAllTasks(1,null);
         assertTrue(taskList.size() == 3);
-        tsService.approve(1,subId13, true);
-        tsService.approve(1,subId1, true);
-        tsService.approve(1,subId12, true);
+        tsService.approve(1,subId13,"Yes", true);
+        tsService.approve(1,subId1, "Yes",true);
+        tsService.approve(1,subId12, "Yes",true);
         taskList = tsService.getAllTasks(1,null);
         assertTrue(taskList.size() == 0);
     }

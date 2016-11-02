@@ -27,7 +27,7 @@ public interface TimesheetDAO {
 
     List<TsMain> getTsToApproveFor(int approverId, List<Integer> approvalIdList);
 
-    void updateApprovalStatus(int tsSubId, int i);
+    void updateApprovalStatus(int tsSubId, String comment, int i);
 
     List<TsUserEnrollment> getUserEnrollmentByUserId(int userId);
 
