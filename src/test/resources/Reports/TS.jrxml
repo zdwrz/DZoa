@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-11-02T17:19:26 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TS" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2541aeac-653e-40aa-b7bd-9f87021264d8">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="monday" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="tuesday" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="wednesday" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="thursday" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="friday" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="saturday" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="sunday" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="submitter" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="approver" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="comment" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="statusDate" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="status" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="totalHours" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="projectName" class="java.lang.String"/>
+	<field name="billCode" class="java.lang.String"/>
+	<field name="hours1" class="java.lang.Integer"/>
+	<field name="hours2" class="java.lang.Integer"/>
+	<field name="hours3" class="java.lang.Integer"/>
+	<field name="hours4" class="java.lang.Integer"/>
+	<field name="hours5" class="java.lang.Integer"/>
+	<field name="hours6" class="java.lang.Integer"/>
+	<field name="hours7" class="java.lang.Integer"/>
+	<field name="comment" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="13" y="5" width="106" height="19" forecolor="#000000" uuid="ff783f3b-1eaa-42a6-bc02-a0d71ff65290"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["Status: " + $P{status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="5" width="176" height="19" forecolor="#000000" uuid="4045c672-8525-4917-bb84-228363cc9a41"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["Approved By: " + $P{approver}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="5" width="142" height="19" forecolor="#000000" uuid="adddf324-0643-40e4-b8ea-528832c70313"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["Submitted By: "+$P{submitter}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="5" width="230" height="19" forecolor="#000000" uuid="22b12bcf-fd95-426e-a88f-4680f69e9e3d"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["Status Date: " + DATEFORMAT($P{wednesday},"MM/dd/yyyy")]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement x="420" y="0" width="40" height="19" uuid="f2ed5ba3-3d33-4deb-9f33-2c3ce1f4cc90">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box padding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[DATEFORMAT($P{monday},"MM/dd")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="40" height="19" uuid="6edd2e94-fe62-40a8-864c-1f65e26c945f"/>
+				<box padding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[DATEFORMAT($P{tuesday},"MM/dd")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="580" y="0" width="40" height="19" uuid="2a06266d-7739-4b9c-b4b9-9327cb2a870b"/>
+				<box padding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[DATEFORMAT($P{friday},"MM/dd")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="660" y="0" width="40" height="19" uuid="fb314c33-f5c5-4aa2-a466-e5734d86f0f6">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box padding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[DATEFORMAT($P{sunday},"MM/dd")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="540" y="0" width="40" height="19" uuid="11630fc7-44b7-4142-a016-5327bed97024"/>
+				<box padding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[DATEFORMAT($P{thursday},"MM/dd")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="620" y="0" width="40" height="19" uuid="2a9cf10e-6dad-4bd3-8460-54fce84c61b8"/>
+				<box padding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[DATEFORMAT($P{saturday},"MM/dd")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="0" width="40" height="19" uuid="3f4a6dee-9337-4ad3-9600-efbe8b756d9c"/>
+				<box padding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[DATEFORMAT($P{wednesday},"MM/dd")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="420" height="19" uuid="171ca1d2-7269-4437-ac54-f67f44cc7ced"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Project & Bill Code]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="420" y="0" width="40" height="24" uuid="b73382a4-fa85-4e97-aa58-2a4d67a9fe11">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box padding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hours1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="200" y="0" width="220" height="24" uuid="e1751695-d7e5-457d-ae5b-b9830854f083"/>
+				<box padding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<paragraph firstLineIndent="5" leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{billCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="200" height="24" uuid="76df3ab0-524f-4b84-a527-6915d69567f9"/>
+				<box padding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph firstLineIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{projectName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="460" y="0" width="40" height="24" uuid="4de3c153-073c-4ba0-9217-8b2c8ad06253"/>
+				<box padding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hours2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="500" y="0" width="40" height="24" uuid="761f96e6-ed9d-47bc-9b14-ffc91c2c6a6d"/>
+				<box padding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hours3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="540" y="0" width="40" height="24" uuid="b7937d3d-456d-4456-b545-30a7b4c25b9f"/>
+				<box padding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hours4}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="580" y="0" width="40" height="24" uuid="48d5aea8-7815-4d4b-9f52-36c3715955cc"/>
+				<box padding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hours5}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="620" y="0" width="40" height="24" uuid="e52f7890-21d1-4c70-b43a-fabe2fb66e6c"/>
+				<box padding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hours6}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="660" y="0" width="40" height="24" uuid="b2622478-a190-4edc-aa57-a8e1f01837f9"/>
+				<box padding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hours7}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="38" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="19" width="570" height="19" uuid="9c7132cd-3e61-4a5f-bcbc-daa73b7cc0d9"/>
+				<textFieldExpression><![CDATA["Comment: "+$P{comment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="188" height="19" uuid="a239379b-f384-4be8-9ccf-f064d0103175"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Total: " + $P{totalHours} + " hours."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="570" y="19" width="80" height="19" forecolor="#000000" uuid="64f401ea-215e-45bc-b5ff-832fbf55fa13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="650" y="19" width="40" height="19" forecolor="#000000" uuid="d001d93e-359f-4ddf-84df-8403bc9ca8f0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
