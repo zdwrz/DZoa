@@ -41,24 +41,24 @@ public class ReportTest {
 
     @Autowired
     PDFReportService PDFReportService;
+//    @Test
+//    @Ignore
+//    public void testReport() throws JRException {
+//        String jasperFileName = "/Users/daweizhuang/JaspersoftWorkspace/MyReports/Timesheet_report.jasper";
+//        HashMap<String, Object> parameters = new HashMap<>();
+////		Class.forName("com.mysql.jdbc.Driver");
+////		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+////		JRDataSource dataSource = new JREmptyDataSource();
+//        List<Apple> testList = new ArrayList<>();
+//        testList.add(new Apple(1,"123123123"));
+//        testList.add(new Apple(2,"asdf"));
+//        testList.add(new Apple(3,"dfg"));
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(testList);
+//        JasperPrint jprint = (JasperPrint) JasperFillManager.fillReport(jasperFileName, parameters, dataSource);
+//        JasperExportManager.exportReportToPdfFile(jprint, "/Users/daweizhuang/Desktop/ts.pdf");
+//    }
     @Test
     @Ignore
-    public void testReport() throws JRException {
-        String jasperFileName = "/Users/daweizhuang/JaspersoftWorkspace/MyReports/Timesheet_report.jasper";
-        HashMap<String, Object> parameters = new HashMap<>();
-//		Class.forName("com.mysql.jdbc.Driver");
-//		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-//		JRDataSource dataSource = new JREmptyDataSource();
-        List<Apple> testList = new ArrayList<>();
-        testList.add(new Apple(1,"123123123"));
-        testList.add(new Apple(2,"asdf"));
-        testList.add(new Apple(3,"dfg"));
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(testList);
-        JasperPrint jprint = (JasperPrint) JasperFillManager.fillReport(jasperFileName, parameters, dataSource);
-        JasperExportManager.exportReportToPdfFile(jprint, "/Users/daweizhuang/Desktop/ts.pdf");
-    }
-    @Test
-    //@Ignore
     public void testReport1() throws JRException {
         int userId = 1;
         int weekId = -3;

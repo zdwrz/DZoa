@@ -2,9 +2,7 @@ package com.dz.oa.service;
 
 import com.dz.oa.converter.TimesheetToReportConverter;
 import com.dz.oa.dao.DocumentDAO;
-import com.dz.oa.entity.TsApproval;
-import com.dz.oa.entity.User;
-import com.dz.oa.entity.UserDocInfo;
+import com.dz.oa.entity.*;
 import com.dz.oa.utility.Constants;
 import com.dz.oa.utility.OaUtils;
 import com.dz.oa.vo.TimeSheetDateVO;
@@ -17,10 +15,13 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +48,11 @@ public class PDFReportServiceImpl implements PDFReportService {
         List<TimeSheetDateVO> dateList = timesheetService.getCurrentTimesheetDate(weekId);
         List<TimeSheetProjectVO> dataList = timesheetService.getProjTimesheetData(weekId, userId);
         TsApproval approvalStatus = timesheetService.getTimesheetStatus(weekId,userId);
-        String jasperFileName = "/Users/daweizhuang/JaspersoftWorkspace/MyReports/TS.jasper";
+
+        String jasperFileName = "TS.jasper";
+        ClassLoader classLoader = getClass().getClassLoader();
+        jasperFileName = classLoader.getResource(jasperFileName).getFile();
+
         HashMap<String, Object> parameters = new HashMap<>();
         for (TimeSheetDateVO vo : dateList) {
             parameters.put(OaUtils.getDayOfWeek(vo.getDate()),vo.getDate());
@@ -64,11 +69,11 @@ public class PDFReportServiceImpl implements PDFReportService {
         JasperPrint jprint = JasperFillManager.fillReport(jasperFileName, parameters, dataSource);
 
         String fileNameStamped = OaUtils.timeStampPrefix("ts.pdf");
-        String fileLocation = tempFileLocation + File.separator + userId + File.separator+ fileNameStamped;
         File file = new File(tempFileLocation+ File.separator + userId );
         if (!file.exists()) {
             file.mkdirs();
         }
+        String fileLocation = file.getAbsolutePath() + File.separator+ fileNameStamped;
         JasperExportManager.exportReportToPdfFile(jprint, fileLocation);
         UserDocInfo docInfo = new UserDocInfo();
         docInfo.setDocName(OaUtils.timeStampPrefix("ts.pdf"));
@@ -76,6 +81,7 @@ public class PDFReportServiceImpl implements PDFReportService {
         docInfo.setFileLocation(fileLocation);
         docInfo.setUser(new User(userId));
         docInfo.setUploadTime(new Date());
+        docInfo.setDocType(new AdminLookup(Constants.TIMESHEET_LOOKUP_ID));
         UserDocInfo udi = docDAO.saveFileInfo(docInfo);
         return udi.getId();
     }

@@ -106,15 +106,25 @@
             </tr>
         </table>
         <div class="row">
+            <div class="col-md-6" style="margin-top: 20px">
+
             <c:if test="${editable}">
-            <div class="col-md-4" style="margin-top: 20px">
                 <button type="submit" class="btn btn-primary" formaction="${pageContext.request.contextPath}/timesheet/save/${weekId}">Save</button>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submit_modal_dialog">Save & Submit</button>
-            </div>
             </c:if>
-            <div class="col-md-4" style="margin-top: 20px">
-                <a href="${pageContext.request.contextPath}/timesheet/ts" ><button type="button" class="btn btn-default">Cancel</button></a>
-            </div>
+
+
+                    <c:if test="${not editable}">
+                    <a onclick="downloadFile(${weekId},${submitterId});">
+                        <button class="btn btn-primary btn-md" type="button">
+                            <span class="glyphicon glyphicon-save"></span>Export
+                        </button>
+                    </a>
+                    </c:if>
+                    <a href="${pageContext.request.contextPath}/timesheet/ts">
+                        <button type="button" class="btn btn-default">Cancel</button>
+                    </a>
+
         </div>
         </form>
 </div>
@@ -163,9 +173,20 @@
         </div>
     </div>
 </div>
-
+<form id="pdf_download_form" action="<c:url value="/timesheet/export/pdf"/>" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <input type="hidden" id="week_id" name="weekId"/>
+    <input type="hidden" id="user_id" name="userId"/>
+</form>
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/timesheet.js"></script>
+<script>
+    function downloadFile(weekId,userId){
+        $("#week_id").val(weekId);
+        $("#user_id").val(userId);
+        $("#pdf_download_form").submit();
+    }
+</script>
 <c:if test="${not editable}">
     <script>
         $(document).ready(function () {

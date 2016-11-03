@@ -2,7 +2,9 @@
 # DzOA
 TODO: Write a project description
 ## Installation
-TODO: Describe the installation process
+Install JasperReport function to maven repo
+mvn install:install-file -Dfile="/Users/daweizhuang/workspace/DZoa/src/main/resources/jasperLib/jasperreports-functions-6.3.1.jar" -DgroupId=JasperReports -DartifactId=Jasper-function -Dversion=6.3.1 -Dpackaging=jar
+
 ## Usage
 TODO: Write usage instructions
 ## Contributing
