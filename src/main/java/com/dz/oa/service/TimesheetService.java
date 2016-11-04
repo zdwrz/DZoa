@@ -22,7 +22,7 @@ public interface TimesheetService {
 
     void saveTs(Date dateOfMonday, Map<String, String> allInputs, int userId) throws TimesheetException;
 
-    boolean submitTs(Date dateOfMonday, int userId);
+    boolean submitTs(Date dateOfMonday, int userId, boolean isResubmit);
 
     boolean approveOrDenyTs(int approverId, int approvalSubId, String comment, Boolean approved);
 

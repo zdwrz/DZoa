@@ -7,6 +7,7 @@ import com.dz.oa.utility.Constants;
 import com.dz.oa.vo.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,9 @@ public class TimesheetToReportConverter {
             for (int i = 0 ; i < tsvo.getBillCodeList().size(); i++) {
                 TsBillCodeLookup code = tsvo.getBillCodeList().get(i).getBillCode();
                 Map<String, TimeSheetSlotVO> valueMap = tsvo.getBillCodeList().get(i).getSlots();
+                if(valueMap == null){
+                    valueMap = new HashMap<>();
+                }
                 String projName = "";
                 if(i == 0){
                     projName = project.getName();

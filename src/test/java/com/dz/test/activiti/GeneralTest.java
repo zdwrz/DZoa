@@ -3,8 +3,6 @@ package com.dz.test.activiti;
 import com.dz.oa.config.ActivitiConfig;
 import com.dz.oa.config.MvcConfig;
 import com.dz.oa.config.PersistenceJPAConfig;
-import com.dz.oa.entity.TsApproval;
-import com.dz.oa.entity.TsMain;
 import com.dz.oa.service.TimesheetService;
 import com.dz.oa.service.activiti.timesheet.ApprovalTsService;
 import com.dz.oa.service.activiti.timesheet.TsActivitiService;
@@ -22,7 +20,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -55,9 +52,10 @@ public class GeneralTest {
 
     @Test
     public void testTsSubmit(){
-        int subId1 = tsService.submit(1,new Date());
-        int subId12 = tsService.submit(1,new Date());
-        int subId13 = tsService.submit(1,new Date());
+        boolean isResubmit = false;
+        int subId1 = tsService.submit(1,new Date(), isResubmit);
+        int subId12 = tsService.submit(1,new Date(), isResubmit);
+        int subId13 = tsService.submit(1,new Date(), isResubmit);
         List<Task> taskList = tsService.getAllTasks(1,null);
         assertTrue(taskList.size() == 3);
         tsService.approve(1,subId13,"Yes", true);
@@ -69,9 +67,10 @@ public class GeneralTest {
 
     @Test
     public void testApproval() {
-        int subId1 = tsService.submit(1,new Date());
-        int subId12 = tsService.submit(1,new Date());
-        int subId13 = tsService.submit(1,new Date());
+        boolean isResubmit = false;
+        int subId1 = tsService.submit(1,new Date(), isResubmit);
+        int subId12 = tsService.submit(1,new Date(), isResubmit);
+        int subId13 = tsService.submit(1,new Date(), isResubmit);
         List<Integer> approvalIdList = tsService.getAllPendingApprovalTasksId(1);
         approvalIdList.forEach(System.out::println);
         assertTrue(approvalIdList.size() == 3);

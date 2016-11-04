@@ -19,7 +19,7 @@ public interface TimesheetDAO {
 
     TsMain saveTimeSheetMain(TsMain main);
 
-    TsApproval createSubmit(int userId, Date dateOfMonday);
+    TsApproval createSubmit(int userId, Date dateOfMonday, boolean isResubmit);
 
     void submitTs(Integer subId);
 

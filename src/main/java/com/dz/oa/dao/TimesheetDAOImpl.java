@@ -5,12 +5,10 @@ import com.dz.oa.utility.Constants;
 import com.dz.oa.utility.OaUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -66,30 +64,43 @@ public class TimesheetDAOImpl implements TimesheetDAO {
         searchQuery.setParameter("slotId", main.getSlot().getId());
         List<TsMain> resList = searchQuery.getResultList();
 
-        if(resList.size() < 1){
-            tsMain = em.merge(main);
-        }else{
-            tsMain = resList.get(0);
-            tsMain.setValue(main.getValue());
-            tsMain.setComment(main.getComment());
+        if(main.getValue() == 0){ // keep old value in DB if they give 0 as new value
+            if (resList.size() >= 1) {
+                tsMain = resList.get(0);
+                //tsMain.setValue(main.getValue());
+                tsMain.setComment(main.getComment());
+                tsMain.setInactiveInd("Y");
+            }
+        }else {
+            if (resList.size() < 1) {
+                tsMain = em.merge(main);
+            } else {
+                tsMain = resList.get(0);
+                tsMain.setValue(main.getValue());
+                tsMain.setComment(main.getComment());
+            }
         }
 
         return tsMain;
     }
 
     @Override
-    public TsApproval createSubmit(int userId, Date dateOfMonday) {
-        TsApproval approval = new TsApproval();
-        User submitter = em.createNamedQuery("User.findUserById",User.class).setParameter("userId",userId).getSingleResult();
-        User approver = submitter;
-        approval.setApprover(approver);
-        approval.setSubmitter(submitter);
-        approval.setStatusDate(new Date());
-        approval.setStartMonday(dateOfMonday);
-
-        approval.setStatus(new AdminLookup(Constants.DEFAULT_TS_SUBMIT_STATUS_ID));
-
-        em.persist(approval);
+    public TsApproval createSubmit(int userId, Date dateOfMonday, boolean isResubmit) {
+        TsApproval approval = null;
+        if(isResubmit){
+            approval = em.createNamedQuery("TsApproval.findByUserIdAndStartMonday",TsApproval.class).setParameter("submitterId", userId).setParameter("startMonday",dateOfMonday).getSingleResult();
+            approval.setStatus(new AdminLookup(Constants.DEFAULT_TS_RE_SUBMIT_STATUS_ID));
+        }else {
+            approval = new TsApproval();
+            User submitter = em.createNamedQuery("User.findUserById", User.class).setParameter("userId", userId).getSingleResult();
+            User approver = submitter;
+            approval.setApprover(approver);
+            approval.setSubmitter(submitter);
+            approval.setStatusDate(new Date());
+            approval.setStartMonday(dateOfMonday);
+            approval.setStatus(new AdminLookup(Constants.DEFAULT_TS_SUBMIT_STATUS_ID));
+            em.persist(approval);
+        }
         return approval;
     }
 
@@ -117,7 +128,8 @@ public class TimesheetDAOImpl implements TimesheetDAO {
 
     @Override
     public List<TsMain> getTsToApproveFor(int approverId, List<Integer> approvalIdList) {
-        return em.createNamedQuery("TsApproval.findPendingTsToApproveByApproverId",TsMain.class).setParameter("approverId", approverId).setParameter("approvalIdList",approvalIdList).setParameter("statusId", Constants.DEFAULT_TS_SUBMIT_STATUS_ID).getResultList();
+        int[] pendingStatusIds =  new int[]{Constants.DEFAULT_TS_SUBMIT_STATUS_ID, Constants.DEFAULT_TS_RE_SUBMIT_STATUS_ID};
+        return em.createNamedQuery("TsApproval.findPendingTsToApproveByApproverId",TsMain.class).setParameter("approverId", approverId).setParameter("approvalIdList",approvalIdList).setParameter("statusIds", pendingStatusIds).getResultList();
     }
 
     @Override

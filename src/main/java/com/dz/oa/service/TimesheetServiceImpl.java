@@ -62,9 +62,9 @@ public class TimesheetServiceImpl implements TimesheetService {
         }
         try {
             for (String key : allInputs.keySet()) {
-                if( StringUtils.isEmpty(allInputs.get(key))){
-                    continue;//skip the empty inputs
-                }
+//                if( StringUtils.isEmpty(allInputs.get(key))){
+//                    continue;//skip the empty inputs
+//                }
                 String[] splitKey = key.split("_");
                 int projId = Integer.parseInt(splitKey[0]);
                 int billCodeId = Integer.parseInt(splitKey[1]);
@@ -73,7 +73,7 @@ public class TimesheetServiceImpl implements TimesheetService {
                 TsSlotLookup slot = timesheetDAO.createSlot(slotDate);
                 if (splitKey.length == 3) {
                     //hour information
-                    int hour = Integer.parseInt(allInputs.get(key));
+                    int hour = StringUtils.isEmpty(allInputs.get(key))?0:Integer.parseInt(allInputs.get(key));
                     TsMain main = new TsMain();
                     main.setUser(new User(userId));
                     main.setBillCode(new TsBillCodeLookup(billCodeId));
@@ -96,10 +96,11 @@ public class TimesheetServiceImpl implements TimesheetService {
     }
 
     @Override
-    public boolean submitTs(Date dateOfMonday, int userId) {
+    @Transactional
+    public boolean submitTs(Date dateOfMonday, int userId, boolean isResubmit) {
         LOGGER.debug("Starting submiting Timesheet from :" + dateOfMonday + " userID: " + userId);
         //start activiti process
-        tsActivitiService.submit(userId, dateOfMonday);//timesheet approval table id
+        tsActivitiService.submit(userId, dateOfMonday, isResubmit);//timesheet approval table id
         return true;
     }
 

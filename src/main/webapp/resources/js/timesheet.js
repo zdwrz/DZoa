@@ -20,10 +20,10 @@ $(document).ready(function(){
     $("#ts_dialog").on("click","#ts_yes_button",function(){
         var newHrs = $("#ts_hours").val();
         var newCmnt = $("#ts_comment").val();
-        if(newHrs.length == 0 || newCmnt.length == 0){
-            setErrorMsg("Both Hours and Comment are required.");
-            return;
-        }
+        // if(newHrs.length == 0 || newCmnt.length == 0){
+        //     setErrorMsg("Both Hours and Comment are required.");
+        //     return;
+        // }
         //alert(newHrs + newCmnt);
         $('[name="' + clicked_e_name + '"]').val(newHrs);
         $('[name="' + clicked_e_comment_name + '"]').val(newCmnt);

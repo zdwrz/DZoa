@@ -40,10 +40,9 @@ public class TsActivitiServiceImpl implements TsActivitiService{
     }
 
     @Override
-    @Transactional
-    public Integer submit(int userId, Date dateOfMonday) {
+    public Integer submit(int userId, Date dateOfMonday, boolean isResubmit) {
         Integer approvalId = null;
-        TsApproval approvalStatus = tsDAO.createSubmit(userId, dateOfMonday);
+        TsApproval approvalStatus = tsDAO.createSubmit(userId, dateOfMonday, isResubmit);
         approvalId = approvalStatus.getId();
         Map<String, Object> variableMap = new HashMap<>();
         variableMap.put("tsSubId", approvalId);
