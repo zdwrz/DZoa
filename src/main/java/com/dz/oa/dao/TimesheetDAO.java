@@ -4,6 +4,7 @@ import com.dz.oa.entity.TsApproval;
 import com.dz.oa.entity.TsMain;
 import com.dz.oa.entity.TsSlotLookup;
 import com.dz.oa.entity.TsUserEnrollment;
+import com.dz.oa.vo.TimeSheetHistoryVO;
 
 import java.util.Date;
 import java.util.List;
@@ -32,4 +33,6 @@ public interface TimesheetDAO {
     List<TsUserEnrollment> getUserEnrollmentByUserId(int userId);
 
     TsApproval getTimeSheetApprovalById(Integer aId);
+
+    List<TsApproval> getTsHistoryByApprovalId(int approvalSubId);
 }

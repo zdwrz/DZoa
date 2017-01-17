@@ -3,6 +3,7 @@ package com.dz.oa.service;
 import com.dz.oa.entity.TsApproval;
 import com.dz.oa.exception.TimesheetException;
 import com.dz.oa.vo.TimeSheetDateVO;
+import com.dz.oa.vo.TimeSheetHistoryVO;
 import com.dz.oa.vo.TimeSheetListItemVO;
 import com.dz.oa.vo.TimeSheetProjectVO;
 
@@ -31,4 +32,6 @@ public interface TimesheetService {
     Map<TsApproval,List<TimeSheetProjectVO>> getPendingSubmittedTs(int approverId);
 
     List<TimeSheetListItemVO> getTimesheetListForUser(int userId);
+
+    List<TsApproval> getTimesheetHistory(int approvalSubId);
 }

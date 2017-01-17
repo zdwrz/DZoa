@@ -3,6 +3,7 @@ package com.dz.oa.dao;
 import com.dz.oa.entity.*;
 import com.dz.oa.utility.Constants;
 import com.dz.oa.utility.OaUtils;
+import com.dz.oa.vo.TimeSheetHistoryVO;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
@@ -93,7 +94,7 @@ public class TimesheetDAOImpl implements TimesheetDAO {
         }else {
             approval = new TsApproval();
             User submitter = em.createNamedQuery("User.findUserById", User.class).setParameter("userId", userId).getSingleResult();
-            User approver = submitter;
+            User approver = submitter; // TODO : get approver
             approval.setApprover(approver);
             approval.setSubmitter(submitter);
             approval.setStatusDate(new Date());
@@ -149,5 +150,12 @@ public class TimesheetDAOImpl implements TimesheetDAO {
             return list.get(0);
         }
         return null;
+    }
+
+    @Override
+    public List<TsApproval> getTsHistoryByApprovalId(int approvalSubId) {
+        List<TsApproval> resList = em.createNativeQuery("select * from ts_approval_audit a where a.approval_id = :approvalId order by a.status_date",TsApproval.class).setParameter("approvalId", approvalSubId).getResultList();
+        resList.add(getTimeSheetApprovalById(approvalSubId));
+        return resList;
     }
 }

@@ -174,6 +174,13 @@ public class TimesheetServiceImpl implements TimesheetService {
         return resList;
     }
 
+    @Override
+    public List<TsApproval> getTimesheetHistory(int approvalSubId) {
+        List<TsApproval> list = timesheetDAO.getTsHistoryByApprovalId(approvalSubId);
+
+        return list;
+    }
+
     private List<TimeSheetListItemVO> parseTimesheetList(TsUserEnrollment entity, int userId) {
         int offset = OaUtils.getOffsetOf(entity.getStartDate());
         List<TimeSheetListItemVO> resList = new ArrayList<>();
