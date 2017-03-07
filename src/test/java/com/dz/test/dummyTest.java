@@ -1,11 +1,10 @@
 package com.dz.test;
 
-import com.dz.oa.utility.OaUtils;
+import org.trs.oa.utility.OaUtils;
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
-import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertTrue;
 

@@ -1,0 +1,1 @@
+package org.trs.oa.dao;import org.trs.oa.entity.User;import org.trs.oa.vo.UserDetailsVO;/** * Created by daweizhuang on 8/11/16. */public interface UserDAO {    UserDetailsVO findVOByUsername(String username);    User findUserById(int userId);}

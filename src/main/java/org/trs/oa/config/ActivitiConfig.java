@@ -1,0 +1,1 @@
+package org.trs.oa.config;import org.springframework.context.annotation.*;import org.springframework.transaction.annotation.EnableTransactionManagement;@Configuration@EnableTransactionManagement@ImportResource("classpath:activiti-context.xml")public class ActivitiConfig {}

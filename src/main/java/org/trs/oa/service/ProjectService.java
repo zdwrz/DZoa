@@ -1,0 +1,1 @@
+package org.trs.oa.service;import org.trs.oa.entity.Project;import org.trs.oa.vo.ProjectVO;import java.util.List;/** * Created by Dawei on 9/1/16. */public interface ProjectService {    Project saveProject(ProjectVO projectVO);    List<ProjectVO> getProjListForDashboard();    List<ProjectVO> getProjListForMap();    List<ProjectVO> getProjListForDocumentTree();}

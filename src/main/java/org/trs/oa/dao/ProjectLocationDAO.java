@@ -1,0 +1,1 @@
+package org.trs.oa.dao;import org.trs.oa.entity.ProjectLocation;/** * Created by daweizhuang on 9/2/16. */public interface ProjectLocationDAO {    ProjectLocation save(ProjectLocation location);}

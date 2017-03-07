@@ -1,0 +1,1 @@
+package org.trs.oa.dao;import org.trs.oa.entity.Project;import org.trs.oa.vo.ProjectVO;import java.util.List;/** * Created by Dawei on 9/1/16. */public interface ProjectDAO {    Project saveProject(Project project);    List<Project> getProject();    List<ProjectVO> getProjectNameList();}

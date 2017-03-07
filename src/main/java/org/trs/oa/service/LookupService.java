@@ -1,0 +1,1 @@
+package org.trs.oa.service;import org.trs.oa.entity.AdminLookup;import java.util.List;/** * Created by Dawei on 8/24/16. */public interface LookupService {    List<AdminLookup> getAllLookup();}

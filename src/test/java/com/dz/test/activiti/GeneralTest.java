@@ -1,11 +1,11 @@
 package com.dz.test.activiti;
 
-import com.dz.oa.config.ActivitiConfig;
-import com.dz.oa.config.MvcConfig;
-import com.dz.oa.config.PersistenceJPAConfig;
-import com.dz.oa.service.TimesheetService;
-import com.dz.oa.service.activiti.timesheet.ApprovalTsService;
-import com.dz.oa.service.activiti.timesheet.TsActivitiService;
+import org.trs.oa.config.ActivitiConfig;
+import org.trs.oa.config.MvcConfig;
+import org.trs.oa.config.PersistenceJPAConfig;
+import org.trs.oa.service.TimesheetService;
+import org.trs.oa.service.activiti.timesheet.ApprovalTsService;
+import org.trs.oa.service.activiti.timesheet.TsActivitiService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;

@@ -1,10 +1,9 @@
 package com.dz.test.integration;
 
-import com.dz.oa.config.MvcConfig;
-import com.dz.oa.config.PersistenceJPAConfig;
-import com.dz.oa.dao.ProjectDAO;
-import com.dz.oa.entity.Project;
-import com.dz.oa.vo.ProjectVO;
+import org.trs.oa.config.MvcConfig;
+import org.trs.oa.config.PersistenceJPAConfig;
+import org.trs.oa.dao.ProjectDAO;
+import org.trs.oa.vo.ProjectVO;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

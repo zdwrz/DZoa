@@ -1,19 +1,11 @@
 package com.dz.test.activiti;
 
-import com.dz.oa.config.ActivitiConfig;
-import com.dz.oa.config.MvcConfig;
-import com.dz.oa.config.PersistenceJPAConfig;
-import com.dz.oa.converter.TimesheetToReportConverter;
-import com.dz.oa.entity.TsApproval;
-import com.dz.oa.service.PDFReportService;
-import com.dz.oa.service.ProjectService;
-import com.dz.oa.service.TimesheetService;
-import com.dz.oa.utility.OaUtils;
-import com.dz.oa.vo.TimeSheetDateVO;
-import com.dz.oa.vo.TimeSheetProjectVO;
-import com.dz.oa.vo.TsReportItem;
+import org.trs.oa.config.ActivitiConfig;
+import org.trs.oa.config.MvcConfig;
+import org.trs.oa.config.PersistenceJPAConfig;
+import org.trs.oa.service.PDFReportService;
+import org.trs.oa.service.ProjectService;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,11 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by daweizhuang on 11/1/16.

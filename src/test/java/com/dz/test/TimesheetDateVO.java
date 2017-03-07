@@ -1,7 +1,7 @@
 package com.dz.test;
 
-import com.dz.oa.utility.OaUtils;
-import com.dz.oa.vo.TimeSheetDateVO;
+import org.trs.oa.utility.OaUtils;
+import org.trs.oa.vo.TimeSheetDateVO;
 import org.junit.Test;
 
 import java.util.Calendar;
