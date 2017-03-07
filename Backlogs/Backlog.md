@@ -1,10 +1,10 @@
 
-# DzOA
+# OA
 TODO: Write a project description
 ## Installation
 1. Install JasperReport function to maven repo
 mvn install:install-file -Dfile="/Users/daweizhuang/workspace/DZoa/src/main/resources/jasperLib/jasperreports-functions-6.3.1.jar" -DgroupId=JasperReports -DartifactId=Jasper-function -Dversion=6.3.1 -Dpackaging=jar
-2. create database 'activiti' for BPM.
+2. create database 'activiti' for BPM. - by changing the activiti-context.xml, enable the create-drop
 3. Run the DB script 'DB_Script/Dzoaxxxxxxxx.sql'.
 4. Build and deploy.
 
